@@ -32,6 +32,10 @@ components from which the Y platform is built.
 We are grateful for feedback.
 Do not hesitate to send a [mail](mailto:mail@social-protocols.org).
 
+TODO:
+
+- [ ] describe how Y works in broad terms
+
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
