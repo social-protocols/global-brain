@@ -1,0 +1,526 @@
+# Modeling Upvote Rates
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+beta_data <- function(alpha, beta, samples) {
+  data.frame(x = seq(0, 1, len = samples)) %>%
+    mutate(y = dbeta(x, alpha, beta))
+}
+
+theme_sp <- function() {
+  theme(
+    panel.background = element_rect(
+      fill = "grey90",
+      color = "black",
+      linewidth = 1
+    ),
+    panel.grid.major = element_line(color = "grey70"),
+    panel.grid.minor = element_line(color = "grey80"),
+  )
+}
+
+```
+
+The two kinds of rating users can leave for posts are upvotes and downvotes.
+A naive way of using upvotes and downotes for rating a post would be to simply
+calculate the ratio between them: $upvotes:downvotes$.
+Or expressed as the fraction of upvotes over all votes:
+
+$$
+\frac{upvotes}{upvotes + downvotes}
+$$
+
+We call this rate the *upvote rate*.
+Another way of thinking about the upvote rate is as an *average vote*.
+
+If we model the upvote rate as a random variable, we might encode upvotes with a
+value of $1$ and downvotes with a value of $0$.
+A sample post's gathered votes at a certain point in time $t$ might look like
+this:
+
+$$
+(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
+$$
+
+The post has gathered a total of 12 votes of which 3 are upvotes and 9 are
+downvotes.
+The upvote rate (i.e., the "average" vote) for this sample is:
+
+$$
+\rho = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
+$$
+
+## Modeling Belief about the "True" Upvote Rate
+
+We assume that each post has a "true" upvote rate that we can only estimate by
+collecting data on it (i.e., collecting votes on a post).
+We model the true upvote rate as a random variable that follows a Beta
+distribution:
+
+$$
+upvoteRate \sim \beta(upvotes, downvotes)
+$$
+
+The Beta distribution is a suitable model for proportions or probabilities.
+Yet another way of thinking about the upvote rate is as the probability of a
+vote being an upvote.
+The Beta distribution has two shape parameters $\alpha$ and $\beta$ which in our
+case are given by our upvote and downvote counts.
+
+To provide a more intuitive understanding of how this distribution models our
+upvote rate, here is an example of how it develops for an example post.
+We initialize the distribution with a prior of 1 upvote and 1 downvote.
+This is equivalent to a uniform distribution:
+We assign equal probability to any outcome, i.e., to any upvote rate.
+
+```{r, fig.width=8, fig.height=3}
+beta_data(1, 1, 1000) %>%  
+  data.frame() %>% 
+  ggplot() +
+  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  scale_y_continuous(limits = c(0, 4)) +
+  labs(
+    title = "After 0 votes",
+    x = "p",
+    y = "Density",
+  ) +
+  theme_sp()
+
+```
+
+Now let's use the previous example vote sample from above:
+
+$$
+(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
+$$
+
+Using the example above, we get the following distributions at different points
+in time:
+
+```{r, fig.width=8, fig.height=3}
+beta_data(2, 3, 1000) %>%  
+  data.frame() %>% 
+  ggplot() +
+  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  scale_y_continuous(limits = c(0, 4)) +
+  labs(
+    title = "After 3 votes: 1 up, 2 down",
+    x = "p",
+    y = "Density",
+  ) +
+  theme_sp()
+
+```
+
+
+```{r, fig.width=8, fig.height=3}
+beta_data(3, 5, 1000) %>%  
+  data.frame() %>% 
+  ggplot() +
+  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  scale_y_continuous(limits = c(0, 4)) +
+  labs(
+    title = "After 6 votes: 2 up, 4 down",
+    x = "p",
+    y = "Density",
+  ) +
+  theme_sp()
+
+```
+
+```{r, fig.width=8, fig.height=3}
+beta_data(3, 8, 1000) %>%  
+  data.frame() %>% 
+  ggplot() +
+  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  scale_y_continuous(limits = c(0, 4)) +
+  labs(
+    title = "After 9 votes: 2 up, 7 down",
+    x = "p",
+    y = "Density",
+  ) +
+  theme_sp()
+
+```
+
+```{r, fig.width=8, fig.height=3}
+beta_data(4, 10, 1000) %>%  
+  data.frame() %>% 
+  ggplot() +
+  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  scale_y_continuous(limits = c(0, 4)) +
+  labs(
+    title = "After 12 votes: 3 up, 9 down",
+    x = "p",
+    y = "Density",
+  ) +
+  theme_sp()
+
+```
+
+As you can see, the distribution updates and the probability mass becomes more
+concentrated around fewer values which means we gain make be more and more
+certain about our beliefs about the true upvote rate.
+
+If the post above would develop further with a similar trajectory, the following
+could be the outcome after 500 votes:
+
+```{r, fig.width=8, fig.height=3}
+beta_data(137, 363, 1000) %>%  
+  data.frame() %>% 
+  ggplot() +
+  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  labs(
+    title = "After 500 votes: 137 up, 363 down",
+    x = "p",
+    y = "Density",
+  ) +
+  theme_sp()
+
+```
+
+We are now relatively certain that the true upvote rate is somewhere between
+around 0.2 and 0.3.
+
+## Estimating the True Upvote Rate
+
+Now that we can express our beliefs about the true upvote rate, how do we make a
+"best guess" at any given point in time?
+A naive solution would be to just take the sample upvote rate as introduced
+above:
+
+$$
+P(U) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
+$$
+
+This solution is naive because it ignores an important fact:
+In the beginning, we have very little information (in fact no information) about
+the upvote rate of the post.
+Thus, each new arriving vote has an outsized effect on our estimate that just
+gets increasingly small over time.
+What this would result in are very erratic estimates in the beginning which
+would only smooth out over time.
+Here is how the cumulative mean develops for a random vote history with a true
+upvote rate of 0.6:
+
+```{r, fig.width=8, fig.height=5}
+set.seed(5)
+n_votes <- 100
+data <- data.frame(
+  idx = seq(1, n_votes),
+  x = rbinom(n_votes, size = 1, 0.6)
+) %>% 
+  mutate(cum_mean = cummean(x))
+
+data %>% 
+  ggplot(aes(x = idx, y = cum_mean)) +
+  geom_line(color = "firebrick", linewidth = 1) +
+  scale_y_continuous(limits = c(0, 1)) +
+  geom_hline(yintercept = 0.6, color = "black", linetype = "dashed") +
+  geom_text(x = 90, y = 0.65, label = "true upvote rate: 0.6") +
+  labs(
+    x = "After N votes",
+    y = "Cumulative Mean"
+  ) +
+  theme_sp()
+
+```
+
+If we were to use this metric to compare posts, getting a very high estimate
+would essentially come down to luck in the early stages of a post.
+It might then temporarily fare overly well (or overly poorly) compared to other
+posts.
+We have to take into account prior information and context to avoid this.
+
+## The Bayesian Average
+
+The Bayesian Average uses a weighted prior estimate of the average to avoid the
+erratic shifts in the estimate when there is not a lot of data.
+It is calculated as follows:
+
+$$
+\frac{Cm + \sum_{i=1}^n x_i}{C + n}
+$$
+
+$C$ is a weight constant and $m$ is our prior belief about the average.
+But what does this achieve in concrete terms?
+
+Let's build up to this formula step by step using our example of estimating the
+true upvote rate of a post.
+First, remember that the sample upvote rate constitutes the "plain" average.
+Let's say our dataset $X$ consists of $1$s and $0$s, where $1$ denotes an upvote
+and $0$ denotes a downvote.
+Then $\sum_{i=1}^n{x_i}$ is the *number of upvotes* (because downvotes are
+encoded as $0$s) and $n$ is the *total number of votes* $upvotes + downvotes$.
+The plain average is calculated as follows:
+
+$$
+\frac{\sum_{i=1}^n x_i}{n}
+$$
+
+Or using our use case:
+
+$$
+\frac{upvotes}{upvotes + downvotes}
+$$
+
+The Bayesian average is thus:
+
+$$
+\frac{C \cdot m + upvotes}{C + upvotes + downvotes}
+$$
+
+Now what does it mean that we add $C \cdot m$ to the nominator and $C$ to the
+denominator?
+
+Practically, adding these terms to our formula means that we calculate the
+cumulative average as if we had collected $C$ votes with an upvote rate of $m$
+before we collected the first vote on our post.
+If our prior belief about the average is 0.68 and we chose a weighting factor of
+10, this would mean that we calculate the average as if we had previously
+collected 10 data points which amounted to an upvote rate of exactly 0.6.
+
+Plugging in the values makes this apparent:
+
+$$
+\frac{10 \cdot 0.68 + upvotes}{10 + upvotes + downvotes} = \frac{68 + upvotes}{100 + upvotes + downvotes}
+$$
+
+Graphically, it looks like this (the light grey line is the plain average for
+comparison):
+
+```{r, fig.width=8, fig.height=5}
+set.seed(12)
+n_votes <- 100
+votes <- rbinom(n_votes, size = 1, 0.6)
+data_plain <- data.frame(
+  idx = seq(1, n_votes),
+  x = votes,
+  is_prior = FALSE
+) %>% 
+  mutate(cum_mean_plain = cummean(x)) %>% 
+  union(
+    data.frame(
+      idx = seq(-9, 0),
+      x = NA,
+      is_prior = TRUE,
+      cum_mean_plain = NA
+    )
+  ) %>% 
+  arrange(idx) %>% 
+  select(-x)
+
+data_bayes <- data.frame(
+  idx = seq(1, n_votes),
+  x = votes,
+  is_prior = FALSE
+) %>% 
+  union(
+    data.frame(
+      idx = seq(-9, 0),
+      x = 0.68,
+      is_prior = TRUE
+    )
+  ) %>% 
+  arrange(idx) %>% 
+  mutate(cum_mean_bayes = cummean(x)) %>% 
+  select(-x)
+
+data_plain %>% 
+  left_join(data_bayes, by = c("idx", "is_prior")) %>% 
+  pivot_longer(
+    cols = c(cum_mean_plain, cum_mean_bayes),
+    names_to = "metric",
+    values_to = "value",
+    values_drop_na = TRUE
+  ) %>% 
+  ggplot(aes(x = idx, y = value)) +
+  geom_line(aes(alpha = metric), linewidth = 1) +
+  scale_y_continuous(limits = c(0, 1)) +
+  scale_alpha_manual(
+    values = c(
+      "cum_mean_bayes" = 1.0,
+      "cum_mean_plain" = 0.2
+    ),
+  ) +
+  geom_text(x = 16, y = 0.95, label = "start of data collection") +
+  geom_text(x = 90, y = 0.55, label = "true upvote rate", color = "red") +
+  geom_text(x = -5, y = 0.72, label = "prior", color = "black") +
+  geom_hline(yintercept = 0.6, color = "red", linetype = "dashed") +
+  geom_vline(xintercept = 0, color = "black", linetype = "dashed") +
+  labs(
+    x = "After N votes",
+    y = "Cumulative Bayesian Average"
+  ) +
+  theme_sp() +
+  theme(legend.position = "None")
+
+```
+
+As you can see, the cumulative Bayesian average is much less erratic when little
+data is available.
+However, there is an important question left:
+How do we chose a good prior and a good weight?
+
+Here is how the Bayesian average develops for different prior beliefs about the
+average (indicated by light grey lines, the priors chosen here are 0.1 through
+0.9 and the weight is kept constant at 20):
+
+```{r, fig.width=8, fig.height=5}
+C <- 20
+
+data_plain <- data.frame(
+  idx = seq(1, n_votes),
+  x = votes
+) %>% 
+  mutate(cum_mean_plain = cummean(x))
+  
+data_bayes <-
+  data_plain %>%
+  mutate(
+    bayesian_avg_10 = (C * 0.1 + cumsum(x)) / (C + idx),
+    bayesian_avg_20 = (C * 0.2 + cumsum(x)) / (C + idx),
+    bayesian_avg_30 = (C * 0.3 + cumsum(x)) / (C + idx),
+    bayesian_avg_40 = (C * 0.4 + cumsum(x)) / (C + idx),
+    bayesian_avg_50 = (C * 0.5 + cumsum(x)) / (C + idx),
+    bayesian_avg_60 = (C * 0.6 + cumsum(x)) / (C + idx),
+    bayesian_avg_70 = (C * 0.7 + cumsum(x)) / (C + idx),
+    bayesian_avg_80 = (C * 0.8 + cumsum(x)) / (C + idx),
+    bayesian_avg_90 = (C * 0.9 + cumsum(x)) / (C + idx),
+  ) %>% 
+  pivot_longer(
+    cols = c(
+      cum_mean_plain,
+      bayesian_avg_10,
+      bayesian_avg_20,
+      bayesian_avg_30,
+      bayesian_avg_40,
+      bayesian_avg_50,
+      bayesian_avg_60,
+      bayesian_avg_70,
+      bayesian_avg_80,
+      bayesian_avg_90
+    ),
+    names_to = "metric",
+    values_to = "value"
+  ) %>% 
+  mutate(is_bayesian_avg = stringr::str_starts(metric, "bayes"))
+
+data_bayes %>% 
+  ggplot(
+    aes(
+      x = idx,
+      y = value,
+      group = metric,
+      color = metric
+    )
+  ) +
+  geom_line(linewidth = 1) +
+  scale_y_continuous(limits = c(0, 1)) +
+  scale_color_manual(
+    values = c(
+      "bayesian_avg_10" = "grey80",
+      "bayesian_avg_20" = "grey80",
+      "bayesian_avg_30" = "grey80",
+      "bayesian_avg_40" = "grey80",
+      "bayesian_avg_50" = "grey80",
+      "bayesian_avg_60" = "grey80",
+      "bayesian_avg_70" = "grey80",
+      "bayesian_avg_80" = "grey80",
+      "bayesian_avg_90" = "grey80",
+      "cum_mean" = "black"
+    )
+  ) +
+  geom_hline(yintercept = 0.6, color = "red", linetype = "dashed") +
+  geom_text(x = 90, y = 0.57, label = "true upvote rate = 0.6", color = "red") +
+  theme_sp() +
+  theme(legend.position = "None")
+
+```
+
+And here is how this would look like with a weight of 100:
+
+```{r, fig.width=8, fig.height=5}
+C <- 100
+
+data_plain <- data.frame(
+  idx = seq(1, n_votes),
+  x = votes
+) %>% 
+  mutate(cum_mean_plain = cummean(x))
+  
+data_bayes <-
+  data_plain %>%
+  mutate(
+    bayesian_avg_10 = (C * 0.1 + cumsum(x)) / (C + idx),
+    bayesian_avg_20 = (C * 0.2 + cumsum(x)) / (C + idx),
+    bayesian_avg_30 = (C * 0.3 + cumsum(x)) / (C + idx),
+    bayesian_avg_40 = (C * 0.4 + cumsum(x)) / (C + idx),
+    bayesian_avg_50 = (C * 0.5 + cumsum(x)) / (C + idx),
+    bayesian_avg_60 = (C * 0.6 + cumsum(x)) / (C + idx),
+    bayesian_avg_70 = (C * 0.7 + cumsum(x)) / (C + idx),
+    bayesian_avg_80 = (C * 0.8 + cumsum(x)) / (C + idx),
+    bayesian_avg_90 = (C * 0.9 + cumsum(x)) / (C + idx),
+  ) %>% 
+  pivot_longer(
+    cols = c(
+      cum_mean_plain,
+      bayesian_avg_10,
+      bayesian_avg_20,
+      bayesian_avg_30,
+      bayesian_avg_40,
+      bayesian_avg_50,
+      bayesian_avg_60,
+      bayesian_avg_70,
+      bayesian_avg_80,
+      bayesian_avg_90
+    ),
+    names_to = "metric",
+    values_to = "value"
+  ) %>% 
+  mutate(is_bayesian_avg = stringr::str_starts(metric, "bayes"))
+
+data_bayes %>% 
+  ggplot(
+    aes(
+      x = idx,
+      y = value,
+      group = metric,
+      color = metric
+    )
+  ) +
+  geom_line(linewidth = 1) +
+  scale_y_continuous(limits = c(0, 1)) +
+  scale_color_manual(
+    values = c(
+      "bayesian_avg_10" = "grey80",
+      "bayesian_avg_20" = "grey80",
+      "bayesian_avg_30" = "grey80",
+      "bayesian_avg_40" = "grey80",
+      "bayesian_avg_50" = "grey80",
+      "bayesian_avg_60" = "grey80",
+      "bayesian_avg_70" = "grey80",
+      "bayesian_avg_80" = "grey80",
+      "bayesian_avg_90" = "grey80",
+      "cum_mean" = "black"
+    )
+  ) +
+  geom_hline(yintercept = 0.6, color = "red", linetype = "dashed") +
+  geom_text(x = 90, y = 0.57, label = "true upvote rate = 0.6", color = "red") +
+  theme_sp() +
+  theme(legend.position = "None")
+
+```
+
+How to properly seed the Bayesian average is still an open question.
+For now, we will chose a "common sense" global prior that will be used for all
+posts.
