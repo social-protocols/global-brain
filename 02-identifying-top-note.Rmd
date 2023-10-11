@@ -1,0 +1,111 @@
+# Identifying the Top Note
+
+### Algorithm
+
+We are looking at two posts: $Post_A$, $Post_B$.
+$Post_B$ is a note on $Post_A$.
+
+From those, we derive three events:
+
+$$
+A := \text{"Post A was shown"}
+$$
+
+$$
+B := \text{"Note B was shown"}
+$$
+
+$$
+S_X := \text{"Top note of post X was shown alongside it"}
+$$
+
+Further, we define:
+
+$$
+P(A|B) := \text{"upvote rate of Post A given that Post B was shown"}
+$$
+
+$$
+P(A|\lnot B) := \text{"upvote rate of Post A given that Post B was not shown"}
+$$
+
+... and the difference between the two as:
+
+$$
+\delta = P(A|B) - P(A|\lnot B)
+$$
+
+If the upvote rate of $Post_A$ is lower when note $Post_B$ is shown alongside
+it, then $\delta$ is negative, else greater than or equals 0.
+
+$$
+a = P(A|\lnot B) + \delta \cdot \frac{P(B|S_B)}{P(B|\lnot S_B)}
+$$
+
+$$
+|a - P(A|\lnot B)| > |P(A|S) - P(A|\lnot S)|
+$$
+
+
+
+*Constituents:*
+
+WEIGHT_CONSTANT
+EMPTY_TALLY
+
+global_prior
+
+Tally
+  -> upvotes
+  -> total
+
+BetaDistribution
+  -> average
+  -> weight
+  -> from_alpha_beta(alpha, beta)
+  -> bayesian_average(self, tally)
+
+InformedTallyQueryResult
+  pub post_id: i64
+  pub note_id: i64
+  upvotes_given_shown_this_note: i64
+  votes_given_shown_this_note: i64
+  upvotes_given_not_shown_this_note: i64
+  votes_given_not_shown_this_note: i64
+  impl fn informed_tally(&self)
+    -> InformedTally
+
+InformedTally
+  pub post_id: i64
+  pub note_id: i64
+  given_not_shown_this_note: Tally
+  given_shown_this_note: Tally
+
+find_top_note(post_id: i64, pool: &SqlitePool)
+  -> Result<(i64, f64, f64)>
+
+find_top_note_given_informed_tallies(post_id: i64, tallies_map: &HashMap<i64, Vec<InformedTally>>)
+  -> (i64, f64, f64)
+
+informed_p_of_a(post_id: i64, pool: &SqlitePool)
+  -> Result<BetaDistribution>
+
+p_of_a_given_not_shown_b(tally: InformedTally)
+  -> BetaDistribution
+
+p_of_a_given_shown_b(tally: InformedTally)
+  -> BetaDistribution
+
+informed_tally(post_id: i64, note_id: i64, pool: &SqlitePool)
+  -> Result<Option<InformedTally>>
+
+----
+
+### NOTES
+
+TODO: `BetaDistribution.average` should probably be `BetaDistribution.ratio`
+
+
+
+
+
