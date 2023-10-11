@@ -1,3 +1,8 @@
+# Standard local r stuff
 .Rproj.user
 .Rhistory
 .RData
+
+# Don't push locally rendered files
+_book
+_bookdown_files
