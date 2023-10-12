@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Modeling Upvote Rates | A Minimal Book Example</title>
+  <meta name="description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Modeling Upvote Rates | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  <meta name="github-repo" content="social-protocols/y-docs" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Modeling Upvote Rates | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="modeling-upvote-rates.html"><a href="modeling-upvote-rates.html"><i class="fa fa-check"></i><b>2</b> Modeling Upvote Rates</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modeling-upvote-rates.html"><a href="modeling-upvote-rates.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i><b>2.1</b> Modeling Belief about the “True” Upvote Rate</a></li>
+<li class="chapter" data-level="2.2" data-path="modeling-upvote-rates.html"><a href="modeling-upvote-rates.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>2.2</b> Estimating the True Upvote Rate</a></li>
+<li class="chapter" data-level="2.3" data-path="modeling-upvote-rates.html"><a href="modeling-upvote-rates.html#the-bayesian-average"><i class="fa fa-check"></i><b>2.3</b> The Bayesian Average</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeling-upvote-rates" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Modeling Upvote Rates<a href="modeling-upvote-rates.html#modeling-upvote-rates" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The two kinds of rating users can leave for posts are upvotes and downvotes.
+A naive way of using upvotes and downotes for rating a post would be to simply
+calculate the ratio between them: <span class="math inline">\(upvotes:downvotes\)</span>.
+Or expressed as the fraction of upvotes over all votes:</p>
+<p><span class="math display">\[
+\frac{upvotes}{upvotes + downvotes}
+\]</span></p>
+<p>We call this rate the <em>upvote rate</em>.
+Another way of thinking about the upvote rate is as an <em>average vote</em>.</p>
+<p>If we model the upvote rate as a random variable, we might encode upvotes with a
+value of <span class="math inline">\(1\)</span> and downvotes with a value of <span class="math inline">\(0\)</span>.
+A sample post’s gathered votes at a certain point in time <span class="math inline">\(t\)</span> might look like
+this:</p>
+<p><span class="math display">\[
+(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
+\]</span></p>
+<p>The post has gathered a total of 12 votes of which 3 are upvotes and 9 are
+downvotes.
+The upvote rate (i.e., the “average” vote) for this sample is:</p>
+<p><span class="math display">\[
+\rho = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
+\]</span></p>
+<div id="modeling-belief-about-the-true-upvote-rate" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Modeling Belief about the “True” Upvote Rate<a href="modeling-upvote-rates.html#modeling-belief-about-the-true-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We assume that each post has a “true” upvote rate that we can only estimate by
+collecting data on it (i.e., collecting votes on a post).
+We model the true upvote rate as a random variable that follows a Beta
+distribution:</p>
+<p><span class="math display">\[
+upvoteRate \sim \beta(upvotes, downvotes)
+\]</span></p>
+<p>The Beta distribution is a suitable model for proportions or probabilities.
+Yet another way of thinking about the upvote rate is as the probability of a
+vote being an upvote.
+The Beta distribution has two shape parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> which in our
+case are given by our upvote and downvote counts.</p>
+<p>To provide a more intuitive understanding of how this distribution models our
+upvote rate, here is an example of how it develops for an example post.
+We initialize the distribution with a prior of 1 upvote and 1 downvote.
+This is equivalent to a uniform distribution:
+We assign equal probability to any outcome, i.e., to any upvote rate.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-2-1.png" width="768" /></p>
+<p>Now let’s use the previous example vote sample from above:</p>
+<p><span class="math display">\[
+(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
+\]</span></p>
+<p>Using the example above, we get the following distributions at different points
+in time:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-6-1.png" width="768" /></p>
+<p>As you can see, the distribution updates and the probability mass becomes more
+concentrated around fewer values which means we gain make be more and more
+certain about our beliefs about the true upvote rate.</p>
+<p>If the post above would develop further with a similar trajectory, the following
+could be the outcome after 500 votes:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="768" /></p>
+<p>We are now relatively certain that the true upvote rate is somewhere between
+around 0.2 and 0.3.</p>
+</div>
+<div id="estimating-the-true-upvote-rate" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Estimating the True Upvote Rate<a href="modeling-upvote-rates.html#estimating-the-true-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now that we can express our beliefs about the true upvote rate, how do we make a
+“best guess” at any given point in time?
+A naive solution would be to just take the sample upvote rate as introduced
+above:</p>
+<p><span class="math display">\[
+P(U) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
+\]</span></p>
+<p>This solution is naive because it ignores an important fact:
+In the beginning, we have very little information (in fact no information) about
+the upvote rate of the post.
+Thus, each new arriving vote has an outsized effect on our estimate that just
+gets increasingly small over time.
+What this would result in are very erratic estimates in the beginning which
+would only smooth out over time.
+Here is how the cumulative mean develops for a random vote history with a true
+upvote rate of 0.6:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-8-1.png" width="768" /></p>
+<p>If we were to use this metric to compare posts, getting a very high estimate
+would essentially come down to luck in the early stages of a post.
+It might then temporarily fare overly well (or overly poorly) compared to other
+posts.
+We have to take into account prior information and context to avoid this.</p>
+</div>
+<div id="the-bayesian-average" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> The Bayesian Average<a href="modeling-upvote-rates.html#the-bayesian-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Bayesian Average uses a weighted prior estimate of the average to avoid the
+erratic shifts in the estimate when there is not a lot of data.
+It is calculated as follows:</p>
+<p><span class="math display">\[
+\frac{Cm + \sum_{i=1}^n x_i}{C + n}
+\]</span></p>
+<p><span class="math inline">\(C\)</span> is a weight constant and <span class="math inline">\(m\)</span> is our prior belief about the average.
+But what does this achieve in concrete terms?</p>
+<p>Let’s build up to this formula step by step using our example of estimating the
+true upvote rate of a post.
+First, remember that the sample upvote rate constitutes the “plain” average.
+Let’s say our dataset <span class="math inline">\(X\)</span> consists of <span class="math inline">\(1\)</span>s and <span class="math inline">\(0\)</span>s, where <span class="math inline">\(1\)</span> denotes an upvote
+and <span class="math inline">\(0\)</span> denotes a downvote.
+Then <span class="math inline">\(\sum_{i=1}^n{x_i}\)</span> is the <em>number of upvotes</em> (because downvotes are
+encoded as <span class="math inline">\(0\)</span>s) and <span class="math inline">\(n\)</span> is the <em>total number of votes</em> <span class="math inline">\(upvotes + downvotes\)</span>.
+The plain average is calculated as follows:</p>
+<p><span class="math display">\[
+\frac{\sum_{i=1}^n x_i}{n}
+\]</span></p>
+<p>Or using our use case:</p>
+<p><span class="math display">\[
+\frac{upvotes}{upvotes + downvotes}
+\]</span></p>
+<p>The Bayesian average is thus:</p>
+<p><span class="math display">\[
+\frac{C \cdot m + upvotes}{C + upvotes + downvotes}
+\]</span></p>
+<p>Now what does it mean that we add <span class="math inline">\(C \cdot m\)</span> to the nominator and <span class="math inline">\(C\)</span> to the
+denominator?</p>
+<p>Practically, adding these terms to our formula means that we calculate the
+cumulative average as if we had collected <span class="math inline">\(C\)</span> votes with an upvote rate of <span class="math inline">\(m\)</span>
+before we collected the first vote on our post.
+If our prior belief about the average is 0.68 and we chose a weighting factor of
+10, this would mean that we calculate the average as if we had previously
+collected 10 data points which amounted to an upvote rate of exactly 0.6.</p>
+<p>Plugging in the values makes this apparent:</p>
+<p><span class="math display">\[
+\frac{10 \cdot 0.68 + upvotes}{10 + upvotes + downvotes} = \frac{68 + upvotes}{100 + upvotes + downvotes}
+\]</span></p>
+<p>Graphically, it looks like this (the light grey line is the plain average for
+comparison):</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="768" /></p>
+<p>As you can see, the cumulative Bayesian average is much less erratic when little
+data is available.
+However, there is an important question left:
+How do we chose a good prior and a good weight?</p>
+<p>Here is how the Bayesian average develops for different prior beliefs about the
+average (indicated by light grey lines, the priors chosen here are 0.1 through
+0.9 and the weight is kept constant at 20):</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="768" /></p>
+<p>And here is how this would look like with a weight of 100:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="768" /></p>
+<p>How to properly seed the Bayesian average is still an open question.
+For now, we will chose a “common sense” global prior that will be used for all
+posts.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-modeling-upvote-rate.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

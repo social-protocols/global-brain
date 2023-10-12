@@ -1,0 +1,5 @@
+about
+modeling-upvote-rates
+modeling-belief-about-the-true-upvote-rate
+estimating-the-true-upvote-rate
+the-bayesian-average
