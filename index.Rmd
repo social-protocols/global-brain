@@ -35,6 +35,7 @@ Do not hesitate to send a [mail](mailto:mail@social-protocols.org).
 TODO:
 
 - [ ] describe how Y works in broad terms
+- [ ] describe ratable unit of information
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
