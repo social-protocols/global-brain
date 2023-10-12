@@ -1,5 +1,5 @@
 --- 
-title: "A Minimal Book Example"
+title: "A Social Network with Collective Bayesian Reasoning"
 # author: "John Doe"
 date: "Last updated: `r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -39,7 +39,13 @@ TODO:
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+knitr::write_bib(
+  c(
+    .packages(),
+    'bookdown',
+    'knitr',
+    'rmarkdown'
+  ),
+  'packages.bib'
+)
 ```
