@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Minimal Book Example</title>
+  <title>A Social Network with Collective Bayesian Reasoning</title>
   <meta name="description" content="<p>This is a collection of explanations arount the Y platform. In this document,
 we explain core concepts in simple terms that help to understand the
 algorithms and components of the software.</p>" />
   <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Minimal Book Example" />
+  <meta property="og:title" content="A Social Network with Collective Bayesian Reasoning" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
@@ -19,7 +19,7 @@ algorithms and components of the software.</p>" />
   <meta name="github-repo" content="social-protocols/y-docs" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Minimal Book Example" />
+  <meta name="twitter:title" content="A Social Network with Collective Bayesian Reasoning" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
 we explain core concepts in simple terms that help to understand the
@@ -35,7 +35,7 @@ algorithms and components of the software.</p>" />
   
   
 
-<link rel="next" href="modeling-upvote-rates.html"/>
+<link rel="next" href="rating-and-evaluating-content.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -81,11 +81,12 @@ algorithms and components of the software.</p>" />
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
-<li class="chapter" data-level="2" data-path="modeling-upvote-rates.html"><a href="modeling-upvote-rates.html"><i class="fa fa-check"></i><b>2</b> Modeling Upvote Rates</a>
+<li class="chapter" data-level="2" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html"><i class="fa fa-check"></i><b>2</b> Rating and Evaluating Content</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="modeling-upvote-rates.html"><a href="modeling-upvote-rates.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i><b>2.1</b> Modeling Belief about the “True” Upvote Rate</a></li>
-<li class="chapter" data-level="2.2" data-path="modeling-upvote-rates.html"><a href="modeling-upvote-rates.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>2.2</b> Estimating the True Upvote Rate</a></li>
-<li class="chapter" data-level="2.3" data-path="modeling-upvote-rates.html"><a href="modeling-upvote-rates.html#the-bayesian-average"><i class="fa fa-check"></i><b>2.3</b> The Bayesian Average</a></li>
+<li class="chapter" data-level="2.1" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-upvote-rates"><i class="fa fa-check"></i><b>2.1</b> Modeling Upvote Rates</a></li>
+<li class="chapter" data-level="2.2" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i><b>2.2</b> Modeling Belief about the “True” Upvote Rate</a></li>
+<li class="chapter" data-level="2.3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>2.3</b> Estimating the True Upvote Rate</a></li>
+<li class="chapter" data-level="2.4" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#the-bayesian-average"><i class="fa fa-check"></i><b>2.4</b> The Bayesian Average</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -100,7 +101,7 @@ algorithms and components of the software.</p>" />
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Social Network with Collective Bayesian Reasoning</a>
           </h1>
         </div>
 
@@ -109,8 +110,8 @@ algorithms and components of the software.</p>" />
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">A Minimal Book Example</h1>
-<p class="date"><em>Last updated: 2023-10-12</em></p>
+<h1 class="title">A Social Network with Collective Bayesian Reasoning</h1>
+<p class="date"><em>Last updated: 2023-10-14</em></p>
 </div>
 <div id="about" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> About<a href="index.html#about" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -138,7 +139,7 @@ Do not hesitate to send a <a href="mailto:mail@social-protocols.org">mail</a>.</
         </div>
       </div>
 
-<a href="modeling-upvote-rates.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rating-and-evaluating-content.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

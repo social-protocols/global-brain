@@ -1,4 +1,5 @@
 about
+rating-and-evaluating-content
 modeling-upvote-rates
 modeling-belief-about-the-true-upvote-rate
 estimating-the-true-upvote-rate
