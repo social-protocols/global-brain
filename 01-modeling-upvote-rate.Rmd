@@ -1,4 +1,4 @@
-# Modeling Upvote Rates
+# Rating and Evaluating Content
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -30,7 +30,50 @@ theme_sp <- function() {
 
 ```
 
-The two kinds of rating users can leave for posts are upvotes and downvotes.
+The basic form of content users can provide on the Y platform is a post.
+In the following explanations, we visually represent a post by a rectangle with
+rounded corners like this.
+
+```{r}
+knitr::include_graphics("images/01-modeling-upvote-rate/post.png")
+
+```
+
+A post is the start of a conversation.
+Users can leave replies to posts which then form a conversation thread.
+Replies are posts themselves.
+
+```{r}
+knitr::include_graphics("images/01-modeling-upvote-rate/post-with-replies.png")
+
+```
+
+For each post that has any replies, we try to find the reply that adds the
+most useful context to the post.
+We call this reply the post's *note* (in reference to X's Community Notes from
+which we took a lot of inspiration).
+Obviously, "most useful" is a very vague term and we will go further into our
+rationale what the most useful context is later on.
+
+```{r}
+knitr::include_graphics("images/01-modeling-upvote-rate/promote-top-reply-to-note.png")
+
+```
+
+Users on Y can rate content by adding an **upvote** or a **downvote**.
+There are two essential forms of content users can rate:
+posts and posts with a note.
+We call those units *Rateable Units of Information* (RUI).
+For each RUI, we keep a tally of upvotes and downvotes.
+
+```{r}
+knitr::include_graphics("images/01-modeling-upvote-rate/vote-tallies-for-rui.png")
+
+```
+
+
+## Modeling Upvote Rates
+
 A naive way of using upvotes and downotes for rating a post would be to simply
 calculate the ratio between them: $upvotes:downvotes$.
 Or expressed as the fraction of upvotes over all votes:
@@ -40,8 +83,8 @@ $$
 $$
 
 We call this rate the *upvote rate*.
-Another way of thinking about the upvote rate is as an *average vote*.
 
+Another way of thinking about the upvote rate is as an *average vote*.
 If we model the upvote rate as a random variable, we might encode upvotes with a
 value of $1$ and downvotes with a value of $0$.
 A sample post's gathered votes at a certain point in time $t$ might look like
@@ -59,6 +102,7 @@ $$
 \rho = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
 $$
 
+
 ## Modeling Belief about the "True" Upvote Rate
 
 We assume that each post has a "true" upvote rate that we can only estimate by
@@ -70,12 +114,12 @@ $$
 upvoteRate \sim \beta(upvotes, downvotes)
 $$
 
-The Beta distribution is a suitable model for proportions or probabilities.
-Yet another way of thinking about the upvote rate is as the probability of a
-vote being an upvote.
+We use this model because yet another way of thinking about the upvote rate is
+as the **probability of a vote being an upvote** and the Beta distribution is a
+suitable model for proportions or probabilities.
+
 The Beta distribution has two shape parameters $\alpha$ and $\beta$ which in our
 case are given by our upvote and downvote counts.
-
 To provide a more intuitive understanding of how this distribution models our
 upvote rate, here is an example of how it develops for an example post.
 We initialize the distribution with a prior of 1 upvote and 1 downvote.
@@ -120,7 +164,6 @@ beta_data(2, 3, 1000) %>%
   theme_sp()
 
 ```
-
 
 ```{r, fig.width=8, fig.height=3}
 beta_data(3, 5, 1000) %>%  
@@ -168,9 +211,8 @@ beta_data(4, 10, 1000) %>%
 ```
 
 As you can see, the distribution updates and the probability mass becomes more
-concentrated around fewer values which means we gain make be more and more
-certain about our beliefs about the true upvote rate.
-
+concentrated around a smaller range of values which means we become more and
+more certain about our beliefs about the true upvote rate.
 If the post above would develop further with a similar trajectory, the following
 could be the outcome after 500 votes:
 
@@ -191,6 +233,7 @@ beta_data(137, 363, 1000) %>%
 We are now relatively certain that the true upvote rate is somewhere between
 around 0.2 and 0.3.
 
+
 ## Estimating the True Upvote Rate
 
 Now that we can express our beliefs about the true upvote rate, how do we make a
@@ -207,8 +250,8 @@ In the beginning, we have very little information (in fact no information) about
 the upvote rate of the post.
 Thus, each new arriving vote has an outsized effect on our estimate that just
 gets increasingly small over time.
-What this would result in are very erratic estimates in the beginning which
-would only smooth out over time.
+This would result in very erratic estimates in the beginning which would only
+smooth out over time.
 Here is how the cumulative mean develops for a random vote history with a true
 upvote rate of 0.6:
 
@@ -235,11 +278,12 @@ data %>%
 
 ```
 
-If we were to use this metric to compare posts, getting a very high estimate
-would essentially come down to luck in the early stages of a post.
+If we were to use this metric to compare posts, getting a very high upvote rate
+estimate in the early stages of a post would essentially come down to luck.
 It might then temporarily fare overly well (or overly poorly) compared to other
 posts.
-We have to take into account prior information and context to avoid this.
+We have to take into account **prior information** to avoid this.
+
 
 ## The Bayesian Average
 
@@ -267,7 +311,7 @@ $$
 \frac{\sum_{i=1}^n x_i}{n}
 $$
 
-Or using our use case:
+Or in concrete terms:
 
 $$
 \frac{upvotes}{upvotes + downvotes}
@@ -287,7 +331,7 @@ cumulative average as if we had collected $C$ votes with an upvote rate of $m$
 before we collected the first vote on our post.
 If our prior belief about the average is 0.68 and we chose a weighting factor of
 10, this would mean that we calculate the average as if we had previously
-collected 10 data points which amounted to an upvote rate of exactly 0.6.
+collected 10 data points which amounted to an upvote rate of exactly 0.68.
 
 Plugging in the values makes this apparent:
 
@@ -372,8 +416,10 @@ However, there is an important question left:
 How do we chose a good prior and a good weight?
 
 Here is how the Bayesian average develops for different prior beliefs about the
-average (indicated by light grey lines, the priors chosen here are 0.1 through
-0.9 and the weight is kept constant at 20):
+average.
+Bayesian averages over time are indicated by light grey lines, the priors chosen
+here are 0.1 through 0.9 and the weight is kept constant at 20.
+The plain average is overlayed in darker grey for reference.
 
 ```{r, fig.width=8, fig.height=5}
 C <- 20
@@ -447,7 +493,7 @@ data_bayes %>%
 
 ```
 
-And here is how this would look like with a weight of 100:
+And here is that same plot with the same priors, but with a weight of 100.
 
 ```{r, fig.width=8, fig.height=5}
 C <- 100
@@ -521,6 +567,4 @@ data_bayes %>%
 
 ```
 
-How to properly seed the Bayesian average is still an open question.
-For now, we will chose a "common sense" global prior that will be used for all
-posts.
+TODO: write a section about how to chose a prior
