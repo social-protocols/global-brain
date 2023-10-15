@@ -1,0 +1,167 @@
+--- 
+title: "Introduction to the Global Brain"
+date: "Last updated: `r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+#description: |
+#  description
+link-citations: yes
+github-repo: social-protocols/y-docs
+---
+
+
+# Global Brain Overview
+
+> *Falsehood flies, and truth comes limping after it, so that when men come to be undeceived, it is too late...*
+>
+> -- Thomas Swift
+
+
+The Global Brain algorithm converts a social network into a distributed brain, where groups of individuals act like neurons that process information and pass it on to others, resulting in a whole that is more intelligent than the individual human parts.
+
+The algorithm works by identifying information that is likely to change minds, and modeling how those changes propagate through the network. It then uses this information to focus attention on posts that reduce "cognitive dissonance" -- difference of opinion due to people being exposed to different information.
+
+The result is [social protocol](https://social-protocols.org) that drives productive conversations, maximizes the flow of useful and reliable information, reduces the flow of misinformation, and increases [human alignment](https://social-protocols.org/human-alignment-technology/).
+
+## Informed Votes
+
+The basic computational unit in the Global Brain is the **informed vote**. Before users vote on post, the UI shows them a **note** (any reply to that post), and then records their vote **given** they were shown that note before voting. If the informed vote is different from the uninformed vote, it means the note **caused** changes in votes. We call notes that do change behavior **informative**. 
+
+## The Causal Model
+
+So every reply to every post becomes effectively an AB test that tells us how exposure to a note affects votes on a post. And one thing that makes properly-run AB tests very powerful is that they establish **causality**. They tell us not just that upvotes on the note and post are correlated, but that the note actually *causes* changes to votes on the post.
+
+Establishing these causal links allows us to model the Global Brain as a causal Bayesian network. The causal links between notes and posts are the synapses of the Global Brain. They allow us to predict how the average user **would** vote if they were exposed to some combination of notes and posts, by predicting how exposure to those posts will influence upvotes on other posts, and how that influences upvotes on other posts, and so on. 
+
+## Distributed Reasoning
+
+By simulating how beliefs propagates through the network, the global brain engages in a form of **reasoning**, loosely defined. Each neuron in the global brain reasons -- or processes information -- using the same inferences the average user makes. But unlike the average user, the Global Brain can process **all** information in the system in a valid Bayesian manner. So in a way the global simulates an average user who has unlimited time, memory, and processing capacity.
+
+We can then query this model to estimate how the Global Brain would vote if it was exposed to **all** information -- all posts ever made. We can also use the model to identify where to direct users' attention in order to reduce cognitive dissonance in the network.
+
+## Informal Argument Model 
+
+The Global Brain does not require a formal model of belief. It doesn't need posts to be structured as formal propositions or claims. It doesn't need to know if users agree or disagree with posts.
+
+The only assumptions are that 1) a vote reflects a users intent to give a post more/less attention (see [The Law of Attention](https://jonathanwarden.com/the-law-of-attention)) and 2) this intent is caused by underlying beliefs that we cannot observe (latent variables -- see section below).
+
+But by making some reasonable assumptions about the causal relationship between beliefs and votes, then by watching how exposure to notes causes changes to votes, we can model these underlying beliefs and predict how exposure to a note will cause changes to these beliefs, which will cause changes to other beliefs, and so on. We described our model in more detail below.
+
+## Example
+
+For example, suppose post A is a video showing the aftermath of a recent earthquake. This post goes viral, but then somebody posts a note B on the video which says "This video is actually from an earthquake in 2004. Here is a link to the original video.".
+
+Suppose that people who are shown note B along with the video in post A are less likely to upvote the post. This will often be the case, as many people probably upvoted out of simple ignorance, not malicious intent to spread misinformation. The global brain will conclude that:
+
+1. B is **informative**
+2. A should receive less attention, because informed users do not upvote it
+3. B should receive more attention from users who have upvoted A, in order to reduce cognitive dissonance
+
+Now, suppose that it turns out the information in note B is actually wrong. For example, somebody may reply to B with a subnote C saying "No, the video in that link is completely different! This video is recent footage from CNN. Here's a link."
+
+The global brain can actually look at how C affects users votes on both A and B, to estimate how a fully informed user **would** have voted. 
+
+## Reason and Argument
+
+A key assumption we make is that more information leads to better judgments. Even though people can post false and misleading information, people can respond by explaining why this information is false or misleading. Even though people can promote hateful or harmful ideas, people can respond with reasons why these these ideas are wrong.
+
+By identifying information that changes minds, driving attention to that information, and then identifying responses that change minds back, the system drives informative conversations. And although this isn't guaranteed to lead to the truth, it will at least result in more informed users. And it will also help identify the most informed opinions: what posts would still be upvoted by users who were exposed to all the strongest information on arguments on all sides.
+
+In the example above, once the model learns that B is changing people's votes on A, it directs more attention to B, resulting in fewer upvotes for A. We can think of B as an argument against A, or a reason not to upvote A. The "reason" doesn't need to take any particular logical or rhetorical form. It is a reason by virtue of being the literal reason for -- the observed cause of -- changes to votes.
+
+Unfortunately, in the example above, B was not true. But fortunately, C is a convincing reason to believe that C is not true. C actually causes people **not** to change their vote on A, in spite of being exposed to B. B and C cancel each other out, so to speak. So the global brain concludes that it is no longer helpful to direct attention to B, and that it should continue to direct attention to post A.
+
+## Checking Misinformation
+
+Misinformation is harmful in social networks only when it is **unchecked**. Lies are only harmful if people don't see the responses to the lies.
+
+The engagement-based algorithms in today's social networks encourage the unchecked spread of rumors (with the exception of Twitter's Community Notes), regardless of how well they are supported, wheres the Global Brain algorithm discourages the spread of information that people are unlikely to upvote if they were fully informed, and encourages the spread of information that might check the spread of a false information that is already spreading.
+
+And yet the purpose of the Global Brain algorithm is NOT to tell people what is true. It is simply to direct people's attention to information that may change their votes.
+
+But why do we want to *change* votes? An algorithm that tries to change minds sounds sinister. Propaganda changes how people vote. But propaganda works by selectively exposing users to information with the goal of changing opinions about specific things, all the while actively omitting contrary information. It is one sided and dishonest. The Global Brain, on the other hand, has no agenda other than driving productive conversation and reducing cognitive dissonance.
+
+## Marketplace of Ideas
+
+So the Global Brain algorithm, drives a fair, unbiased process of weighing all the arguments that anyone cares to make. As long as there is sufficient intellectual diversity among recipients, the result is an adversarial process, where all the relevant information (the posts that change minds either way) is exposed and processed. (the marketplace of ideas).
+
+## Defining Cognitive Dissonance
+
+The Global Brain only requires a small number of people to actually change their minds in order to learn how beliefs affect other beliefs and construct the causal Bayesian network. So the predictions of the model may differ significantly from the beliefs of the majority.
+
+For example, suppose 1000 users voted on a post, and most votes were upvotes. Then suppose that among a subset of 30 users who saw some very informative note, the probability of upvoting the post dropped to close to zero. We can thus estimate that if all 1000 users saw that note, they would not have upvoted the post. Even though in actuality most users did upvote it.
+
+In such situations, we say there is a large amount of cognitive dissonance in the network. Cognitive dissonance arises whenever people's upvotes differe from what their upvotes **would** be if they were exposed to all the relevant information. Or in other words, when peoples votes differ from the predictions of the causal model.
+
+The goal of the Global Brain algorithm is minimizing cognitive dissonance. It does this by exposing users to the informative note, reducing the inconsistency between what people upvote and what they would upvote if they were more informed.
+
+Reducing cognitive dissonance brings individual participants into greater alignment, reducing differences of opinion due to differences in information. It cannot of course eliminate differences of opinion, because opinion can be subjective, because people have different priors and different ways of processing information. But it can identify situations where differences are due to ignorance of readily available information: when one group of people believe something that another group doesn't only because they haven't seen the same posts.
+
+The result is a network that learns. The model learns as new information posts are submitted to the network. And the human participants in the network also learn as they are exposed to posts that bring their mental models into greater alignment.
+
+## Cognitive Dissonance as Relative Entropy
+
+We can measure cognitive dissonance as the **relative entropy** (or KL divergence) between users actual beliefs and their hypothetical fully-informed beliefs (the beliefs they would have if exposed to all posts). 
+
+Relative entropy is a way of measuring the distance, or error, between two probability distributions. It is similar to the measure used as the loss function when training a neural network, and in this sense, the global brain can be seen to "learn" in a sense similar to how a neural network learns.
+
+Optimizing for reducing cross entropy is sufficient to drives productive conversations, because it directs attention exactly where it needs to be directed. Consider again the above example above, where subnote C "cancels out" the effect of note B on post A. This means that there is no difference between users beliefs about post A and their fully-informed beliefs, given they have seen B and C. So relative entropy is zero, and there is no value to be gained from directing more users' attention to note B.
+
+On the other hand, since some users have already seen B and had their minds changed, their is a difference between their probability of voting on post A and the fully-informed probability. So there is still cognitive dissonance among the subset of users who were exposed to B. Exposing that subset of users to post C, until the upvote percentage of that subset matches the overall upvote percentage, will result in minimal cross-entropy.
+
+The math for calculating cross-entropy and ranking posts based on their potential to reduce cross-entropy is described in [https://github.com/social-protocols/Y/blob/main/2023-10-10-entropy-ranking-formula-summary.md]
+
+
+## The Causal Model
+
+The global brain requires modeling users beliefs as a causal Bayesian network. But making this link is tricky, because we don't actually know what users believe, only how they vote. Suppose we know how much exposure to post B changed the probability that users will upvote post A, and how much exposure to post C changes the probability that a user will upvote post B. Can we predict how much exposure to post C will change the probability that a user will upvote post A?
+
+We can draw a causal graph with our assumptions of how information **causes** changes in votes. We assume that votes are influenced by hidden variables, which are users' actual beliefs. For example, when somebody posts B, and it influences their vote on A, B must contain some information that users didn't already have, and that gives them a reason to change their vote. If B did not contain new information, why would it change their behavior?
+
+Even a humorous comment can be modeled as information for our purposes. Suppose somebody responds to post A with a purely humorous comment B, and this causes more people to upvote A. Why would a joke cause more people to upvote A? Since we assume votes indicate intent to direct attention, it can only mean that the fact that joke B was funny caused people to believe that A should get more attention. Maybe it convinced them that A could be an amusing topic, for example. 
+
+But we don't need to have a theory of how people reason or what it is in people's minds that cause them to change their behavior. It is sufficient to assert that there is some latent variable that links exposure to a post to voting behaviors. 
+
+However, to understand this process it helps to think in purely Bayesian terms. So we say if something causes people to change votes, it is a **reason**. So we can say that these reasons are unobserved "underlying beliefs" in some proposition.
+
+Let's say 𝑍 represents users' underlying belief that was directly changed by the post B (e.g. a B is video of bigfoot, which causes users to change their belief in 𝑍=*there is video evidence that bigfoot exists*). The belief in 𝑍 has a causal effect on votes on B. 𝑍 also has a causal effect on some other underlying belief 𝑌 (e.g. 𝑌=*bigfoot exists*). Finally, the underlying belief 𝑌 has a causal effect on upvotes on post A ("Bigfoot is real, people!")
+
+Then let's use the term 𝑆𝑏 and 𝑉 to represent the event that users were exposed to posts B and A respectively. And finally we'll use italic 𝐵 and 𝐴 to represent upvotes on B and A respectively.
+
+So showing a user post B (𝑆𝑏) affects belief in 𝑍 which affects votes 𝐵, and so on. And belief 𝑍 also affects belief 𝑌. So our causal graph looks like this.
+
+    𝑆𝑏 → 𝑍 → 𝐵
+        ↓
+        𝑌 → 𝐴
+
+Now, let's assume that the number of upvotes 𝐴 or 𝐵 is directly proportional to the number of people that believe 𝑌 or 𝑍 respectively. That is, the more informative a post, the more likely users are to upvote it. 
+
+    P(𝐴=1) ∝ P(𝑌=1)
+    P(𝐵=1) ∝ P(𝑍=1)
+
+So we can kind of use 𝐴 and 𝐵 as proxies for 𝑌 and 𝑍.
+
+Now, suppose a user responds to post B with post C (e.g. *That video was generated by AI!*). **Seeing** post C (𝑆𝑐) indirectly causes a change in the probability that users upvote A. And for the moment, assume that 𝑆𝑐 *only* affects 𝑌 through 𝑍 (that is, 𝑌 is conditionally independent of 𝑆𝑐 given 𝑍.). So seeing post C affects the belief that 𝑍=*there is video evidence that bigfoot exists* which affects the belief 𝑌=*bigfoot exists* which affects votes 𝐴.
+
+Our causal graph looks like this:
+
+         𝑆𝑐 → 𝐶
+         ↓
+    𝑆𝑏 → 𝑍 → 𝐵
+         ↓
+         𝑌 → 𝐴
+
+Now, what can we do with this causal graph? Well, assuming the causal assumptions in the graph are true, the we can deduce how 𝑆𝑐 will affect 𝑌 (through 𝑍), without directly observing either 𝑌 or 𝑍 (the hidden states in users' minds), simply by observing how 𝑆𝑐 and 𝑆𝑏 (exposure user to notes) affect 𝐵 and 𝐴 (votes). 
+
+This means that we can model long chains of "reasoning", and predict how one piece of information would propagate through the global brain, even if there is no individual who actually engages in the full chain of reasoning. For example, post C=*That video was generated by AI!* might be cross-posted to a forum dedicated to identifying AI-generated videos. If a user in that forum posts a note convincing people that the video was not in fact AI generated, then the global brain can "propagate" that information through the global brain, concluding that some people in the cryptobiology forum, who were convinced by note C=*That video was generated by AI!* to reduce their belief in 𝑍=*there is video evidence that bigfoot exists*, and thus change their belief 𝑌=*bigfoot exists* and thus their vote 𝐴, would not have been convinced if they had participated in the discussion in the AI fakes forum.
+
+This means that for very complex issues, where no individual can come close to being able to process all the information in the network, the global brain can essentially simulate a fully-informed individual by breaking the problem down into parts and propagating information between conversations using posts that are "cross-posted".
+
+The math for calculating belief propagation is described [in another document]. 
+
+
+
+
+
+
