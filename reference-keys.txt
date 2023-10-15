@@ -1,4 +1,16 @@
 about
+global-brain-overview
+informed-votes
+the-causal-model
+distributed-reasoning
+informal-argument-model
+example
+reason-and-argument
+checking-misinformation
+marketplace-of-ideas
+defining-cognitive-dissonance
+cognitive-dissonance-as-relative-entropy
+the-causal-model-1
 rating-and-evaluating-content
 modeling-upvote-rates
 modeling-belief-about-the-true-upvote-rate

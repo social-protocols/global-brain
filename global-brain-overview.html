@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Global Brain Overview | Introduction to the Global Brain</title>
+  <meta name="description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Global Brain Overview | Introduction to the Global Brain" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  <meta name="github-repo" content="social-protocols/y-docs" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Global Brain Overview | Introduction to the Global Brain" />
+  
+  <meta name="twitter:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="rating-and-evaluating-content.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="global-brain-overview.html"><a href="global-brain-overview.html"><i class="fa fa-check"></i><b>2</b> Global Brain Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="global-brain-overview.html"><a href="global-brain-overview.html#informed-votes"><i class="fa fa-check"></i><b>2.1</b> Informed Votes</a></li>
+<li class="chapter" data-level="2.2" data-path="global-brain-overview.html"><a href="global-brain-overview.html#the-causal-model"><i class="fa fa-check"></i><b>2.2</b> The Causal Model</a></li>
+<li class="chapter" data-level="2.3" data-path="global-brain-overview.html"><a href="global-brain-overview.html#distributed-reasoning"><i class="fa fa-check"></i><b>2.3</b> Distributed Reasoning</a></li>
+<li class="chapter" data-level="2.4" data-path="global-brain-overview.html"><a href="global-brain-overview.html#informal-argument-model"><i class="fa fa-check"></i><b>2.4</b> Informal Argument Model</a></li>
+<li class="chapter" data-level="2.5" data-path="global-brain-overview.html"><a href="global-brain-overview.html#example"><i class="fa fa-check"></i><b>2.5</b> Example</a></li>
+<li class="chapter" data-level="2.6" data-path="global-brain-overview.html"><a href="global-brain-overview.html#reason-and-argument"><i class="fa fa-check"></i><b>2.6</b> Reason and Argument</a></li>
+<li class="chapter" data-level="2.7" data-path="global-brain-overview.html"><a href="global-brain-overview.html#checking-misinformation"><i class="fa fa-check"></i><b>2.7</b> Checking Misinformation</a></li>
+<li class="chapter" data-level="2.8" data-path="global-brain-overview.html"><a href="global-brain-overview.html#marketplace-of-ideas"><i class="fa fa-check"></i><b>2.8</b> Marketplace of Ideas</a></li>
+<li class="chapter" data-level="2.9" data-path="global-brain-overview.html"><a href="global-brain-overview.html#defining-cognitive-dissonance"><i class="fa fa-check"></i><b>2.9</b> Defining Cognitive Dissonance</a></li>
+<li class="chapter" data-level="2.10" data-path="global-brain-overview.html"><a href="global-brain-overview.html#cognitive-dissonance-as-relative-entropy"><i class="fa fa-check"></i><b>2.10</b> Cognitive Dissonance as Relative Entropy</a></li>
+<li class="chapter" data-level="2.11" data-path="global-brain-overview.html"><a href="global-brain-overview.html#the-causal-model-1"><i class="fa fa-check"></i><b>2.11</b> The Causal Model</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html"><i class="fa fa-check"></i><b>3</b> Rating and Evaluating Content</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-upvote-rates"><i class="fa fa-check"></i><b>3.1</b> Modeling Upvote Rates</a></li>
+<li class="chapter" data-level="3.2" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.2</b> Modeling Belief about the “True” Upvote Rate</a></li>
+<li class="chapter" data-level="3.3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.3</b> Estimating the True Upvote Rate</a></li>
+<li class="chapter" data-level="3.4" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#the-bayesian-average"><i class="fa fa-check"></i><b>3.4</b> The Bayesian Average</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to the Global Brain</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="global-brain-overview" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Global Brain Overview<a href="global-brain-overview.html#global-brain-overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<blockquote>
+<p><em>Falsehood flies, and truth comes limping after it, so that when men come to be undeceived, it is too late…</em></p>
+<p>– Thomas Swift</p>
+</blockquote>
+<p>The Global Brain algorithm converts a social network into a distributed brain, where groups of individuals act like neurons that process information and pass it on to others, resulting in a whole that is more intelligent than the individual human parts.</p>
+<p>The algorithm works by identifying information that is likely to change minds, and modeling how those changes propagate through the network. It then uses this information to focus attention on posts that reduce “cognitive dissonance” – difference of opinion due to people being exposed to different information.</p>
+<p>The result is <a href="https://social-protocols.org">social protocol</a> that drives productive conversations, maximizes the flow of useful and reliable information, reduces the flow of misinformation, and increases <a href="https://social-protocols.org/human-alignment-technology/">human alignment</a>.</p>
+<div id="informed-votes" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Informed Votes<a href="global-brain-overview.html#informed-votes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The basic computational unit in the Global Brain is the <strong>informed vote</strong>. Before users vote on post, the UI shows them a <strong>note</strong> (any reply to that post), and then records their vote <strong>given</strong> they were shown that note before voting. If the informed vote is different from the uninformed vote, it means the note <strong>caused</strong> changes in votes. We call notes that do change behavior <strong>informative</strong>.</p>
+</div>
+<div id="the-causal-model" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> The Causal Model<a href="global-brain-overview.html#the-causal-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So every reply to every post becomes effectively an AB test that tells us how exposure to a note affects votes on a post. And one thing that makes properly-run AB tests very powerful is that they establish <strong>causality</strong>. They tell us not just that upvotes on the note and post are correlated, but that the note actually <em>causes</em> changes to votes on the post.</p>
+<p>Establishing these causal links allows us to model the Global Brain as a causal Bayesian network. The causal links between notes and posts are the synapses of the Global Brain. They allow us to predict how the average user <strong>would</strong> vote if they were exposed to some combination of notes and posts, by predicting how exposure to those posts will influence upvotes on other posts, and how that influences upvotes on other posts, and so on.</p>
+</div>
+<div id="distributed-reasoning" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Distributed Reasoning<a href="global-brain-overview.html#distributed-reasoning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By simulating how beliefs propagates through the network, the global brain engages in a form of <strong>reasoning</strong>, loosely defined. Each neuron in the global brain reasons – or processes information – using the same inferences the average user makes. But unlike the average user, the Global Brain can process <strong>all</strong> information in the system in a valid Bayesian manner. So in a way the global simulates an average user who has unlimited time, memory, and processing capacity.</p>
+<p>We can then query this model to estimate how the Global Brain would vote if it was exposed to <strong>all</strong> information – all posts ever made. We can also use the model to identify where to direct users’ attention in order to reduce cognitive dissonance in the network.</p>
+</div>
+<div id="informal-argument-model" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Informal Argument Model<a href="global-brain-overview.html#informal-argument-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Global Brain does not require a formal model of belief. It doesn’t need posts to be structured as formal propositions or claims. It doesn’t need to know if users agree or disagree with posts.</p>
+<p>The only assumptions are that 1) a vote reflects a users intent to give a post more/less attention (see <a href="https://jonathanwarden.com/the-law-of-attention">The Law of Attention</a>) and 2) this intent is caused by underlying beliefs that we cannot observe (latent variables – see section below).</p>
+<p>But by making some reasonable assumptions about the causal relationship between beliefs and votes, then by watching how exposure to notes causes changes to votes, we can model these underlying beliefs and predict how exposure to a note will cause changes to these beliefs, which will cause changes to other beliefs, and so on. We described our model in more detail below.</p>
+</div>
+<div id="example" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Example<a href="global-brain-overview.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For example, suppose post A is a video showing the aftermath of a recent earthquake. This post goes viral, but then somebody posts a note B on the video which says “This video is actually from an earthquake in 2004. Here is a link to the original video.”.</p>
+<p>Suppose that people who are shown note B along with the video in post A are less likely to upvote the post. This will often be the case, as many people probably upvoted out of simple ignorance, not malicious intent to spread misinformation. The global brain will conclude that:</p>
+<ol style="list-style-type: decimal">
+<li>B is <strong>informative</strong></li>
+<li>A should receive less attention, because informed users do not upvote it</li>
+<li>B should receive more attention from users who have upvoted A, in order to reduce cognitive dissonance</li>
+</ol>
+<p>Now, suppose that it turns out the information in note B is actually wrong. For example, somebody may reply to B with a subnote C saying “No, the video in that link is completely different! This video is recent footage from CNN. Here’s a link.”</p>
+<p>The global brain can actually look at how C affects users votes on both A and B, to estimate how a fully informed user <strong>would</strong> have voted.</p>
+</div>
+<div id="reason-and-argument" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Reason and Argument<a href="global-brain-overview.html#reason-and-argument" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A key assumption we make is that more information leads to better judgments. Even though people can post false and misleading information, people can respond by explaining why this information is false or misleading. Even though people can promote hateful or harmful ideas, people can respond with reasons why these these ideas are wrong.</p>
+<p>By identifying information that changes minds, driving attention to that information, and then identifying responses that change minds back, the system drives informative conversations. And although this isn’t guaranteed to lead to the truth, it will at least result in more informed users. And it will also help identify the most informed opinions: what posts would still be upvoted by users who were exposed to all the strongest information on arguments on all sides.</p>
+<p>In the example above, once the model learns that B is changing people’s votes on A, it directs more attention to B, resulting in fewer upvotes for A. We can think of B as an argument against A, or a reason not to upvote A. The “reason” doesn’t need to take any particular logical or rhetorical form. It is a reason by virtue of being the literal reason for – the observed cause of – changes to votes.</p>
+<p>Unfortunately, in the example above, B was not true. But fortunately, C is a convincing reason to believe that C is not true. C actually causes people <strong>not</strong> to change their vote on A, in spite of being exposed to B. B and C cancel each other out, so to speak. So the global brain concludes that it is no longer helpful to direct attention to B, and that it should continue to direct attention to post A.</p>
+</div>
+<div id="checking-misinformation" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Checking Misinformation<a href="global-brain-overview.html#checking-misinformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Misinformation is harmful in social networks only when it is <strong>unchecked</strong>. Lies are only harmful if people don’t see the responses to the lies.</p>
+<p>The engagement-based algorithms in today’s social networks encourage the unchecked spread of rumors (with the exception of Twitter’s Community Notes), regardless of how well they are supported, wheres the Global Brain algorithm discourages the spread of information that people are unlikely to upvote if they were fully informed, and encourages the spread of information that might check the spread of a false information that is already spreading.</p>
+<p>And yet the purpose of the Global Brain algorithm is NOT to tell people what is true. It is simply to direct people’s attention to information that may change their votes.</p>
+<p>But why do we want to <em>change</em> votes? An algorithm that tries to change minds sounds sinister. Propaganda changes how people vote. But propaganda works by selectively exposing users to information with the goal of changing opinions about specific things, all the while actively omitting contrary information. It is one sided and dishonest. The Global Brain, on the other hand, has no agenda other than driving productive conversation and reducing cognitive dissonance.</p>
+</div>
+<div id="marketplace-of-ideas" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Marketplace of Ideas<a href="global-brain-overview.html#marketplace-of-ideas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So the Global Brain algorithm, drives a fair, unbiased process of weighing all the arguments that anyone cares to make. As long as there is sufficient intellectual diversity among recipients, the result is an adversarial process, where all the relevant information (the posts that change minds either way) is exposed and processed. (the marketplace of ideas).</p>
+</div>
+<div id="defining-cognitive-dissonance" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Defining Cognitive Dissonance<a href="global-brain-overview.html#defining-cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Global Brain only requires a small number of people to actually change their minds in order to learn how beliefs affect other beliefs and construct the causal Bayesian network. So the predictions of the model may differ significantly from the beliefs of the majority.</p>
+<p>For example, suppose 1000 users voted on a post, and most votes were upvotes. Then suppose that among a subset of 30 users who saw some very informative note, the probability of upvoting the post dropped to close to zero. We can thus estimate that if all 1000 users saw that note, they would not have upvoted the post. Even though in actuality most users did upvote it.</p>
+<p>In such situations, we say there is a large amount of cognitive dissonance in the network. Cognitive dissonance arises whenever people’s upvotes differe from what their upvotes <strong>would</strong> be if they were exposed to all the relevant information. Or in other words, when peoples votes differ from the predictions of the causal model.</p>
+<p>The goal of the Global Brain algorithm is minimizing cognitive dissonance. It does this by exposing users to the informative note, reducing the inconsistency between what people upvote and what they would upvote if they were more informed.</p>
+<p>Reducing cognitive dissonance brings individual participants into greater alignment, reducing differences of opinion due to differences in information. It cannot of course eliminate differences of opinion, because opinion can be subjective, because people have different priors and different ways of processing information. But it can identify situations where differences are due to ignorance of readily available information: when one group of people believe something that another group doesn’t only because they haven’t seen the same posts.</p>
+<p>The result is a network that learns. The model learns as new information posts are submitted to the network. And the human participants in the network also learn as they are exposed to posts that bring their mental models into greater alignment.</p>
+</div>
+<div id="cognitive-dissonance-as-relative-entropy" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> Cognitive Dissonance as Relative Entropy<a href="global-brain-overview.html#cognitive-dissonance-as-relative-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can measure cognitive dissonance as the <strong>relative entropy</strong> (or KL divergence) between users actual beliefs and their hypothetical fully-informed beliefs (the beliefs they would have if exposed to all posts).</p>
+<p>Relative entropy is a way of measuring the distance, or error, between two probability distributions. It is similar to the measure used as the loss function when training a neural network, and in this sense, the global brain can be seen to “learn” in a sense similar to how a neural network learns.</p>
+<p>Optimizing for reducing cross entropy is sufficient to drives productive conversations, because it directs attention exactly where it needs to be directed. Consider again the above example above, where subnote C “cancels out” the effect of note B on post A. This means that there is no difference between users beliefs about post A and their fully-informed beliefs, given they have seen B and C. So relative entropy is zero, and there is no value to be gained from directing more users’ attention to note B.</p>
+<p>On the other hand, since some users have already seen B and had their minds changed, their is a difference between their probability of voting on post A and the fully-informed probability. So there is still cognitive dissonance among the subset of users who were exposed to B. Exposing that subset of users to post C, until the upvote percentage of that subset matches the overall upvote percentage, will result in minimal cross-entropy.</p>
+<p>The math for calculating cross-entropy and ranking posts based on their potential to reduce cross-entropy is described in [<a href="https://github.com/social-protocols/Y/blob/main/2023-10-10-entropy-ranking-formula-summary.md" class="uri">https://github.com/social-protocols/Y/blob/main/2023-10-10-entropy-ranking-formula-summary.md</a>]</p>
+</div>
+<div id="the-causal-model-1" class="section level2 hasAnchor" number="2.11">
+<h2><span class="header-section-number">2.11</span> The Causal Model<a href="global-brain-overview.html#the-causal-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The global brain requires modeling users beliefs as a causal Bayesian network. But making this link is tricky, because we don’t actually know what users believe, only how they vote. Suppose we know how much exposure to post B changed the probability that users will upvote post A, and how much exposure to post C changes the probability that a user will upvote post B. Can we predict how much exposure to post C will change the probability that a user will upvote post A?</p>
+<p>We can draw a causal graph with our assumptions of how information <strong>causes</strong> changes in votes. We assume that votes are influenced by hidden variables, which are users’ actual beliefs. For example, when somebody posts B, and it influences their vote on A, B must contain some information that users didn’t already have, and that gives them a reason to change their vote. If B did not contain new information, why would it change their behavior?</p>
+<p>Even a humorous comment can be modeled as information for our purposes. Suppose somebody responds to post A with a purely humorous comment B, and this causes more people to upvote A. Why would a joke cause more people to upvote A? Since we assume votes indicate intent to direct attention, it can only mean that the fact that joke B was funny caused people to believe that A should get more attention. Maybe it convinced them that A could be an amusing topic, for example.</p>
+<p>But we don’t need to have a theory of how people reason or what it is in people’s minds that cause them to change their behavior. It is sufficient to assert that there is some latent variable that links exposure to a post to voting behaviors.</p>
+<p>However, to understand this process it helps to think in purely Bayesian terms. So we say if something causes people to change votes, it is a <strong>reason</strong>. So we can say that these reasons are unobserved “underlying beliefs” in some proposition.</p>
+<p>Let’s say 𝑍 represents users’ underlying belief that was directly changed by the post B (e.g. a B is video of bigfoot, which causes users to change their belief in 𝑍=<em>there is video evidence that bigfoot exists</em>). The belief in 𝑍 has a causal effect on votes on B. 𝑍 also has a causal effect on some other underlying belief 𝑌 (e.g. 𝑌=<em>bigfoot exists</em>). Finally, the underlying belief 𝑌 has a causal effect on upvotes on post A (“Bigfoot is real, people!”)</p>
+<p>Then let’s use the term 𝑆𝑏 and 𝑉 to represent the event that users were exposed to posts B and A respectively. And finally we’ll use italic 𝐵 and 𝐴 to represent upvotes on B and A respectively.</p>
+<p>So showing a user post B (𝑆𝑏) affects belief in 𝑍 which affects votes 𝐵, and so on. And belief 𝑍 also affects belief 𝑌. So our causal graph looks like this.</p>
+<pre><code>𝑆𝑏 → 𝑍 → 𝐵
+    ↓
+    𝑌 → 𝐴</code></pre>
+<p>Now, let’s assume that the number of upvotes 𝐴 or 𝐵 is directly proportional to the number of people that believe 𝑌 or 𝑍 respectively. That is, the more informative a post, the more likely users are to upvote it.</p>
+<pre><code>P(𝐴=1) ∝ P(𝑌=1)
+P(𝐵=1) ∝ P(𝑍=1)</code></pre>
+<p>So we can kind of use 𝐴 and 𝐵 as proxies for 𝑌 and 𝑍.</p>
+<p>Now, suppose a user responds to post B with post C (e.g. <em>That video was generated by AI!</em>). <strong>Seeing</strong> post C (𝑆𝑐) indirectly causes a change in the probability that users upvote A. And for the moment, assume that 𝑆𝑐 <em>only</em> affects 𝑌 through 𝑍 (that is, 𝑌 is conditionally independent of 𝑆𝑐 given 𝑍.). So seeing post C affects the belief that 𝑍=<em>there is video evidence that bigfoot exists</em> which affects the belief 𝑌=<em>bigfoot exists</em> which affects votes 𝐴.</p>
+<p>Our causal graph looks like this:</p>
+<pre><code>     𝑆𝑐 → 𝐶
+     ↓
+𝑆𝑏 → 𝑍 → 𝐵
+     ↓
+     𝑌 → 𝐴</code></pre>
+<p>Now, what can we do with this causal graph? Well, assuming the causal assumptions in the graph are true, the we can deduce how 𝑆𝑐 will affect 𝑌 (through 𝑍), without directly observing either 𝑌 or 𝑍 (the hidden states in users’ minds), simply by observing how 𝑆𝑐 and 𝑆𝑏 (exposure user to notes) affect 𝐵 and 𝐴 (votes).</p>
+<p>This means that we can model long chains of “reasoning”, and predict how one piece of information would propagate through the global brain, even if there is no individual who actually engages in the full chain of reasoning. For example, post C=<em>That video was generated by AI!</em> might be cross-posted to a forum dedicated to identifying AI-generated videos. If a user in that forum posts a note convincing people that the video was not in fact AI generated, then the global brain can “propagate” that information through the global brain, concluding that some people in the cryptobiology forum, who were convinced by note C=<em>That video was generated by AI!</em> to reduce their belief in 𝑍=<em>there is video evidence that bigfoot exists</em>, and thus change their belief 𝑌=<em>bigfoot exists</em> and thus their vote 𝐴, would not have been convinced if they had participated in the discussion in the AI fakes forum.</p>
+<p>This means that for very complex issues, where no individual can come close to being able to process all the information in the network, the global brain can essentially simulate a fully-informed individual by breaking the problem down into parts and propagating information between conversations using posts that are “cross-posted”.</p>
+<p>The math for calculating belief propagation is described [in another document].</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rating-and-evaluating-content.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/00-global-brain-overview.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
