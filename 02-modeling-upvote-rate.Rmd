@@ -63,8 +63,8 @@ knitr::include_graphics("images/01-modeling-upvote-rate/promote-top-reply-to-not
 Users on Y can rate content by adding an **upvote** or a **downvote**.
 There are two essential forms of content users can rate:
 posts and posts with a note.
-We call those units *Rateable Units of Information* (RUI).
-For each RUI, we keep a tally of upvotes and downvotes.
+We call those units *Voting Units*.
+For each Voting Unit, we keep a tally of upvotes and downvotes.
 
 ```{r}
 knitr::include_graphics("images/01-modeling-upvote-rate/vote-tallies-for-rui.png")
