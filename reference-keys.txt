@@ -16,7 +16,7 @@ modeling-upvote-rates
 modeling-belief-about-the-true-upvote-rate
 estimating-the-true-upvote-rate
 the-bayesian-average
-cognitive-dissonance-and-information-gain
+cognitive-dissonance-and-information-rate
 key-concepts-from-information-theory
 surprisal-as-a-measure-of-error
 total-cross-entropy
