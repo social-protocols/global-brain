@@ -17,20 +17,25 @@ github-repo: social-protocols/y-docs
 
 # About
 
-This document contains write-ups and explanations on the
-[Y platform](https://github.com/social-protocols/Y), currently created by the
-[social protocols organization](https://www.social-protocols.org).
+This document contains write-ups and explanations on the Global Brain
+algorithm developed by the [social protocols organization](https://www.social-protocols.org).
 
-At this point, Y has not been launched yet and is under rapid development,
-so this is a living document and the information in it may become outdated fast.
-Nonetheless, we try to maintain up-to-date explanations of our ideas here.
+A proof of concept of this algorithm is being developed in the [𝕐 platform]
+(https://github.com/social-protocols/Y). 𝕐 has not been launched yet and is
+under rapid development, so this is a living document and the information in
+it may become outdated fast. Nonetheless, we try to maintain up-to-date
+explanations of our ideas here.
 
-We will introduce the building blocks of our
-algorithms; simple, but important concepts which make up the foundation of the
-components from which the Y platform is built.
+We will introduce the building blocks of our algorithms; simple, but important
+concepts which make up the foundation of the components from which the 𝕐
+platform is built.
 
-We are grateful for feedback.
-Do not hesitate to send a [mail](mailto:mail@social-protocols.org).
+We are grateful for feedback. Do not hesitate to send a [mail]
+(mailto:mail@social-protocols.org).
+
+
+
+
 
 <!-- TODO: -->
 

@@ -1,8 +1,6 @@
 # Cognitive Dissonance and Information Rate 
 
-This document introduces the theory behind the entropy ranking formula described in [2023-10-10-entropy-ranking-formula-summary.md].
-
-The goal of the global brain algorithm is to focus users' attention on posts that reduce "cognitive dissonance" -- difference of belief that exist only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of entropy.
+As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that exist only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of entropy.
 
 In information theory, information is simply the reduction of entropy. So reducing cognitive dissonance can also be seen as gaining information. So the goal of the global brain algorithm should be to direct attention to notes with the greatest potential information gain.
 
@@ -12,7 +10,7 @@ Here's a quick summary of some basic concepts of information theory, building up
 
 - **surprisal**: how surprised I am when I learn that the value of X is x:
 
-    - $$Suprisal(x) = -lg~P(X=x)$$
+$$Suprisal(x) = -lg~P(X=x)$$
 
 - **entropy**: how surprised I expect to be:
 
@@ -48,11 +46,11 @@ When dealing with binary variables then these formulas can be written as:
 
 $$ H(p) = - p × lg~p - (1-p) × lg~(1-p) $$
 
-- **cross-Entropy**: 
+- **cross-entropy**: 
 
 $$ H(p,q) = -p × -lg~q - (1-p) × lg~(1-q) $$
 
-- **relative Entropy / KL-divergence**:
+- **relative entropy or KL-divergence**:
 
 $$ Dkl(p||q) = - p × lg~\frac{p}{q} - (1-p) × lg~\frac{1-p}{1-q} $$
 
@@ -102,29 +100,28 @@ $H(p,q)$ is the cross entropy between Bob and Alices's probabilities: Bob's esti
 
 In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. The total cross entropy is Bob's measure of Alices's total error -- or in other words, the informed user's measure of the uninformed user's total error.
 
-### Comparison to Loss Function for Machine Learning
+### Parallel to Machine Learning
 
-Cross entropy is very commonly used as the loss function for machine learning. A machine learning model such as a neural network takes an input (e.g. an image) and outputs a probability (e.g. the probability that it is a cat). 
+Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs a probability (e.g. that the image is a cat), and the cost function computes how far these probability estimates are from the correct labels.
 
-If $ŷ_i$ is the machine's predicted probability for training example $i$, and $y_i$ is the correct output (1 or 0), then the total cross entropy loss is:
+If $ŷ_i$ is the machine's predicted probability for training example $i$, and $y_i$ is the correct output (1 or 0), then the total cross entropy cost is:
 
 $$
     \sum_i H(y_i, ŷ) = \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
 $$
 
-If $$y_i$$ are users votes, and ŷ_i is always equal to the uninformed users prediction $q$, then our loss function is identical to the loss function used when training a neural network.
+If $y_i$ are users votes, and $ŷ_i$ is always equal to the uninformed users prediction $q$, then our cost function is identical to the cost function used when training a neural network:
 
 $$
 \begin{aligned}
-    \sum_i H(y_i, q) &= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
-                     &= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q) 
-                     &= upvotes × -lg(q) + downvotes  × -lg(1 - q) 
+    \sum_i H(y_i, q) &= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i) \\
+                     &= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q)  \\
+                     &= upvotes × -lg(q) + downvotes  × -lg(1 - q) \\
                      &≈ votesTotal×H(p,q) \\
 \end{aligned}
 $$
 
-The difference is that we reduce entropy not by teaching the neural network to make better predictions, but by in a sense teaching users to make better predictions (of how a fully-informed user would vote).
-
+So both neural networks and the global brain "learn" by reducing cross entropy. The difference is that the global brain reduces entropy not by learning to make better predictions, but by in a sense teaching users to make better predictions of how a fully-informed user would vote.
 
 ## Total Relative Entropy = Cognitive Dissonance
 
@@ -134,7 +131,7 @@ A very interesting property of relative entropy is that **it is never negative**
 
 So Bob measure of Alice's error is always greater than his measure of his own error as long as $p ≠ q$. He always expect Alice to be more surprised than him. That is because presumably Bob thinks he knows something Alice doesn't know. If Bob thought Alices's estimate $q$ was better than his estimate $p$, Bob would change his estimate to $q$!
 
-Relative entropy is zero if $p$ and $q$ are the same, because cross entropy $H(p,q)$ just equals entropy $H(p)=H(p,p)$ when $p=q$.
+Relative entropy is zero if $p$ and $q$ are the same, because cross entropy $H(p,q)$ just equals entropy $H(p)$ when $p=q$ (because $H(p,p)=H(p)$).
 
 If we take Bob's measure of Alices's total error, minus his measure of his own total error, we get the total relative entropy: how much **more** error Bob expects for Alice than he would expect if Alice knew more. 
 
@@ -152,14 +149,16 @@ So whenever the global brain learns that a note has change the probability of an
 
 ## Attention
 
-The global brain can't eliminate all cognitive dissonance -- it can only reduce it as much as possible. 
+The global brain can't eliminate all cognitive dissonance -- it can only reduce it as much and as fast as possible. 
 
 Now the global brain is working with a limited resource: **attention**. Whenever the global brain shows a post to a user, it is is "spending" a certain amount of attention. Showing a post at the top of a forum home page, for example, gives it greater attention than showing it in the number two spot. But how much more attention? We need to weigh each position on the home page by the amount of attention we think that position receives in order to measure **weighted impressions**. We'll discuss the formula for measuring attention in another post.
+
+Once we know how much attention we are spending when we show posts to users in different positions, we can calculate how much cognitive dissonance is reduced, per unit of attention spent, by showing users various post/note combinations. We'll call the rate of reduction of entropy per unit of attention the **information rate**.
 
 
 ## Vote Rate
 
-Once we have a weight of measuring attention, we can calculate the **vote rate** of a post -- the number of votes it gets per unit attention.
+The first step in calculating the information rate is to estiamte the **vote rate** of a post -- the number of votes it gets per unit attention.
 
 $$
 \begin{aligned}
@@ -202,15 +201,11 @@ $$
 
 As the global brain gathers data about how users actually change their votes, the estimated vote change rate can be adjusted.
 
-
 ## Information Rate
-
-Our next task is to estimate the reduction of cognitive dissonance per unit of attention directed at a post with a note.
 
 Suppose that of the 1000 votes the above post received, 90% were upvotes. But then the global brain discovers that a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.
 
 The total cognitive dissonance is 
-
 
 $$
 \begin{aligned}
@@ -220,7 +215,6 @@ $$
 	                           &= 1966.01 
 \end{aligned}
 $$
-
 
 So after another, say, 1000 weighted impressions ($deltaAttention=1000$) the total upvotes will be:
 
