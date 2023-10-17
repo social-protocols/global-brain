@@ -1,4 +1,4 @@
-# Cognitive Dissonance and Information Gain
+# Cognitive Dissonance and Information Rate 
 
 This document introduces the theory behind the entropy ranking formula described in [2023-10-10-entropy-ranking-formula-summary.md].
 
@@ -60,11 +60,11 @@ $$ Dkl(p||q) = - p × lg~\frac{p}{q} - (1-p) × lg~\frac{1-p}{1-q} $$
 
 ## Surprisal as a Measure of Error
 
-Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. Whenever we predict something is very unlikely to happen, and it happens, then there is a large amount of surprisal, or error. If we predict it was unlikely to happen, but it still happens, then there is a large amount of error.
+Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. Whenever we predict something is very unlikely to happen, and it happens, then there is a large amount of surprisal, or error. If we predicted it was likely to happen, and it happens, there is only a small amount of error.
 
-For example, suppose we predict that the probability of a user upvoting a post is `p`. Then suppose there are actually `upvotes` upvotes and `downvotes` downvotes. What is the total error of our predictions?
+For example, suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $upvotes$ upvotes and $downvotes$ downvotes. What is the total error of our predictions?
 
-Every time there is an upvote, our error is $-log(p)$. Our estimate of the probability of a downvote is $1-p$, so whenever there is a downvote the error is $-log(1-p)$.
+Every time there is an upvote, surprisal is $-log(p)$. Our estimate of the probability of a downvote is $1-p$, so whenever there is a downvote surprisal is $-log(1-p)$.
 
 So our total error is:
 
@@ -73,7 +73,7 @@ $$
 $$
 
 
-Since we $upvotes ≈ votesTotal×p$, and $downvotes ≈ votesTotal×(1-p)$ our total error is approximately:
+Since $upvotes ≈ votesTotal×p$, and $downvotes ≈ votesTotal×(1-p)$ our total error is approximately:
 
 $$
 \begin{aligned}
@@ -87,7 +87,7 @@ In other words, our error is roughly entropy per vote, times the number of votes
 
 ## Total Cross Entropy
 
-Let's say Alice estimates that the probability of an upvote to be $q$, but Bob thinks the probability of an upvote is $p$. So Bob's measure of Alice's error will different from Alice's expectation of her own error! Bob's measure of Alices's error is:
+Let's say Alice estimates the probability of an upvote to be $q$, but Bob thinks the probability of an upvote is $p$. So Bob's measure of Alice's error will different from Alice's expectation of her own error! Bob's measure of Alice's error is:
 
 $$
 \begin{aligned}
@@ -98,7 +98,7 @@ $$
 \end{aligned}
 $$
 
-`H(p,q)` is the cross entropy, Bob's estimate of how surprised Alice will be on average. Bob's measure for Alices's total surprise is $votesTotal×H(p,q)$.
+$H(p,q)$ is the cross entropy, Bob's estimate of how surprised Alice will be on average. Bob's measure for Alices's total surprise is $votesTotal×H(p,q)$.
 
 In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. The total cross entropy is Bob's measure of Alices's total error -- or in other words, the informed user's measure of the uninformed user's total error.
 
@@ -108,11 +108,13 @@ The difference between $H(p,q)$ and $H(p)$ is the **relative entropy**, also kno
 
 A very interesting property of relative entropy is that **it is never negative**. It doesn't matter whether $p$ is greater or less than $q$. Plug in different values to the formula to see.
 
-So Bob measure of Alice's error is always greater than his measure of how own error as long as $p ≠ q$. He always expect Alice to be more "surprised" than him. That is because presumably Bob thinks he knows something Alice doesn't know. If Bob thought Alices's estimate $q$ was better than his estimate $p$, Bob would change his estimate to $q$!
+So Bob measure of Alice's error is always greater than his measure of his own error as long as $p ≠ q$. He always expect Alice to be more surprised than him. That is because presumably Bob thinks he knows something Alice doesn't know. If Bob thought Alices's estimate $q$ was better than his estimate $p$, Bob would change his estimate to $q$!
 
 Relative entropy is zero if $p$ and $q$ are the same, because cross entropy $H(p,q)$ just equals entropy $H(p)$ when $p=q$.
 
-If we take Bob's total measure of Alices's error, minus his total measure of his own error, we get the total relative entropy: how much **more** Bob thinks there is than there would be if Alice knew what he knew. The total error is our measure of cognitive dissonance.
+If we take Bob's measure of Alices's total error, minus his measure of his own total error, we get the total relative entropy: how much **more** error Bob expects for Alice than he would expect if Alice knew more. 
+
+This total error is our measure of cognitive dissonance.
 
 $$
 \begin{aligned}
@@ -122,7 +124,7 @@ cognitiveDissonance  &= votesTotal × H(p,q) - votesTotal × H(p) \\
 \end{aligned}
 $$
 
-So whenever the global brain learns that a note has change the probability of an upvote on a post, $p$ becomes different from $q$ and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that $q$ once again approaches $p$, cognitive dissonance is eliminated.
+So whenever the global brain learns that a note has change the probability of an upvote on a post, $p$ becomes different from $q$ and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that $q$ once again approaches $p$, cognitive dissonance is reduced.
 
 ## Attention
 
@@ -161,7 +163,7 @@ There are many things that could effect users decision to change a vote. But a s
 
 So we assume that 1000 people choose how they want to vote, but not all of them actually change their vote because their current vote is already what they want it to be.
 
-Of the 1000 users, we expect 200 choose upvote, and 800 choose downvote. Since 900 previously upvoted, so only 900-200=700 change their vote to a downvote. So we expect $votesTotal*(p-q)$ vote changes.
+Of the 1000 users, we expect 200 to choose "upvote", and 800 to choose "downvote". Since 900 previously upvoted, so only 900-200=700 change their vote to a downvote. So we expect $votesTotal*(p-q)$ vote changes.
 
 So the expected rate at which votes change (per unit of attention) is:
 
@@ -174,7 +176,7 @@ $$
 \end{aligned}
 $$
 
-As the system gathers data about how users actually change their votes, the estimated vote change rate can be adjusted.
+As the global brain gathers data about how users actually change their votes, the estimated vote change rate can be adjusted.
 
 
 ## Information Rate

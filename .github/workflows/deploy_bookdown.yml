@@ -14,7 +14,7 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "dplyr", "tidyr", "ggplot2"))'
+        run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "dplyr", "tidyr", "ggplot2", "knitr"))'
       - name: Render Book
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
       - uses: actions/upload-artifact@v3
