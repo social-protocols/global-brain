@@ -260,7 +260,7 @@ The table below shows cognitive dissonance falls as users change upvotes to down
 ```{r}
 
 lg = function(n) {
-  return(lg(n,2))
+  return(log(n,2))
 }
 
 cross_entropy = function(p,q) {
