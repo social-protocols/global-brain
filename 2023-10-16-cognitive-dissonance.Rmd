@@ -18,7 +18,7 @@ Here's a quick summary of some basic concepts of information theory, building up
 
 $$
 \begin{aligned}
-    H(P) &= 𝔼_P -lg P(X)  \\
+    H(P) &= 𝔼_P -lg~P(X)  \\
          &= ∑_x P(X=x) × -lg~P(X=x) \\
 \end{aligned}
 $$
@@ -27,7 +27,7 @@ $$
 
 $$
 \begin{aligned}
-    H(P,Q) &= 𝔼_P -lg Q(X) \\
+    H(P,Q) &= 𝔼_P -lg~Q(X) \\
            &= ∑_x P(X=x) × -lg~Q(X=x)
 \end{aligned}
 $$
@@ -36,7 +36,7 @@ $$
 
 $$
 \begin{aligned}
-        Dkl(P || Q) &= H(P,Q) - H(P,P) \\
+        Dkl(P || Q) &= H(P,Q) - H(P) \\
                     &= ∑_x P(X=x) × lg~\frac{P(X=x)}{Q(X=x)}
 \end{aligned}
 $$
@@ -64,12 +64,12 @@ Surprisal can be thought of, for our purposes, as a measure of the "error" of a 
 
 For example, suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $upvotes$ upvotes and $downvotes$ downvotes. What is the total error of our predictions?
 
-Every time there is an upvote, surprisal is $-log(p)$. Our estimate of the probability of a downvote is $1-p$, so whenever there is a downvote surprisal is $-log(1-p)$.
+Every time there is an upvote, surprisal is $-lg(p)$. Our estimate of the probability of a downvote is $1-p$, so whenever there is a downvote surprisal is $-lg(1-p)$.
 
 So our total error is:
 
 $$
-    upvotes × -log(p) + downvotes × -log(1-p)
+    upvotes × -lg(p) + downvotes × -lg(1-p)
 $$
 
 
@@ -77,7 +77,7 @@ Since $upvotes ≈ votesTotal×p$, and $downvotes ≈ votesTotal×(1-p)$ our tot
 
 $$
 \begin{aligned}
-    & votesTotal × p × -log(p) + votesTotal × (1-p) × -log(1-p) \\
+    & votesTotal × p × -lg(p) + votesTotal × (1-p) × -lg(1-p) \\
     & = votesTotal × H(p)
 \end{aligned}
 $$
@@ -98,9 +98,33 @@ $$
 \end{aligned}
 $$
 
-$H(p,q)$ is the cross entropy, Bob's estimate of how surprised Alice will be on average. Bob's measure for Alices's total surprise is $votesTotal×H(p,q)$.
+$H(p,q)$ is the cross entropy between Bob and Alices's probabilities: Bob's estimate of how surprised Alice will be on average. Bob's measure for Alices's total surprise is $votesTotal×H(p,q)$.
 
 In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. The total cross entropy is Bob's measure of Alices's total error -- or in other words, the informed user's measure of the uninformed user's total error.
+
+### Comparison to Loss Function for Machine Learning
+
+Cross entropy is very commonly used as the loss function for machine learning. A machine learning model such as a neural network takes an input (e.g. an image) and outputs a probability (e.g. the probability that it is a cat). 
+
+If $ŷ_i$ is the machine's predicted probability for training example $i$, and $y_i$ is the correct output (1 or 0), then the total cross entropy loss is:
+
+$$
+    \sum_i H(y_i, ŷ) = \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
+$$
+
+If $$y_i$$ are users votes, and ŷ_i is always equal to the uninformed users prediction $q$, then our loss function is identical to the loss function used when training a neural network.
+
+$$
+\begin{aligned}
+    \sum_i H(y_i, q) &= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
+                     &= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q) 
+                     &= upvotes × -lg(q) + downvotes  × -lg(1 - q) 
+                     &≈ votesTotal×H(p,q) \\
+\end{aligned}
+$$
+
+The difference is that we reduce entropy not by teaching the neural network to make better predictions, but by in a sense teaching users to make better predictions (of how a fully-informed user would vote).
+
 
 ## Total Relative Entropy = Cognitive Dissonance
 
@@ -110,7 +134,7 @@ A very interesting property of relative entropy is that **it is never negative**
 
 So Bob measure of Alice's error is always greater than his measure of his own error as long as $p ≠ q$. He always expect Alice to be more surprised than him. That is because presumably Bob thinks he knows something Alice doesn't know. If Bob thought Alices's estimate $q$ was better than his estimate $p$, Bob would change his estimate to $q$!
 
-Relative entropy is zero if $p$ and $q$ are the same, because cross entropy $H(p,q)$ just equals entropy $H(p)$ when $p=q$.
+Relative entropy is zero if $p$ and $q$ are the same, because cross entropy $H(p,q)$ just equals entropy $H(p)=H(p,p)$ when $p=q$.
 
 If we take Bob's measure of Alices's total error, minus his measure of his own total error, we get the total relative entropy: how much **more** error Bob expects for Alice than he would expect if Alice knew more. 
 
@@ -236,7 +260,7 @@ The table below shows cognitive dissonance falls as users change upvotes to down
 ```{r}
 
 lg = function(n) {
-  return(log(n,2))
+  return(lg(n,2))
 }
 
 cross_entropy = function(p,q) {
@@ -323,8 +347,8 @@ The expected reduction of entropy per unit of attention can be written as:
 
 $$
 \begin{aligned}
-                q_{t+1} &= \frac{q_t + voteChangeRate}{votesTotal} )  \\
-    informationRate &= votesTotal×(p×log~\frac{q_{t+1}}{q_t} + (1-p)×lg\frac{1-q_{t+1}}{1-q_t} ) 
+                q_{t+1} &= q_t + \frac{voteChangeRate}{votesTotal} )  \\
+    informationRate &= votesTotal×(p×lg~\frac{q_{t+1}}{q_t} + (1-p)×lg\frac{1-q_{t+1}}{1-q_t} ) 
 \end{aligned}
 $$
 
@@ -351,7 +375,7 @@ plot
 
 
 
-NOTEs/TODOS:
+NOTES/TODOS:
 
 - This assumes a constant vote change rate, so upvotes move linearly from $q*votesTotal$ to $p*votesTotal$. However, in reality what we should see is a decaying growth rate. However, it makes little difference in practice.
 
