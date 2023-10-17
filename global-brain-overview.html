@@ -106,7 +106,10 @@ algorithms and components of the software.</p>" />
 <ul>
 <li class="chapter" data-level="4.1" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#key-concepts-from-information-theory"><i class="fa fa-check"></i><b>4.1</b> Key Concepts from Information Theory</a></li>
 <li class="chapter" data-level="4.2" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#surprisal-as-a-measure-of-error"><i class="fa fa-check"></i><b>4.2</b> Surprisal as a Measure of Error</a></li>
-<li class="chapter" data-level="4.3" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#total-cross-entropy"><i class="fa fa-check"></i><b>4.3</b> Total Cross Entropy</a></li>
+<li class="chapter" data-level="4.3" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#total-cross-entropy"><i class="fa fa-check"></i><b>4.3</b> Total Cross Entropy</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>4.3.1</b> Parallel to Machine Learning</a></li>
+</ul></li>
 <li class="chapter" data-level="4.4" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#total-relative-entropy-cognitive-dissonance"><i class="fa fa-check"></i><b>4.4</b> Total Relative Entropy = Cognitive Dissonance</a></li>
 <li class="chapter" data-level="4.5" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#attention"><i class="fa fa-check"></i><b>4.5</b> Attention</a></li>
 <li class="chapter" data-level="4.6" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#vote-rate"><i class="fa fa-check"></i><b>4.6</b> Vote Rate</a></li>
@@ -201,7 +204,7 @@ algorithms and components of the software.</p>" />
 <p>In such situations, we say there is a large amount of cognitive dissonance in the network. Cognitive dissonance arises whenever people’s upvotes differ from what their upvotes <strong>would</strong> be if they were exposed to all the relevant information. Or in other words, when peoples votes differ from the predictions of the causal model.</p>
 <p>The goal of the Global Brain algorithm is minimizing cognitive dissonance. It does this by exposing users to the informative note, reducing the inconsistency between what people upvote and what they would upvote if they were more informed.</p>
 <p>Reducing cognitive dissonance brings individual participants into greater alignment, reducing differences of opinion due to differences in information. It cannot of course eliminate differences of opinion, because opinion can be subjective, because people have different priors and different ways of processing information. But it can identify situations where differences are due to ignorance of readily available information: when one group of people believe something that another group doesn’t only because they haven’t seen the same posts.</p>
-<p>The result is a network that learns. The model learns as new information posts are submitted to the network. And the human participants in the network also learn as they are exposed to posts that bring their mental models into greater alignment.</p>
+<p>The result is a network that learns. The model learns as new posts are submitted to the network. And the human participants in the network also learn as they are exposed to posts that bring their mental models into greater alignment.</p>
 </div>
 <div id="cognitive-dissonance-as-relative-entropy" class="section level2 hasAnchor" number="2.10">
 <h2><span class="header-section-number">2.10</span> Cognitive Dissonance as Relative Entropy<a href="global-brain-overview.html#cognitive-dissonance-as-relative-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -209,7 +212,7 @@ algorithms and components of the software.</p>" />
 <p>Relative entropy is a way of measuring the distance, or error, between two probability distributions. It is similar to the measure used as the loss function when training a neural network, and in this sense, the global brain can be seen to “learn” in a sense similar to how a neural network learns.</p>
 <p>Optimizing for reducing cross entropy is sufficient to drive productive conversations, because it directs attention exactly where it needs to be directed. Consider again the example above, where subnote C “cancels out” the effect of note B on post A. This means that there is no difference between users beliefs about post A and their fully-informed beliefs, given they have seen B and C. So relative entropy is zero, and there is no value to be gained from directing more users’ attention to note B.</p>
 <p>On the other hand, since some users have already seen B and had their minds changed, there is a difference between their probability of voting on post A and the fully-informed probability. So there is still cognitive dissonance among the subset of users who were exposed to B. Exposing that subset of users to post C, until the upvote percentage of that subset matches the overall upvote percentage, will result in minimal cross-entropy.</p>
-<p>The math for calculating cross-entropy and ranking posts based on their potential to reduce cross-entropy is described in <a href="https://github.com/social-protocols/Y/blob/main/2023-10-10-entropy-ranking-formula-summary.md">this writeup</a></p>
+<p>The theory and math for calculating cross-entropy and ranking posts based on their potential to reduce cross-entropy is developed in <a href="cognitive-dissonance-and-information-rate.html">Cognitive Dissonance and Information Rate</a>.</p>
 </div>
 <div id="the-causal-model-1" class="section level2 hasAnchor" number="2.11">
 <h2><span class="header-section-number">2.11</span> The Causal Model<a href="global-brain-overview.html#the-causal-model-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -224,7 +227,7 @@ algorithms and components of the software.</p>" />
 <pre><code>𝑆𝑏 → 𝑍 → 𝐵
     ↓
     𝑌 → 𝐴</code></pre>
-<p>Now, let’s assume that the number of upvotes 𝐴 or 𝐵 is directly proportional to the number of people that believe 𝑌 or 𝑍 respectively. That is, the more informative a post, the more likely users are to upvote it.</p>
+<p>Now, let’s assume that the number of upvotes 𝐴 or 𝐵 is proportional to the number of people that believe 𝑌 or 𝑍 respectively.</p>
 <p><span class="math display">\[
 P(A = 1) \propto P(Y = 1)
 \]</span></p>
@@ -232,15 +235,15 @@ P(A = 1) \propto P(Y = 1)
 P(B = 1) \propto P(Z = 1)
 \]</span></p>
 <p>So we can kind of use 𝐴 and 𝐵 as proxies for 𝑌 and 𝑍.</p>
-<p>Now, suppose a user responds to post B with post C (e.g. <em>That video was generated by AI!</em>). <strong>Seeing</strong> post C (𝑆𝑐) indirectly causes a change in the probability that users upvote A. And for the moment, assume that 𝑆𝑐 <em>only</em> affects 𝑌 through 𝑍 (that is, 𝑌 is conditionally independent of 𝑆𝑐 given 𝑍.). So seeing post C affects the belief that 𝑍=<em>there is video evidence that bigfoot exists</em> which affects the belief 𝑌=<em>bigfoot exists</em> which affects votes 𝐴.</p>
+<p>Now, suppose a user responds to post B with post C <em>That video was generated by AI!</em>. <strong>Seeing</strong> post C (𝑆𝑐) indirectly causes a change in the probability that users upvote A. And for the moment, assume that 𝑆𝑐 <em>only</em> affects 𝑌 through 𝑍. So seeing post C affects the belief that 𝑍=<em>there is video evidence that bigfoot exists</em> which affects the belief 𝑌=<em>bigfoot exists</em> which affects 𝐴.</p>
 <p>Our causal graph looks like this:</p>
 <pre><code>     𝑆𝑐 → 𝐶
      ↓
 𝑆𝑏 → 𝑍 → 𝐵
      ↓
      𝑌 → 𝐴</code></pre>
-<p>Now, what can we do with this causal graph? Well, assuming the causal assumptions in the graph are true, we can deduce how 𝑆𝑐 will affect 𝑌 (through 𝑍), without directly observing either 𝑌 or 𝑍 (the hidden states in users’ minds), simply by observing how it affect 𝑆𝑐 effects 𝐵 and how 𝑆𝑏 effects 𝐴.</p>
-<p>This means that we can model long chains of “reasoning”, and predict how one piece of information would propagate through the global brain, even if there is no individual who actually engages in the full chain of reasoning. For example, post C=<em>That video was generated by AI!</em> might be cross-posted to a forum dedicated to identifying AI-generated videos. If a user in that forum posts a note convincing people that the video was not in fact AI generated, then the global brain can deduce that some people in the cryptobiology forum, who were convinced by note C=<em>That video was generated by AI!</em> to reduce their belief in 𝑍=<em>there is video evidence that bigfoot exists</em>, and thus change their belief 𝑌=<em>bigfoot exists</em> and thus their vote 𝐴, would not have been convinced if they had participated in the discussion in the AI fakes forum.</p>
+<p>Now, what can we do with this causal graph? Well, assuming the causal assumptions in the graph are true, we can deduce how 𝑆𝑐 will affect 𝑌 (through 𝑍), without directly observing either 𝑌 or 𝑍 (the hidden states in users’ minds), simply by observing how 𝑆𝑐 affects 𝐵 and how 𝑆𝑏 affects 𝐴.</p>
+<p>This means that we can model long chains of “reasoning”, and predict how one piece of information would propagate through the global brain, even if there is no individual who actually engages in that chain of reasoning. For example, post B (the video of bigfoot) might be cross-posted to a forum dedicated to identifying AI-generated videos. If comments in that forum convince users in that forum that the video was AI generated, then the global brain can deduce that some people in the cryptobiology forum would also be convinced. The groups of users in the two forum don’t have to overlap for information to flow between forums.</p>
 <p>This means that for very complex issues, where no individual can come close to being able to process all the information in the network, the global brain can essentially simulate a fully-informed individual by breaking the problem down into parts and propagating information between conversations using posts that are “cross-posted”.</p>
 <p>The math for calculating belief propagation is described [in another document].</p>
 
