@@ -8,7 +8,7 @@
   <meta name="description" content="<p>This is a collection of explanations arount the Y platform. In this document,
 we explain core concepts in simple terms that help to understand the
 algorithms and components of the software.</p>" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Global Brain Overview | Introduction to the Global Brain" />
   <meta property="og:type" content="book" />
@@ -102,6 +102,17 @@ algorithms and components of the software.</p>" />
 <li class="chapter" data-level="3.3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.3</b> Estimating the True Upvote Rate</a></li>
 <li class="chapter" data-level="3.4" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#the-bayesian-average"><i class="fa fa-check"></i><b>3.4</b> The Bayesian Average</a></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html"><i class="fa fa-check"></i><b>4</b> Cognitive Dissonance and Information Gain</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#key-concepts-from-information-theory"><i class="fa fa-check"></i><b>4.1</b> Key Concepts from Information Theory</a></li>
+<li class="chapter" data-level="4.2" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#surprisal-as-a-measure-of-error"><i class="fa fa-check"></i><b>4.2</b> Surprisal as a Measure of Error</a></li>
+<li class="chapter" data-level="4.3" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#total-cross-entropy"><i class="fa fa-check"></i><b>4.3</b> Total Cross Entropy</a></li>
+<li class="chapter" data-level="4.4" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#total-relative-entropy-cognitive-dissonance"><i class="fa fa-check"></i><b>4.4</b> Total Relative Entropy = Cognitive Dissonance</a></li>
+<li class="chapter" data-level="4.5" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#attention"><i class="fa fa-check"></i><b>4.5</b> Attention</a></li>
+<li class="chapter" data-level="4.6" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#vote-rate"><i class="fa fa-check"></i><b>4.6</b> Vote Rate</a></li>
+<li class="chapter" data-level="4.7" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#vote-change-rate"><i class="fa fa-check"></i><b>4.7</b> Vote Change Rate</a></li>
+<li class="chapter" data-level="4.8" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#information-rate"><i class="fa fa-check"></i><b>4.8</b> Information Rate</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -155,14 +166,15 @@ algorithms and components of the software.</p>" />
 <div id="example" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Example<a href="global-brain-overview.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For example, suppose post A is a video showing the aftermath of a recent earthquake. This post goes viral, but then somebody posts a note B on the video which says “This video is actually from an earthquake in 2004. Here is a link to the original video.”.</p>
-<p>Suppose that people who are shown note B along with the video in post A are less likely to upvote the post. This will often be the case, as many people probably upvoted out of simple ignorance, not malicious intent to spread misinformation. The global brain will conclude that:</p>
+<p>Suppose that people who are shown note B along with the video in post A are less unlikely to upvote A. This will often be the case, as many people probably upvoted out of simple ignorance, not malicious intent to spread misinformation. The global brain will conclude that:</p>
 <ol style="list-style-type: decimal">
 <li>B is <strong>informative</strong></li>
-<li>A should receive less attention, because informed users do not upvote it</li>
-<li>B should receive more attention from users who have upvoted A, in order to reduce cognitive dissonance</li>
+<li>A should receive less attention, because informed users are unlikely to upvote it</li>
+<li>B should receive more attention from users who have already seen or upvoted A, in order to reduce cognitive dissonance</li>
 </ol>
 <p>Now, suppose that it turns out the information in note B is actually wrong. For example, somebody may reply to B with a subnote C saying “No, the video in that link is completely different! This video is recent footage from CNN. Here’s a link.”</p>
-<p>The global brain can actually look at how C affects users’ votes on both A and B, to estimate how a fully informed user <strong>would</strong> have voted.</p>
+<p>The global brain can actually look at how C affects users’ votes on both B, to estimate how a fully informed user <strong>would</strong> have voted on A.</p>
+<p>If post B links different groups of users in different conversations – for example if B is “reposted” or cross-posted to more than one forum – then the global brain can observe how C affects B in one forum, and how B affects A in another forum, and “link” the two forums, predicting the probability that a fully-informed user woudl upvote A after seeing subnote C, even if no user whote voted on A actually saw subnote C.</p>
 </div>
 <div id="reason-and-argument" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Reason and Argument<a href="global-brain-overview.html#reason-and-argument" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -227,8 +239,8 @@ P(B = 1) \propto P(Z = 1)
 𝑆𝑏 → 𝑍 → 𝐵
      ↓
      𝑌 → 𝐴</code></pre>
-<p>Now, what can we do with this causal graph? Well, assuming the causal assumptions in the graph are true, we can deduce how 𝑆𝑐 will affect 𝑌 (through 𝑍), without directly observing either 𝑌 or 𝑍 (the hidden states in users’ minds), simply by observing how 𝑆𝑐 and 𝑆𝑏 (exposure of users to notes) affect 𝐵 and 𝐴 (votes).</p>
-<p>This means that we can model long chains of “reasoning”, and predict how one piece of information would propagate through the global brain, even if there is no individual who actually engages in the full chain of reasoning. For example, post C=<em>That video was generated by AI!</em> might be cross-posted to a forum dedicated to identifying AI-generated videos. If a user in that forum posts a note convincing people that the video was not in fact AI generated, then the global brain can “propagate” that information through the global brain, concluding that some people in the cryptobiology forum, who were convinced by note C=<em>That video was generated by AI!</em> to reduce their belief in 𝑍=<em>there is video evidence that bigfoot exists</em>, and thus change their belief 𝑌=<em>bigfoot exists</em> and thus their vote 𝐴, would not have been convinced if they had participated in the discussion in the AI fakes forum.</p>
+<p>Now, what can we do with this causal graph? Well, assuming the causal assumptions in the graph are true, we can deduce how 𝑆𝑐 will affect 𝑌 (through 𝑍), without directly observing either 𝑌 or 𝑍 (the hidden states in users’ minds), simply by observing how it affect 𝑆𝑐 effects 𝐵 and how 𝑆𝑏 effects 𝐴.</p>
+<p>This means that we can model long chains of “reasoning”, and predict how one piece of information would propagate through the global brain, even if there is no individual who actually engages in the full chain of reasoning. For example, post C=<em>That video was generated by AI!</em> might be cross-posted to a forum dedicated to identifying AI-generated videos. If a user in that forum posts a note convincing people that the video was not in fact AI generated, then the global brain can deduce that some people in the cryptobiology forum, who were convinced by note C=<em>That video was generated by AI!</em> to reduce their belief in 𝑍=<em>there is video evidence that bigfoot exists</em>, and thus change their belief 𝑌=<em>bigfoot exists</em> and thus their vote 𝐴, would not have been convinced if they had participated in the discussion in the AI fakes forum.</p>
 <p>This means that for very complex issues, where no individual can come close to being able to process all the information in the network, the global brain can essentially simulate a fully-informed individual by breaking the problem down into parts and propagating information between conversations using posts that are “cross-posted”.</p>
 <p>The math for calculating belief propagation is described [in another document].</p>
 
