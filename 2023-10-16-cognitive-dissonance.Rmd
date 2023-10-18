@@ -16,16 +16,18 @@ $$Suprisal(x) = -lg~P(X=x)$$
 
 $$
 \begin{aligned}
-    H(P) &= 𝔼_P -lg~P(X)  \\
+    H(P) &= 𝔼 Suprisal(X) \\
+         &= 𝔼 -lg~P(X)  \\
          &= ∑_x P(X=x) × -lg~P(X=x) \\
 \end{aligned}
 $$
 
-- **cross-entropy**: how surprised I expect Bob to be (if Bob's beliefs are q instead of p):
+- **cross-entropy**: how surprised I expect Bob to be (if Bob's beliefs are $Q$ instead of $P$):
 
 $$
 \begin{aligned}
-    H(P,Q) &= 𝔼_P -lg~Q(X) \\
+    H(P,Q) &= 𝔼 Suprisal_Q(X) \\
+           &= 𝔼 -lg~Q(X) \\
            &= ∑_x P(X=x) × -lg~Q(X=x)
 \end{aligned}
 $$
@@ -96,32 +98,9 @@ $$
 \end{aligned}
 $$
 
-$H(p,q)$ is the cross entropy between Bob and Alices's probabilities: Bob's estimate of how surprised Alice will be on average. Bob's measure for Alices's total surprise is $votesTotal×H(p,q)$.
+$H(p,q)$ is the cross entropy between Bob and Alices's probabilities: Bob's estimate of how surprised Alice will be on average. 
 
-In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. The total cross entropy is Bob's measure of Alices's total error -- or in other words, the informed user's measure of the uninformed user's total error.
-
-### Parallel to Machine Learning
-
-Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs a probability (e.g. that the image is a cat), and the cost function computes how far these probability estimates are from the correct labels.
-
-If $ŷ_i$ is the machine's predicted probability for training example $i$, and $y_i$ is the correct output (1 or 0), then the total cross entropy cost is:
-
-$$
-    \sum_i H(y_i, ŷ) = \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
-$$
-
-If $y_i$ are users votes, and $ŷ_i$ is always equal to the uninformed users prediction $q$, then our cost function is identical to the cost function used when training a neural network:
-
-$$
-\begin{aligned}
-    \sum_i H(y_i, q) &= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i) \\
-                     &= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q)  \\
-                     &= upvotes × -lg(q) + downvotes  × -lg(1 - q) \\
-                     &≈ votesTotal×H(p,q) \\
-\end{aligned}
-$$
-
-So both neural networks and the global brain "learn" by reducing cross entropy. The difference is that the global brain reduces entropy not by learning to make better predictions, but by in a sense teaching users to make better predictions of how a fully-informed user would vote.
+In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. There are $votesTotal$ "Alices", or uninformed users. Bob expects the total error of all the uninformed users to be $votesTotal×H(p,q)$.
 
 ## Total Relative Entropy = Cognitive Dissonance
 
@@ -147,93 +126,54 @@ $$
 
 So whenever the global brain learns that a note has change the probability of an upvote on a post, $p$ becomes different from $q$ and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that $q$ once again approaches $p$, cognitive dissonance is reduced.
 
-## Attention
-
-The global brain can't eliminate all cognitive dissonance -- it can only reduce it as much and as fast as possible. 
-
-Now the global brain is working with a limited resource: **attention**. Whenever the global brain shows a post to a user, it is is "spending" a certain amount of attention. Showing a post at the top of a forum home page, for example, gives it greater attention than showing it in the number two spot. But how much more attention? We need to weigh each position on the home page by the amount of attention we think that position receives in order to measure **weighted impressions**. We'll discuss the formula for measuring attention in another post.
-
-Once we know how much attention we are spending when we show posts to users in different positions, we can calculate how much cognitive dissonance is reduced, per unit of attention spent, by showing users various post/note combinations. We'll call the rate of reduction of entropy per unit of attention the **information rate**.
 
 
-## Vote Rate
+## Information Gain
 
-The first step in calculating the information rate is to estiamte the **vote rate** of a post -- the number of votes it gets per unit attention.
+When users change their votes after seeing a note, $q$ approaches $p$ and relative entropy is reduced. The reduction in relative-entropy is known as the **information gain**. The information gain from moving from $q$ to $q_1$, given informed probability $p$, is
 
 $$
 \begin{aligned}
-	voteRate &= \frac{votesTotal}{attentionTotal} \\
-             &= \frac{upvotes + downvotes}{attentionTotal}
+    IG_p(q, q1) &= Dkl(p || q) - Dkl(p || q_1) \\
+                &= p × lg~(q1/q) + (1-p) × lg~((1-q1)/(1-q))
 \end{aligned}
 $$
 
-For example, suppose a post without a note is given 10000 weighted impressions receives 900 upvotes and 100 downvotes. It's vote rate is:
+The total information gain is:
 
 $$
 \begin{aligned}
-	\frac{900~upvotes + 100~downvotes}{10000~weightedImpressions} = 0.1~\frac{votes}{weightedImpression}
+    totalInformationGain    &= votesTotal * IG_p(q, q1) \\
+                            &= votesTotal × ( Dkl(p || q) - Dkl(p || q_1) ) \\
+                            &= cognitiveDissonance - cognitiveDissonance\_1 
 \end{aligned}
 $$
 
-The vote rate can be thought of as a measure of relevance that is independent of upvote probability. A post containing disputed information may have a very high vote rate because there is a high level of agreement that the claims made in the post are relevant, but disagreement on whether they are accurate. Popular and uncontroversial content may have a high vote rate and a high $p$. Content that is uncontroversial but of interest to only a small group may have a low vote rate 
-and a high $p$, and so on.
+### Example
 
-## Vote Change Rate
+Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.
 
-If 10000 impressions on the post produced 1000 votes, then we would assume another 10000 weighted impressions to new users would produce another 1000 votes. But what about another 10000 impressions to users who already voted on the post? How many vote **changes** do we expect.
-
-There are many things that could effect users decision to change a vote. But a starting assumption is to assume that users **beliefs** would be the same whether or not they have already voted. That is, whatever belief states users hold that cause them to decide to upvote/downvote would be the same for users who are shown the post with the note, whether or not they have already voted on the post without the note.
-
-So we assume that 1000 people choose how they want to vote, but not all of them actually change their vote because their current vote is already what they want it to be.
-
-Of the 1000 users, we expect 200 to choose "upvote", and 800 to choose "downvote". Since 900 previously upvoted, so only 900-200=700 change their vote to a downvote. So we expect $votesTotal*(p-q)$ vote changes.
-
-So the expected rate at which votes change (per unit of attention) is:
+The total cognitive dissonance is:
 
 $$
 \begin{aligned}
-	voteChangeRate &= votesTotal×\frac{p-q}{attentionTotal} \\
-				   &= (p-q)×voteRate \\
-				   &= (.2-.9) * .1  \\
-				   &= -.07~\frac{votes}{weightedImpression}
+        cognitiveDissonance    &= votesTotal × Dkl(p || q) \\
+                               &= votesTotal × ( p × lg~\frac{p}{q} + (1-p) × lg~\frac{1-p}{1-q} ) \\
+                               &= 1000 × ( .2 × lg~\frac{.2}{.9} + .8 × lg~\frac{.8}{.1} ) \\
+                               &= 1966.01 
 \end{aligned}
 $$
 
-As the global brain gathers data about how users actually change their votes, the estimated vote change rate can be adjusted.
-
-## Information Rate
-
-Suppose that of the 1000 votes the above post received, 90% were upvotes. But then the global brain discovers that a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.
-
-The total cognitive dissonance is 
-
-$$
-\begin{aligned}
-    	cognitiveDissonance    &= votesTotal × Dkl(p || q) \\
-	                           &= votesTotal × ( p × lg(p/q) + (1-p) × lg((1-p)/(1-q)) ) \\
-	                           &= 1000 × ( .2 × lg(.2/.9) + .8 × lg(.8/.1) ) \\
-	                           &= 1966.01 
-\end{aligned}
-$$
-
-So after another, say, 1000 weighted impressions ($deltaAttention=1000$) the total upvotes will be:
-
-$$
-\begin{aligned}
-	newUpvotes &= votesTotal*q + (p-q)×voteRate×deltaAttention \\
-			   &= 900~votes + -.07~\frac{votes}{weightedImpression} × 1000~weightedImpressions \\
-               &= 900 - 70 = 830
-\end{aligned}
-$$
+Suppose that, after showing the note to users that already upvoted the post, 70 users change their upvote to a downvote. 
 
 The new upvote probability $q_1$ will be approximately
 
 $$
 \begin{aligned}
-	q_1  &≈ \frac{upvotes}{votesTotal} \\
-	   &= \frac{votesTotal×q + voteChangeRate×deltaAttention}{votesTotal} \\
-	   &= q + \frac{ voteChangeRate×deltaAttention}{votesTotal} ) \\
-	   &= .9 + -.07 × 1000/1000 = .83 
+    q_1  &≈ \frac{upvotes}{votesTotal} \\
+       &= \frac{votesTotal×q - 70}{votesTotal} \\
+       &= \frac{1000 * .90 - 70}{1000} \\
+       &= .83 
 \end{aligned}
 $$
 
@@ -241,15 +181,35 @@ The new cognitive dissonance will therefore be
 
 $$
 \begin{aligned}
-	& votesTotal \times DKL(p, q_1)\\
-	& = votesTotal \times DKL(p, ( q + voteChangeRate/votesTotal ) )\\
-	& = votesTotal \times DKL(.2, .83 ) \\
-	& = 1376.95~bits
+    cognitiveDissonance_1 \\
+    &= votesTotal × DKL(p, q_1)\\
+    &= votesTotal × DKL(.2, .83 ) \\
+    &= 1376.95~bits
 \end{aligned}
 $$
 
+The reduction in cognitive dissonance is the total information gain:
 
-The table below shows cognitive dissonance falls as users change upvotes to downvotes, reaching zero when $p=q$ and therefore $upvotes=p*votesTotal=200$.
+$$
+\begin{aligned}
+    totalInformationGain    &= cognitiveDissonance - cognitiveDissonance_1 \\
+                            &= 1966.01~bits - 1376.95~bits \\
+                            &= 589.07~bits 
+\end{aligned}
+$$
+
+Which can also be calculated as:
+
+$$
+\begin{aligned}
+    totalInformationGain    &= votesTotal × IG_p(q, q1)  \\
+                            &= votesTotal × p × lg~(q1/q) + (1-p) × lg~((1-q1)/(1-q)) \\
+                            &= 1000 × 0.58907~bits \\
+                            &= 589.07~bits 
+\end{aligned}
+$$
+
+The table below shows how relative entropy falls as users change upvotes to downvotes, reaching zero when $p=q_t$ and therefore $upvotes=p×votesTotal=200$.
 
 ```{r}
 
@@ -293,7 +253,8 @@ dissonance = votesTotal * dkl(p,q)
 gain = dissonance[1:steps] - c(dissonance[2:steps],c(0))
 totalDissonance = dissonance[1]
 
-df = data.frame(weightedImpressions=step*deltaAttention, q=q, upvotes=upvotes,dissonance=dissonance,informationGain=c(NA,gain))
+#df = data.frame(weightedImpressions=step*deltaAttention, q_t=q, upvotes=upvotes, dissonance=dissonance,informationGain=c(NA,gain))
+df = data.frame(q_t=q, upvotes=upvotes,dkl=dkl(p,q), dissonance=dissonance,informationGain=c(NA,gain))
 
 knitr::kable(df, format="markdown")
 
@@ -305,9 +266,9 @@ knitr::kable(df, format="markdown")
 plot = ggplot() +
   geom_line(aes(x = upvotes, y = dissonance), color = "firebrick") +
   labs(
-    title = "Information Gain from Changed Votes",
+    title = "Cognitive Dissonance Falls (Information is Gained) votes change",
     x = "Upvotes",
-    y = "Cognitive Dissonance: votesTotal * Dkl(p,q)",
+    y = "Cognitive Dissonance: votesTotal * Dkl(p || q_t)",
   ) 
 
 
@@ -318,64 +279,68 @@ plot
 ```
 
 
+Note how changing upvotes produces diminishing returns. Focusing attention on posts and notes that maximize the rate of information gain is the overall goal of the global brain algorithm. See the next document on [information-rate.html].
 
-The reduction in cognitive dissonance after the first 1000 weighted impressions is:
+
+## Discussion
+
+### Parallel to Machine Learning
+
+Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs a probability (e.g. that the image is a cat). The cost function computes how far these probability estimates are from the correct labels, and the neural network is trained by minimizing the cost function.
+
+If $ŷ_i$ is the machine's predicted probability for training example $i$, and $y_i$ is the correct output (1 or 0), then the total cross entropy cost is:
+
+$$
+    \sum_i H(y_i, ŷ) = \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
+$$
+
+
+In our case, if we say that $y_i$ are users votes, and $ŷ_i$ is always equal to the uninformed users prediction $q$, then our cost function is identical to the cost function used when training a neural network:
 
 $$
 \begin{aligned}
-    &votesTotal * DKL(p, q) \\
-    &- votesTotal * DKL(p, q_1) \\
-    &= 1966.01 -  1376.95 bits \\
-    &= 589.07 bits 
+    \sum_i H(y_i, q) &= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i) \\
+                     &= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q)  \\
+                     &= upvotes × -lg(q) + downvotes  × -lg(1 - q) \\
+                     &≈ votesTotal×H(p,q) \\
 \end{aligned}
 $$
 
-Which reduces to an information gain rate, or simply **information rate**, of approximately:
+So both neural networks and the global brain "learn" by reducing cross entropy. The difference is that the global brain reduces entropy not by learning to make better predictions, but by in a sense teaching users to make better predictions of how a fully-informed user would vote.
 
-$$
-  informationRate ≈ \frac{589.07 bits}{1000 weightedImpressions} ≈ .589~\frac{bits}{weightedImpression}
-$$
+### A Subtle Point
 
-
-The expected reduction of entropy per unit of attention can be written as:
+Note that cross-entropy in our case is a measure of the total surprise of uninformed users at the hypothetical future votes of informed users. That is to say, it is:
 
 $$
 \begin{aligned}
-                q_{t+1} &= q_t + \frac{voteChangeRate}{votesTotal} )  \\
-    informationRate &= votesTotal×(p×lg~\frac{q_{t+1}}{q_t} + (1-p)×lg\frac{1-q_{t+1}}{1-q_t} ) 
+    & votesTotal×p × -lg(q) + votesTotal×(1-p) × -lg(1-q) ) \\
+    &≈ hypotheticalInformedUpvotes × -lg(q) + hypotheticalInformedDownvotes × -lg(1-q) ) \\
+    &= votesTotal×H(p,q)
 \end{aligned}
 $$
 
-As $q_t$ approaches $p$ the information rate falls until it reaches 0 when $q_t==p$, as shown in the chart below:
+And not
 
-```{r, fig.width=6, fig.height=5}
+$$
+\begin{aligned}
+    & votesTotal×q × -lg(q) + votesTotal×(1-q) × -lg(1-q) ) \\
+    &≈ actualUpvotes × -lg(q) + actualDownvotes × -lg(1-q) ) \\
+    &= votesTotal×H(q)
+\end{aligned}
+$$
 
+This is potentially confusing (it caused me a great deal of confusion before I figured this out) because we are measuring the error of Alice's estimated probability $q$ with respect to hypothetical events that have have not yet actually occurred. But shouldn't we be measuring the error of the votes that have occurred?
 
+No, because surprisal is a measure of the error of a probability estimate: how likely the event was estimated to be, vs. what event actually occurred.
 
-plot = ggplot() +
-  geom_line(aes(x = q[1:steps], y = gain/deltaAttention), color = "firebrick") +
-  labs(
-    title = "Information Rate",
-    x = "q",
-    y = "Expected Information Gain (bits / weightedImpression)",
-  )
+The uninformed user's total surprisal about uninformed vote events is just $votesTotal*H(q)$. But this tells us nothing about error with respect to an informed users's beliefs. The informed users's total surprisal about uninformed votes $votesTotal*H(q,p)$ is potentially interesting is a measure of the distance between actual and informed belief, but is less correct because it is measuring Bob's error, not Alices's. 
 
-
-if(p < q0) { plot = plot + scale_x_reverse() }
-plot
-
-```
+$votesTotal×H(p,q)$ makes the most sense as a measure of the tension between the current state of user's beliefs, and what that state **should** be, which is a hypothetical future where all users have changed their upvotes because of the information in the note, and thus $actualUpvotes = hypotheticalInformedUpvotes$ and $actualDownvotes = hypotheticalInformedDownvotes$.
 
 
 
 
-NOTES/TODOS:
-
-- This assumes a constant vote change rate, so upvotes move linearly from $q*votesTotal$ to $p*votesTotal$. However, in reality what we should see is a decaying growth rate. However, it makes little difference in practice.
-
-- with this model, the total change in cognitive dissonance by the time $p = q$ is exactly equal to the starting cognitive dissonance.
-
-- voteChangeRate will change over time as more and more users see the post but don't change their vote. We can use a moving average or build in a fatigue model
 
 
 
