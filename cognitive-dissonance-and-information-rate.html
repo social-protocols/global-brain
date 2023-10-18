@@ -106,15 +106,17 @@ algorithms and components of the software.</p>" />
 <ul>
 <li class="chapter" data-level="4.1" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#key-concepts-from-information-theory"><i class="fa fa-check"></i><b>4.1</b> Key Concepts from Information Theory</a></li>
 <li class="chapter" data-level="4.2" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#surprisal-as-a-measure-of-error"><i class="fa fa-check"></i><b>4.2</b> Surprisal as a Measure of Error</a></li>
-<li class="chapter" data-level="4.3" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#total-cross-entropy"><i class="fa fa-check"></i><b>4.3</b> Total Cross Entropy</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>4.3.1</b> Parallel to Machine Learning</a></li>
-</ul></li>
+<li class="chapter" data-level="4.3" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#total-cross-entropy"><i class="fa fa-check"></i><b>4.3</b> Total Cross Entropy</a></li>
 <li class="chapter" data-level="4.4" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#total-relative-entropy-cognitive-dissonance"><i class="fa fa-check"></i><b>4.4</b> Total Relative Entropy = Cognitive Dissonance</a></li>
-<li class="chapter" data-level="4.5" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#attention"><i class="fa fa-check"></i><b>4.5</b> Attention</a></li>
-<li class="chapter" data-level="4.6" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#vote-rate"><i class="fa fa-check"></i><b>4.6</b> Vote Rate</a></li>
-<li class="chapter" data-level="4.7" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#vote-change-rate"><i class="fa fa-check"></i><b>4.7</b> Vote Change Rate</a></li>
-<li class="chapter" data-level="4.8" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#information-rate"><i class="fa fa-check"></i><b>4.8</b> Information Rate</a></li>
+<li class="chapter" data-level="4.5" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#information-gain"><i class="fa fa-check"></i><b>4.5</b> Information Gain</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#example-1"><i class="fa fa-check"></i><b>4.5.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#discussion"><i class="fa fa-check"></i><b>4.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>4.6.1</b> Parallel to Machine Learning</a></li>
+<li class="chapter" data-level="4.6.2" data-path="cognitive-dissonance-and-information-rate.html"><a href="cognitive-dissonance-and-information-rate.html#a-subtle-point"><i class="fa fa-check"></i><b>4.6.2</b> A Subtle Point</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -153,16 +155,18 @@ algorithms and components of the software.</p>" />
 </ul>
 <p><span class="math display">\[
 \begin{aligned}
-    H(P) &amp;= 𝔼_P -lg~P(X)  \\
+    H(P) &amp;= 𝔼 Suprisal(X) \\
+         &amp;= 𝔼 -lg~P(X)  \\
          &amp;= ∑_x P(X=x) × -lg~P(X=x) \\
 \end{aligned}
 \]</span></p>
 <ul>
-<li><strong>cross-entropy</strong>: how surprised I expect Bob to be (if Bob’s beliefs are q instead of p):</li>
+<li><strong>cross-entropy</strong>: how surprised I expect Bob to be (if Bob’s beliefs are <span class="math inline">\(Q\)</span> instead of <span class="math inline">\(P\)</span>):</li>
 </ul>
 <p><span class="math display">\[
 \begin{aligned}
-    H(P,Q) &amp;= 𝔼_P -lg~Q(X) \\
+    H(P,Q) &amp;= 𝔼 Suprisal_Q(X) \\
+           &amp;= 𝔼 -lg~Q(X) \\
            &amp;= ∑_x P(X=x) × -lg~Q(X=x)
 \end{aligned}
 \]</span></p>
@@ -218,26 +222,8 @@ algorithms and components of the software.</p>" />
     &amp;= votesTotal×H(p,q) \\
 \end{aligned}
 \]</span></p>
-<p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s probabilities: Bob’s estimate of how surprised Alice will be on average. Bob’s measure for Alices’s total surprise is <span class="math inline">\(votesTotal×H(p,q)\)</span>.</p>
-<p>In our case, Alice represents the average uninformed user (users who haven’t seen the note on a post), and Bob represents the informed user. The total cross entropy is Bob’s measure of Alices’s total error – or in other words, the informed user’s measure of the uninformed user’s total error.</p>
-<div id="parallel-to-machine-learning" class="section level3 hasAnchor" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Parallel to Machine Learning<a href="cognitive-dissonance-and-information-rate.html#parallel-to-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs a probability (e.g. that the image is a cat), and the cost function computes how far these probability estimates are from the correct labels.</p>
-<p>If <span class="math inline">\(ŷ_i\)</span> is the machine’s predicted probability for training example <span class="math inline">\(i\)</span>, and <span class="math inline">\(y_i\)</span> is the correct output (1 or 0), then the total cross entropy cost is:</p>
-<p><span class="math display">\[
-    \sum_i H(y_i, ŷ) = \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
-\]</span></p>
-<p>If <span class="math inline">\(y_i\)</span> are users votes, and <span class="math inline">\(ŷ_i\)</span> is always equal to the uninformed users prediction <span class="math inline">\(q\)</span>, then our cost function is identical to the cost function used when training a neural network:</p>
-<p><span class="math display">\[
-\begin{aligned}
-    \sum_i H(y_i, q) &amp;= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i) \\
-                     &amp;= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q)  \\
-                     &amp;= upvotes × -lg(q) + downvotes  × -lg(1 - q) \\
-                     &amp;≈ votesTotal×H(p,q) \\
-\end{aligned}
-\]</span></p>
-<p>So both neural networks and the global brain “learn” by reducing cross entropy. The difference is that the global brain reduces entropy not by learning to make better predictions, but by in a sense teaching users to make better predictions of how a fully-informed user would vote.</p>
-</div>
+<p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s probabilities: Bob’s estimate of how surprised Alice will be on average.</p>
+<p>In our case, Alice represents the average uninformed user (users who haven’t seen the note on a post), and Bob represents the informed user. There are <span class="math inline">\(votesTotal\)</span> “Alices”, or uninformed users. Bob expects the total error of all the uninformed users to be <span class="math inline">\(votesTotal×H(p,q)\)</span>.</p>
 </div>
 <div id="total-relative-entropy-cognitive-dissonance" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Total Relative Entropy = Cognitive Dissonance<a href="cognitive-dissonance-and-information-rate.html#total-relative-entropy-cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -256,206 +242,210 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 \]</span></p>
 <p>So whenever the global brain learns that a note has change the probability of an upvote on a post, <span class="math inline">\(p\)</span> becomes different from <span class="math inline">\(q\)</span> and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that <span class="math inline">\(q\)</span> once again approaches <span class="math inline">\(p\)</span>, cognitive dissonance is reduced.</p>
 </div>
-<div id="attention" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> Attention<a href="cognitive-dissonance-and-information-rate.html#attention" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The global brain can’t eliminate all cognitive dissonance – it can only reduce it as much and as fast as possible.</p>
-<p>Now the global brain is working with a limited resource: <strong>attention</strong>. Whenever the global brain shows a post to a user, it is is “spending” a certain amount of attention. Showing a post at the top of a forum home page, for example, gives it greater attention than showing it in the number two spot. But how much more attention? We need to weigh each position on the home page by the amount of attention we think that position receives in order to measure <strong>weighted impressions</strong>. We’ll discuss the formula for measuring attention in another post.</p>
-<p>Once we know how much attention we are spending when we show posts to users in different positions, we can calculate how much cognitive dissonance is reduced, per unit of attention spent, by showing users various post/note combinations. We’ll call the rate of reduction of entropy per unit of attention the <strong>information rate</strong>.</p>
-</div>
-<div id="vote-rate" class="section level2 hasAnchor" number="4.6">
-<h2><span class="header-section-number">4.6</span> Vote Rate<a href="cognitive-dissonance-and-information-rate.html#vote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The first step in calculating the information rate is to estiamte the <strong>vote rate</strong> of a post – the number of votes it gets per unit attention.</p>
+<div id="information-gain" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Information Gain<a href="cognitive-dissonance-and-information-rate.html#information-gain" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When users change their votes after seeing a note, <span class="math inline">\(q\)</span> approaches <span class="math inline">\(p\)</span> and relative entropy is reduced. The reduction in relative-entropy is known as the <strong>information gain</strong>. The information gain from moving from <span class="math inline">\(q\)</span> to <span class="math inline">\(q_1\)</span>, given informed probability <span class="math inline">\(p\)</span>, is</p>
 <p><span class="math display">\[
 \begin{aligned}
-    voteRate &amp;= \frac{votesTotal}{attentionTotal} \\
-             &amp;= \frac{upvotes + downvotes}{attentionTotal}
+    IG_p(q, q1) &amp;= Dkl(p || q) - Dkl(p || q_1) \\
+                &amp;= p × lg~(q1/q) + (1-p) × lg~((1-q1)/(1-q))
 \end{aligned}
 \]</span></p>
-<p>For example, suppose a post without a note is given 10000 weighted impressions receives 900 upvotes and 100 downvotes. It’s vote rate is:</p>
+<p>The total information gain is:</p>
 <p><span class="math display">\[
 \begin{aligned}
-    \frac{900~upvotes + 100~downvotes}{10000~weightedImpressions} = 0.1~\frac{votes}{weightedImpression}
+    totalInformationGain    &amp;= votesTotal * IG_p(q, q1) \\
+                            &amp;= votesTotal × ( Dkl(p || q) - Dkl(p || q_1) ) \\
+                            &amp;= cognitiveDissonance - cognitiveDissonance\_1
 \end{aligned}
 \]</span></p>
-<p>The vote rate can be thought of as a measure of relevance that is independent of upvote probability. A post containing disputed information may have a very high vote rate because there is a high level of agreement that the claims made in the post are relevant, but disagreement on whether they are accurate. Popular and uncontroversial content may have a high vote rate and a high <span class="math inline">\(p\)</span>. Content that is uncontroversial but of interest to only a small group may have a low vote rate
-and a high <span class="math inline">\(p\)</span>, and so on.</p>
-</div>
-<div id="vote-change-rate" class="section level2 hasAnchor" number="4.7">
-<h2><span class="header-section-number">4.7</span> Vote Change Rate<a href="cognitive-dissonance-and-information-rate.html#vote-change-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>If 10000 impressions on the post produced 1000 votes, then we would assume another 10000 weighted impressions to new users would produce another 1000 votes. But what about another 10000 impressions to users who already voted on the post? How many vote <strong>changes</strong> do we expect.</p>
-<p>There are many things that could effect users decision to change a vote. But a starting assumption is to assume that users <strong>beliefs</strong> would be the same whether or not they have already voted. That is, whatever belief states users hold that cause them to decide to upvote/downvote would be the same for users who are shown the post with the note, whether or not they have already voted on the post without the note.</p>
-<p>So we assume that 1000 people choose how they want to vote, but not all of them actually change their vote because their current vote is already what they want it to be.</p>
-<p>Of the 1000 users, we expect 200 to choose “upvote”, and 800 to choose “downvote”. Since 900 previously upvoted, so only 900-200=700 change their vote to a downvote. So we expect <span class="math inline">\(votesTotal*(p-q)\)</span> vote changes.</p>
-<p>So the expected rate at which votes change (per unit of attention) is:</p>
-<p><span class="math display">\[
-\begin{aligned}
-    voteChangeRate &amp;= votesTotal×\frac{p-q}{attentionTotal} \\
-                   &amp;= (p-q)×voteRate \\
-                   &amp;= (.2-.9) * .1  \\
-                   &amp;= -.07~\frac{votes}{weightedImpression}
-\end{aligned}
-\]</span></p>
-<p>As the global brain gathers data about how users actually change their votes, the estimated vote change rate can be adjusted.</p>
-</div>
-<div id="information-rate" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Information Rate<a href="cognitive-dissonance-and-information-rate.html#information-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Suppose that of the 1000 votes the above post received, 90% were upvotes. But then the global brain discovers that a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.</p>
-<p>The total cognitive dissonance is</p>
+<div id="example-1" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Example<a href="cognitive-dissonance-and-information-rate.html#example-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.</p>
+<p>The total cognitive dissonance is:</p>
 <p><span class="math display">\[
 \begin{aligned}
         cognitiveDissonance    &amp;= votesTotal × Dkl(p || q) \\
-                               &amp;= votesTotal × ( p × lg(p/q) + (1-p) × lg((1-p)/(1-q)) ) \\
-                               &amp;= 1000 × ( .2 × lg(.2/.9) + .8 × lg(.8/.1) ) \\
+                               &amp;= votesTotal × ( p × lg~\frac{p}{q} + (1-p) × lg~\frac{1-p}{1-q} ) \\
+                               &amp;= 1000 × ( .2 × lg~\frac{.2}{.9} + .8 × lg~\frac{.8}{.1} ) \\
                                &amp;= 1966.01
 \end{aligned}
 \]</span></p>
-<p>So after another, say, 1000 weighted impressions (<span class="math inline">\(deltaAttention=1000\)</span>) the total upvotes will be:</p>
-<p><span class="math display">\[
-\begin{aligned}
-    newUpvotes &amp;= votesTotal*q + (p-q)×voteRate×deltaAttention \\
-               &amp;= 900~votes + -.07~\frac{votes}{weightedImpression} × 1000~weightedImpressions \\
-               &amp;= 900 - 70 = 830
-\end{aligned}
-\]</span></p>
+<p>Suppose that, after showing the note to users that already upvoted the post, 70 users change their upvote to a downvote.</p>
 <p>The new upvote probability <span class="math inline">\(q_1\)</span> will be approximately</p>
 <p><span class="math display">\[
 \begin{aligned}
     q_1  &amp;≈ \frac{upvotes}{votesTotal} \\
-       &amp;= \frac{votesTotal×q + voteChangeRate×deltaAttention}{votesTotal} \\
-       &amp;= q + \frac{ voteChangeRate×deltaAttention}{votesTotal} ) \\
-       &amp;= .9 + -.07 × 1000/1000 = .83
+       &amp;= \frac{votesTotal×q - 70}{votesTotal} \\
+       &amp;= \frac{1000 * .90 - 70}{1000} \\
+       &amp;= .83
 \end{aligned}
 \]</span></p>
 <p>The new cognitive dissonance will therefore be</p>
 <p><span class="math display">\[
 \begin{aligned}
-    &amp; votesTotal \times DKL(p, q_1)\\
-    &amp; = votesTotal \times DKL(p, ( q + voteChangeRate/votesTotal ) )\\
-    &amp; = votesTotal \times DKL(.2, .83 ) \\
-    &amp; = 1376.95~bits
+    cognitiveDissonance_1 \\
+    &amp;= votesTotal × DKL(p, q_1)\\
+    &amp;= votesTotal × DKL(.2, .83 ) \\
+    &amp;= 1376.95~bits
 \end{aligned}
 \]</span></p>
-<p>The table below shows cognitive dissonance falls as users change upvotes to downvotes, reaching zero when <span class="math inline">\(p=q\)</span> and therefore <span class="math inline">\(upvotes=p*votesTotal=200\)</span>.</p>
+<p>The reduction in cognitive dissonance is the total information gain:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    totalInformationGain    &amp;= cognitiveDissonance - cognitiveDissonance_1 \\
+                            &amp;= 1966.01~bits - 1376.95~bits \\
+                            &amp;= 589.07~bits
+\end{aligned}
+\]</span></p>
+<p>Which can also be calculated as:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    totalInformationGain    &amp;= votesTotal × IG_p(q, q1)  \\
+                            &amp;= votesTotal × p × lg~(q1/q) + (1-p) × lg~((1-q1)/(1-q)) \\
+                            &amp;= 1000 × 0.58907~bits \\
+                            &amp;= 589.07~bits
+\end{aligned}
+\]</span></p>
+<p>The table below shows how relative entropy falls as users change upvotes to downvotes, reaching zero when <span class="math inline">\(p=q_t\)</span> and therefore <span class="math inline">\(upvotes=p×votesTotal=200\)</span>.</p>
 <table>
 <thead>
 <tr class="header">
-<th align="right">weightedImpressions</th>
-<th align="right">q</th>
+<th align="right">q_t</th>
 <th align="right">upvotes</th>
+<th align="right">dkl</th>
 <th align="right">dissonance</th>
 <th align="right">informationGain</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">0</td>
 <td align="right">0.90</td>
 <td align="right">900</td>
+<td align="right">1.9660150</td>
 <td align="right">1966.01500</td>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
-<td align="right">1000</td>
 <td align="right">0.83</td>
 <td align="right">830</td>
+<td align="right">1.3769499</td>
 <td align="right">1376.94994</td>
 <td align="right">589.06506</td>
 </tr>
 <tr class="odd">
-<td align="right">2000</td>
 <td align="right">0.76</td>
 <td align="right">760</td>
+<td align="right">1.0043726</td>
 <td align="right">1004.37259</td>
 <td align="right">372.57734</td>
 </tr>
 <tr class="even">
-<td align="right">3000</td>
 <td align="right">0.69</td>
 <td align="right">690</td>
+<td align="right">0.7368662</td>
 <td align="right">736.86616</td>
 <td align="right">267.50644</td>
 </tr>
 <tr class="odd">
-<td align="right">4000</td>
 <td align="right">0.62</td>
 <td align="right">620</td>
+<td align="right">0.5327468</td>
 <td align="right">532.74682</td>
 <td align="right">204.11933</td>
 </tr>
 <tr class="even">
-<td align="right">5000</td>
 <td align="right">0.55</td>
 <td align="right">550</td>
+<td align="right">0.3721737</td>
 <td align="right">372.17368</td>
 <td align="right">160.57315</td>
 </tr>
 <tr class="odd">
-<td align="right">6000</td>
 <td align="right">0.48</td>
 <td align="right">480</td>
+<td align="right">0.2445838</td>
 <td align="right">244.58382</td>
 <td align="right">127.58985</td>
 </tr>
 <tr class="even">
-<td align="right">7000</td>
 <td align="right">0.41</td>
 <td align="right">410</td>
+<td align="right">0.1443033</td>
 <td align="right">144.30325</td>
 <td align="right">100.28057</td>
 </tr>
 <tr class="odd">
-<td align="right">8000</td>
 <td align="right">0.34</td>
 <td align="right">340</td>
+<td align="right">0.0689202</td>
 <td align="right">68.92023</td>
 <td align="right">75.38302</td>
 </tr>
 <tr class="even">
-<td align="right">9000</td>
 <td align="right">0.27</td>
 <td align="right">270</td>
+<td align="right">0.0190909</td>
 <td align="right">19.09095</td>
 <td align="right">49.82928</td>
 </tr>
 <tr class="odd">
-<td align="right">10000</td>
 <td align="right">0.20</td>
 <td align="right">200</td>
+<td align="right">0.0000000</td>
 <td align="right">0.00000</td>
 <td align="right">19.09095</td>
 </tr>
 </tbody>
 </table>
 <p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
-<p>The reduction in cognitive dissonance after the first 1000 weighted impressions is:</p>
+<p>Note how changing upvotes produces diminishing returns. Focusing attention on posts and notes that maximize the rate of information gain is the overall goal of the global brain algorithm. See the next document on [information-rate.html].</p>
+</div>
+</div>
+<div id="discussion" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Discussion<a href="cognitive-dissonance-and-information-rate.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="parallel-to-machine-learning" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> Parallel to Machine Learning<a href="cognitive-dissonance-and-information-rate.html#parallel-to-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs a probability (e.g. that the image is a cat). The cost function computes how far these probability estimates are from the correct labels, and the neural network is trained by minimizing the cost function.</p>
+<p>If <span class="math inline">\(ŷ_i\)</span> is the machine’s predicted probability for training example <span class="math inline">\(i\)</span>, and <span class="math inline">\(y_i\)</span> is the correct output (1 or 0), then the total cross entropy cost is:</p>
+<p><span class="math display">\[
+    \sum_i H(y_i, ŷ) = \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
+\]</span></p>
+<p>In our case, if we say that <span class="math inline">\(y_i\)</span> are users votes, and <span class="math inline">\(ŷ_i\)</span> is always equal to the uninformed users prediction <span class="math inline">\(q\)</span>, then our cost function is identical to the cost function used when training a neural network:</p>
 <p><span class="math display">\[
 \begin{aligned}
-    &amp;votesTotal * DKL(p, q) \\
-    &amp;- votesTotal * DKL(p, q_1) \\
-    &amp;= 1966.01 -  1376.95 bits \\
-    &amp;= 589.07 bits
+    \sum_i H(y_i, q) &amp;= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i) \\
+                     &amp;= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q)  \\
+                     &amp;= upvotes × -lg(q) + downvotes  × -lg(1 - q) \\
+                     &amp;≈ votesTotal×H(p,q) \\
 \end{aligned}
 \]</span></p>
-<p>Which reduces to an information gain rate, or simply <strong>information rate</strong>, of approximately:</p>
-<p><span class="math display">\[
-  informationRate ≈ \frac{589.07 bits}{1000 weightedImpressions} ≈ .589~\frac{bits}{weightedImpression}
-\]</span></p>
-<p>The expected reduction of entropy per unit of attention can be written as:</p>
+<p>So both neural networks and the global brain “learn” by reducing cross entropy. The difference is that the global brain reduces entropy not by learning to make better predictions, but by in a sense teaching users to make better predictions of how a fully-informed user would vote.</p>
+</div>
+<div id="a-subtle-point" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> A Subtle Point<a href="cognitive-dissonance-and-information-rate.html#a-subtle-point" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Note that cross-entropy in our case is a measure of the total surprise of uninformed users at the hypothetical future votes of informed users. That is to say, it is:</p>
 <p><span class="math display">\[
 \begin{aligned}
-                q_{t+1} &amp;= q_t + \frac{voteChangeRate}{votesTotal} )  \\
-    informationRate &amp;= votesTotal×(p×lg~\frac{q_{t+1}}{q_t} + (1-p)×lg\frac{1-q_{t+1}}{1-q_t} )
+    &amp; votesTotal×p × -lg(q) + votesTotal×(1-p) × -lg(1-q) ) \\
+    &amp;≈ hypotheticalInformedUpvotes × -lg(q) + hypotheticalInformedDownvotes × -lg(1-q) ) \\
+    &amp;= votesTotal×H(p,q)
 \end{aligned}
 \]</span></p>
-<p>As <span class="math inline">\(q_t\)</span> approaches <span class="math inline">\(p\)</span> the information rate falls until it reaches 0 when <span class="math inline">\(q_t==p\)</span>, as shown in the chart below:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="576" /></p>
-<p>NOTES/TODOS:</p>
-<ul>
-<li><p>This assumes a constant vote change rate, so upvotes move linearly from <span class="math inline">\(q*votesTotal\)</span> to <span class="math inline">\(p*votesTotal\)</span>. However, in reality what we should see is a decaying growth rate. However, it makes little difference in practice.</p></li>
-<li><p>with this model, the total change in cognitive dissonance by the time <span class="math inline">\(p = q\)</span> is exactly equal to the starting cognitive dissonance.</p></li>
-<li><p>voteChangeRate will change over time as more and more users see the post but don’t change their vote. We can use a moving average or build in a fatigue model</p></li>
-</ul>
+<p>And not</p>
+<p><span class="math display">\[
+\begin{aligned}
+    &amp; votesTotal×q × -lg(q) + votesTotal×(1-q) × -lg(1-q) ) \\
+    &amp;≈ actualUpvotes × -lg(q) + actualDownvotes × -lg(1-q) ) \\
+    &amp;= votesTotal×H(q)
+\end{aligned}
+\]</span></p>
+<p>This is potentially confusing (it caused me a great deal of confusion before I figured this out) because we are measuring the error of Alice’s estimated probability <span class="math inline">\(q\)</span> with respect to hypothetical events that have have not yet actually occurred. But shouldn’t we be measuring the error of the votes that have occurred?</p>
+<p>No, because surprisal is a measure of the error of a probability estimate: how likely the event was estimated to be, vs. what event actually occurred.</p>
+<p>The uninformed user’s total surprisal about uninformed vote events is just <span class="math inline">\(votesTotal*H(q)\)</span>. But this tells us nothing about error with respect to an informed users’s beliefs. The informed users’s total surprisal about uninformed votes <span class="math inline">\(votesTotal*H(q,p)\)</span> is potentially interesting is a measure of the distance between actual and informed belief, but is less correct because it is measuring Bob’s error, not Alices’s.</p>
+<p><span class="math inline">\(votesTotal×H(p,q)\)</span> makes the most sense as a measure of the tension between the current state of user’s beliefs, and what that state <strong>should</strong> be, which is a hypothetical future where all users have changed their upvotes because of the information in the note, and thus <span class="math inline">\(actualUpvotes = hypotheticalInformedUpvotes\)</span> and <span class="math inline">\(actualDownvotes = hypotheticalInformedDownvotes\)</span>.</p>
 
+</div>
 </div>
 </div>
             </section>

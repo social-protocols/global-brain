@@ -20,9 +20,9 @@ cognitive-dissonance-and-information-rate
 key-concepts-from-information-theory
 surprisal-as-a-measure-of-error
 total-cross-entropy
-parallel-to-machine-learning
 total-relative-entropy-cognitive-dissonance
-attention
-vote-rate
-vote-change-rate
-information-rate
+information-gain
+example-1
+discussion
+parallel-to-machine-learning
+a-subtle-point
