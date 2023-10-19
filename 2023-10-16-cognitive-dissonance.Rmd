@@ -1,8 +1,6 @@
-# Cognitive Dissonance and Information Gain
+# Cognitive Dissonance
 
 As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that exist only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of entropy.
-
-In information theory, information is simply the reduction of entropy. So reducing cognitive dissonance can also be seen as gaining information. So the goal of the global brain algorithm should be to direct attention to notes with the greatest potential information gain.
 
 ## Key Concepts from Information Theory
 
@@ -10,15 +8,15 @@ Here's a quick summary of some basic concepts of information theory, building up
 
 - **surprisal**: how surprised I am when I learn that the value of X is x:
 
-$$Suprisal(x) = -lg~P(X=x)$$
+$$Suprisal(x) = -{\lg P(X=x)}$$
 
 - **entropy**: how surprised I expect to be:
 
 $$
 \begin{aligned}
     H(P) &= 𝔼 Suprisal(X) \\
-         &= 𝔼 -lg~P(X)  \\
-         &= ∑_x P(X=x) × -lg~P(X=x) \\
+         &= 𝔼 -{\lg P(X)}  \\
+         &= ∑_x P(X=x) × -{\lg P(X=x)} \\
 \end{aligned}
 $$
 
@@ -27,8 +25,8 @@ $$
 $$
 \begin{aligned}
     H(P,Q) &= 𝔼 Suprisal_Q(X) \\
-           &= 𝔼 -lg~Q(X) \\
-           &= ∑_x P(X=x) × -lg~Q(X=x)
+           &= 𝔼 -{\lg Q(X)} \\
+           &= ∑_x P(X=x) × -{\lg Q(X=x)}
 \end{aligned}
 $$
 
@@ -36,8 +34,8 @@ $$
 
 $$
 \begin{aligned}
-        Dkl(P || Q) &= H(P,Q) - H(P) \\
-                    &= ∑_x P(X=x) × lg~\frac{P(X=x)}{Q(X=x)}
+        D_{KL}(P || Q) &= H(P,Q) - H(P) \\
+                    &= ∑_x P(X=x) × {\lg \frac{P(X=x)}{Q(X=x)}}
 \end{aligned}
 $$
 
@@ -46,30 +44,30 @@ When dealing with binary variables then these formulas can be written as:
 
 - **entropy**: 
 
-$$ H(p) = - p × lg~p - (1-p) × lg~(1-p) $$
+$$ H(p) = - p × {\lg p} - (1-p) × {\lg (1-p)} $$
 
 - **cross-entropy**: 
 
-$$ H(p,q) = -p × -lg~q - (1-p) × lg~(1-q) $$
+$$ H(p,q) = - p × -{\lg q} - (1-p) × {\lg (1-q)} $$
 
 - **relative entropy or KL-divergence**:
 
-$$ Dkl(p||q) = - p × lg~\frac{p}{q} - (1-p) × lg~\frac{1-p}{1-q} $$
+$$ D_{KL}(p||q) = - p × {\lg \frac{p}{q}} - (1-p) × {\lg \frac{1-p}{1-q}} $$
 
 
 
 ## Surprisal as a Measure of Error
 
-Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. Whenever we predict something is very unlikely to happen, and it happens, then there is a large amount of surprisal, or error. If we predicted it was likely to happen, and it happens, there is only a small amount of error.
+Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. If we predict that something has a 1% chance of happening, and it happens, surprisal is $-{\lg .01} = 6.64$, whereas if we predicted it had a 99% chance of happening, surprisal is only $-{\lg .99} = 0.14$. If we thought there was a 50/50 chance, surprisal is $-{\lg .5} = 1$.
 
-For example, suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $upvotes$ upvotes and $downvotes$ downvotes. What is the total error of our predictions?
+Suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $upvotes$ upvotes and $downvotes$ downvotes. What is the total error of our predictions?
 
-Every time there is an upvote, surprisal is $-lg(p)$. Our estimate of the probability of a downvote is $1-p$, so whenever there is a downvote surprisal is $-lg(1-p)$.
+Every time there is an upvote, surprisal is $-{\lg p}$. Our estimate of the probability of a downvote is $1-p$, so whenever there is a downvote surprisal is $-{\lg (1-p)}$.
 
 So our total error is:
 
 $$
-    upvotes × -lg(p) + downvotes × -lg(1-p)
+    upvotes × -{\lg p} + downvotes × -{\lg (1-p)}
 $$
 
 
@@ -77,7 +75,7 @@ Since $upvotes ≈ votesTotal×p$, and $downvotes ≈ votesTotal×(1-p)$ our tot
 
 $$
 \begin{aligned}
-    & votesTotal × p × -lg(p) + votesTotal × (1-p) × -lg(1-p) \\
+    & votesTotal × p × -{\lg p} + votesTotal × (1-p) × -{\lg (1-p)} \\
     & = votesTotal × H(p)
 \end{aligned}
 $$
@@ -87,18 +85,18 @@ In other words, our error is roughly entropy per vote, times the number of votes
 
 ## Total Cross Entropy
 
-Let's say Alice estimates the probability of an upvote to be $q$, but Bob thinks the probability of an upvote is $p$. So Bob's measure of Alice's error will different from Alice's expectation of her own error! Bob's measure of Alice's error is:
+Let's say Alice estimates the probability of an upvote to be $q$, but Bob thinks the probability of an upvote is $p$. So Bob's measure of Alice's error will different from Alice's measure of her own error! Bob's measure of Alice's error is:
 
 $$
 \begin{aligned}
-    &~~upvotes × -lg(q) + downvotes × -lg(1-q) \\
-    &= votesTotal×p × -lg(q) + votesTotal×(1-p) × -lg(1-q) )  \\
-    &= votesTotal×( p×-lg(q) + (1-p)×-lg(1-q) ) \\
+    &upvotes × -{\lg q} + downvotes × -{\lg (1-q)} \\
+    &≈ votesTotal×p × -{\lg q} + votesTotal×(1-p) × -{\lg (1-q)} )  \\
+    &= votesTotal×( p×-{\lg q} + (1-p)×-{\lg (1-q)} ) \\
     &= votesTotal×H(p,q) \\
 \end{aligned}
 $$
 
-$H(p,q)$ is the cross entropy between Bob and Alices's probabilities: Bob's estimate of how surprised Alice will be on average. 
+$H(p,q)$ is the cross entropy between Bob and Alices's probabilities: Bob's estimate of Alice's average error. The closer the estimate $q$ is to what Bob thinks is the more correct frequency $p$, the lower the expected error. Cross entropy is minimized when $p=q$, at which point $H(p,q)=H(p,p)=H(p)$.
 
 In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. There are $votesTotal$ "Alices", or uninformed users. Bob expects the total error of all the uninformed users to be $votesTotal×H(p,q)$.
 
@@ -106,61 +104,38 @@ In our case, Alice represents the average uninformed user (users who haven't see
 
 The difference between $H(p,q)$ and $H(p)$ is the **relative entropy**, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as "how much **more** surprised I expect Alice to be than Bob".
 
-A very interesting property of relative entropy is that **it is never negative**. It doesn't matter whether $p$ is greater or less than $q$. Plug in different values to the formula to see.
+A very interesting property of relative entropy is that **it is never negative**. It doesn't matter whether $p$ is greater or less than $q$. Plug in different values to the formula to see. 
 
-So Bob measure of Alice's error is always greater than his measure of his own error as long as $p ≠ q$. He always expect Alice to be more surprised than him. That is because presumably Bob thinks he knows something Alice doesn't know. If Bob thought Alices's estimate $q$ was better than his estimate $p$, Bob would change his estimate to $q$!
+This is because relative entropy is an expectation over the probability distribution $p$ -- it is an error measured from Bob's point of view. Bob measure of Alice's error is always greater than his measure of his own error because as long as his beliefs differ from Alice's. That is because presumably Bob thinks he knows something Alice doesn't know. If Bob thought Alices's estimate $q$ was better than his own estimate $p$, Bob would change his estimate to $q$!
 
 Relative entropy is zero if $p$ and $q$ are the same, because cross entropy $H(p,q)$ just equals entropy $H(p)$ when $p=q$ (because $H(p,p)=H(p)$).
 
 If we take Bob's measure of Alices's total error, minus his measure of his own total error, we get the total relative entropy: how much **more** error Bob expects for Alice than he would expect if Alice knew more. 
 
-This total error is our measure of cognitive dissonance.
+The total relative entropy is our measure of cognitive dissonance.
 
 $$
 \begin{aligned}
 cognitiveDissonance  &= votesTotal × H(p,q) - votesTotal × H(p) \\
             &= votesTotal × ( H(p,q) - H(p) ) \\
-            &= votesTotal × Dkl(p || q)
+            &= votesTotal × D_{KL}(p || q)
 \end{aligned}
 $$
 
-So whenever the global brain learns that a note has change the probability of an upvote on a post, $p$ becomes different from $q$ and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that $q$ once again approaches $p$, cognitive dissonance is reduced.
 
 
-
-## Information Gain
-
-When users change their votes after seeing a note, $q$ approaches $p$ and relative entropy is reduced. The reduction in relative-entropy is known as the **information gain**. The information gain from moving from $q$ to $q_1$, given informed probability $p$, is
-
-$$
-\begin{aligned}
-    IG_p(q, q1) &= Dkl(p || q) - Dkl(p || q_1) \\
-                &= p × lg~(q1/q) + (1-p) × lg~((1-q1)/(1-q))
-\end{aligned}
-$$
-
-The total information gain is:
-
-$$
-\begin{aligned}
-    totalInformationGain    &= votesTotal * IG_p(q, q1) \\
-                            &= votesTotal × ( Dkl(p || q) - Dkl(p || q_1) ) \\
-                            &= cognitiveDissonance - cognitiveDissonance\_1 
-\end{aligned}
-$$
-
-### Example
+## Detailed Example
 
 Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.
 
-The total cognitive dissonance is:
+The total cognitive dissonance is
 
 $$
 \begin{aligned}
-        cognitiveDissonance    &= votesTotal × Dkl(p || q) \\
-                               &= votesTotal × ( p × lg~\frac{p}{q} + (1-p) × lg~\frac{1-p}{1-q} ) \\
-                               &= 1000 × ( .2 × lg~\frac{.2}{.9} + .8 × lg~\frac{.8}{.1} ) \\
-                               &= 1966.01 
+        cognitiveDissonance    &= votesTotal × D_{KL}(p || q) \\
+                               &= votesTotal × ( p × {\lg \frac{p}{q}} + (1-p) × {\lg \frac{1-p}{1-q}} ) \\
+                               &= 1000 × ( .2 × lg~\frac{.2}{.9} + .8 × lg~\frac{.8}{.1} )  \\
+                               &= 1966.01~bits
 \end{aligned}
 $$
 
@@ -185,27 +160,6 @@ $$
     &= votesTotal × DKL(p, q_1)\\
     &= votesTotal × DKL(.2, .83 ) \\
     &= 1376.95~bits
-\end{aligned}
-$$
-
-The reduction in cognitive dissonance is the total information gain:
-
-$$
-\begin{aligned}
-    totalInformationGain    &= cognitiveDissonance - cognitiveDissonance_1 \\
-                            &= 1966.01~bits - 1376.95~bits \\
-                            &= 589.07~bits 
-\end{aligned}
-$$
-
-Which can also be calculated as:
-
-$$
-\begin{aligned}
-    totalInformationGain    &= votesTotal × IG_p(q, q1)  \\
-                            &= votesTotal × p × lg~(q1/q) + (1-p) × lg~((1-q1)/(1-q)) \\
-                            &= 1000 × 0.58907~bits \\
-                            &= 589.07~bits 
 \end{aligned}
 $$
 
@@ -250,11 +204,11 @@ voteChangeRate = votesTotal*(p-q0)/attentionTotal
 upvotes = votesTotal*q0 + step*deltaAttention * voteChangeRate
 q = upvotes/votesTotal
 dissonance = votesTotal * dkl(p,q)
-gain = dissonance[1:steps] - c(dissonance[2:steps],c(0))
+value = dissonance[1:steps] - c(dissonance[2:steps],c(0))
 totalDissonance = dissonance[1]
 
-#df = data.frame(weightedImpressions=step*deltaAttention, q_t=q, upvotes=upvotes, dissonance=dissonance,informationGain=c(NA,gain))
-df = data.frame(q_t=q, upvotes=upvotes,dkl=dkl(p,q), dissonance=dissonance,informationGain=c(NA,gain))
+#df = data.frame(weightedImpressions=step*deltaAttention, q_t=q, upvotes=upvotes, dissonance=dissonance,informationValue=c(NA,value))
+df = data.frame(q_t=q, upvotes=upvotes,dkl=dkl(p,q), dissonance=dissonance,informationValue=c(NA,value))
 
 knitr::kable(df, format="markdown")
 
@@ -266,9 +220,9 @@ knitr::kable(df, format="markdown")
 plot = ggplot() +
   geom_line(aes(x = upvotes, y = dissonance), color = "firebrick") +
   labs(
-    title = "Cognitive Dissonance Falls (Information is Gained) votes change",
+    title = "Cognitive Dissonance Falls (Information is Gained) as votes change",
     x = "Upvotes",
-    y = "Cognitive Dissonance: votesTotal * Dkl(p || q_t)",
+    y = "Cognitive Dissonance: votesTotal * D_KL(p || q_t)",
   ) 
 
 
@@ -278,8 +232,9 @@ plot
 
 ```
 
+Note how the rate that cognitive dissonance is reduced falls upvotes approaches 200: changing upvotes produces diminishing returns. 
 
-Note how changing upvotes produces diminishing returns. Focusing attention on posts and notes that maximize the rate of information gain is the overall goal of the global brain algorithm. See the next document on [information-rate.html].
+Focusing attention on posts and notes that maximize the rate of information value is the overall goal of the global brain algorithm. See the next document on [information-value.html].
 
 
 ## Discussion
@@ -291,7 +246,7 @@ Cross entropy is commonly used used as the cost function in many machine learnin
 If $ŷ_i$ is the machine's predicted probability for training example $i$, and $y_i$ is the correct output (1 or 0), then the total cross entropy cost is:
 
 $$
-    \sum_i H(y_i, ŷ) = \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
+    \sum_i H(y_i, ŷ) = \sum_i y_i × -{\lg ŷ_i} + (1-y_i) × -{\lg(1 - ŷ_i)}
 $$
 
 
@@ -299,9 +254,9 @@ In our case, if we say that $y_i$ are users votes, and $ŷ_i$ is always equal t
 
 $$
 \begin{aligned}
-    \sum_i H(y_i, q) &= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i) \\
-                     &= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q)  \\
-                     &= upvotes × -lg(q) + downvotes  × -lg(1 - q) \\
+    \sum_i H(y_i, q) &= \sum_i y_i × -{\lg ŷ_i} + (1-y_i) × -{\lg(1 - ŷ_i)} \\
+                     &= \sum_i y_i × -{\lg q} + (1-y_i) × -{\lg(1 - q)}  \\
+                     &= upvotes × -{\lg q} + downvotes  × -{\lg(1 - q)} \\
                      &≈ votesTotal×H(p,q) \\
 \end{aligned}
 $$
@@ -314,8 +269,8 @@ Note that cross-entropy in our case is a measure of the total surprise of uninfo
 
 $$
 \begin{aligned}
-    & votesTotal×p × -lg(q) + votesTotal×(1-p) × -lg(1-q) ) \\
-    &≈ hypotheticalInformedUpvotes × -lg(q) + hypotheticalInformedDownvotes × -lg(1-q) ) \\
+    & votesTotal×p × -{\lg q} + votesTotal×(1-p) × -{\lg (1-q)} ) \\
+    &≈ hypotheticalInformedUpvotes × -{\lg q} + hypotheticalInformedDownvotes × -{\lg (1-q)} ) \\
     &= votesTotal×H(p,q)
 \end{aligned}
 $$
@@ -324,19 +279,17 @@ And not
 
 $$
 \begin{aligned}
-    & votesTotal×q × -lg(q) + votesTotal×(1-q) × -lg(1-q) ) \\
-    &≈ actualUpvotes × -lg(q) + actualDownvotes × -lg(1-q) ) \\
+    & votesTotal×q × -{\lg q} + votesTotal×(1-q) × -{\lg (1-q)} ) \\
+    &≈ actualUpvotes × -{\lg q} + actualDownvotes × -{\lg (1-q)} ) \\
     &= votesTotal×H(q)
 \end{aligned}
 $$
 
 This is potentially confusing (it caused me a great deal of confusion before I figured this out) because we are measuring the error of Alice's estimated probability $q$ with respect to hypothetical events that have have not yet actually occurred. But shouldn't we be measuring the error of the votes that have occurred?
 
-No, because surprisal is a measure of the error of a probability estimate: how likely the event was estimated to be, vs. what event actually occurred.
+No, because surprisal is a measure of the error of a probability estimate, no the error of the event. The events are "what actually happens" or, in case of uncertainty, "what we think will actually happen" given our best current estimate $p$.
 
-The uninformed user's total surprisal about uninformed vote events is just $votesTotal*H(q)$. But this tells us nothing about error with respect to an informed users's beliefs. The informed users's total surprisal about uninformed votes $votesTotal*H(q,p)$ is potentially interesting is a measure of the distance between actual and informed belief, but is less correct because it is measuring Bob's error, not Alices's. 
-
-$votesTotal×H(p,q)$ makes the most sense as a measure of the tension between the current state of user's beliefs, and what that state **should** be, which is a hypothetical future where all users have changed their upvotes because of the information in the note, and thus $actualUpvotes = hypotheticalInformedUpvotes$ and $actualDownvotes = hypotheticalInformedDownvotes$.
+Measuring error against actual vote events just gives us $votesTotal*H(q)$, which doesn't tell us how much actual votes differ from what they should be if users were more informed. $votesTotal×H(p,q)$ makes the most sense as a measure of the tension between the current state of user's beliefs, and what that state **should** be, which is a hypothetical future where all users have changed their upvotes because of the information in the note, and thus $actualUpvotes = hypotheticalInformedUpvotes$ and $actualDownvotes = hypotheticalInformedDownvotes$.
 
 
 
