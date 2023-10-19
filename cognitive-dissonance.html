@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Cognitive Dissonance and Information Gain | Introduction to the Global Brain</title>
+  <title>Chapter 4 Cognitive Dissonance | Introduction to the Global Brain</title>
   <meta name="description" content="<p>This is a collection of explanations arount the Y platform. In this document,
 we explain core concepts in simple terms that help to understand the
 algorithms and components of the software.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Cognitive Dissonance and Information Gain | Introduction to the Global Brain" />
+  <meta property="og:title" content="Chapter 4 Cognitive Dissonance | Introduction to the Global Brain" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
@@ -19,7 +19,7 @@ algorithms and components of the software.</p>" />
   <meta name="github-repo" content="social-protocols/y-docs" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Cognitive Dissonance and Information Gain | Introduction to the Global Brain" />
+  <meta name="twitter:title" content="Chapter 4 Cognitive Dissonance | Introduction to the Global Brain" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
 we explain core concepts in simple terms that help to understand the
@@ -35,7 +35,7 @@ algorithms and components of the software.</p>" />
   
   
 <link rel="prev" href="rating-and-evaluating-content.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="information-value.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -102,21 +102,30 @@ algorithms and components of the software.</p>" />
 <li class="chapter" data-level="3.3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.3</b> Estimating the True Upvote Rate</a></li>
 <li class="chapter" data-level="3.4" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#the-bayesian-average"><i class="fa fa-check"></i><b>3.4</b> The Bayesian Average</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html"><i class="fa fa-check"></i><b>4</b> Cognitive Dissonance and Information Gain</a>
+<li class="chapter" data-level="4" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html"><i class="fa fa-check"></i><b>4</b> Cognitive Dissonance</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#key-concepts-from-information-theory"><i class="fa fa-check"></i><b>4.1</b> Key Concepts from Information Theory</a></li>
-<li class="chapter" data-level="4.2" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#surprisal-as-a-measure-of-error"><i class="fa fa-check"></i><b>4.2</b> Surprisal as a Measure of Error</a></li>
-<li class="chapter" data-level="4.3" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#total-cross-entropy"><i class="fa fa-check"></i><b>4.3</b> Total Cross Entropy</a></li>
-<li class="chapter" data-level="4.4" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#total-relative-entropy-cognitive-dissonance"><i class="fa fa-check"></i><b>4.4</b> Total Relative Entropy = Cognitive Dissonance</a></li>
-<li class="chapter" data-level="4.5" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#information-gain"><i class="fa fa-check"></i><b>4.5</b> Information Gain</a>
+<li class="chapter" data-level="4.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#key-concepts-from-information-theory"><i class="fa fa-check"></i><b>4.1</b> Key Concepts from Information Theory</a></li>
+<li class="chapter" data-level="4.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#surprisal-as-a-measure-of-error"><i class="fa fa-check"></i><b>4.2</b> Surprisal as a Measure of Error</a></li>
+<li class="chapter" data-level="4.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#total-cross-entropy"><i class="fa fa-check"></i><b>4.3</b> Total Cross Entropy</a></li>
+<li class="chapter" data-level="4.4" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#total-relative-entropy-cognitive-dissonance"><i class="fa fa-check"></i><b>4.4</b> Total Relative Entropy = Cognitive Dissonance</a></li>
+<li class="chapter" data-level="4.5" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#detailed-example"><i class="fa fa-check"></i><b>4.5</b> Detailed Example</a></li>
+<li class="chapter" data-level="4.6" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#discussion"><i class="fa fa-check"></i><b>4.6</b> Discussion</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#example-1"><i class="fa fa-check"></i><b>4.5.1</b> Example</a></li>
+<li class="chapter" data-level="4.6.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>4.6.1</b> Parallel to Machine Learning</a></li>
+<li class="chapter" data-level="4.6.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#a-subtle-point"><i class="fa fa-check"></i><b>4.6.2</b> A Subtle Point</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#discussion"><i class="fa fa-check"></i><b>4.6</b> Discussion</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>4.6.1</b> Parallel to Machine Learning</a></li>
-<li class="chapter" data-level="4.6.2" data-path="cognitive-dissonance-and-information-gain.html"><a href="cognitive-dissonance-and-information-gain.html#a-subtle-point"><i class="fa fa-check"></i><b>4.6.2</b> A Subtle Point</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="information-value.html"><a href="information-value.html"><i class="fa fa-check"></i><b>5</b> Information Value</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="information-value.html"><a href="information-value.html#the-information-value-of-a-vote"><i class="fa fa-check"></i><b>5.0.1</b> The Information Value of a Vote</a></li>
+<li class="chapter" data-level="5.1" data-path="information-value.html"><a href="information-value.html#information-value-of-changed-votes"><i class="fa fa-check"></i><b>5.1</b> Information Value of Changed Votes</a></li>
+<li class="chapter" data-level="5.2" data-path="information-value.html"><a href="information-value.html#information-value-of-new-votes"><i class="fa fa-check"></i><b>5.2</b> Information Value of New Votes</a></li>
+<li class="chapter" data-level="5.3" data-path="information-value.html"><a href="information-value.html#what-does-a-vote-mean"><i class="fa fa-check"></i><b>5.3</b> What Does a Vote Mean?</a></li>
+<li class="chapter" data-level="5.4" data-path="information-value.html"><a href="information-value.html#example-1-a-storm-in-madrid"><i class="fa fa-check"></i><b>5.4</b> Example 1: A Storm in Madrid</a></li>
+<li class="chapter" data-level="5.5" data-path="information-value.html"><a href="information-value.html#example-2-a-typhoon-in-oslo"><i class="fa fa-check"></i><b>5.5</b> Example 2: A Typhoon in Oslo</a></li>
+<li class="chapter" data-level="5.6" data-path="information-value.html"><a href="information-value.html#desired-properties-of-information-value-formula"><i class="fa fa-check"></i><b>5.6</b> Desired Properties of Information Value Formula</a></li>
+<li class="chapter" data-level="5.7" data-path="information-value.html"><a href="information-value.html#upvote-only-relative-entropy"><i class="fa fa-check"></i><b>5.7</b> Upvote-Only Relative Entropy</a></li>
+<li class="chapter" data-level="5.8" data-path="information-value.html"><a href="information-value.html#example-charts"><i class="fa fa-check"></i><b>5.8</b> Example Charts</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -139,25 +148,24 @@ algorithms and components of the software.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="cognitive-dissonance-and-information-gain" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Cognitive Dissonance and Information Gain<a href="cognitive-dissonance-and-information-gain.html#cognitive-dissonance-and-information-gain" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="cognitive-dissonance" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Cognitive Dissonance<a href="cognitive-dissonance.html#cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>As described in the <a href="global-brain-overview.html">Global Brain Overview</a>, the goal of the global brain algorithm is to focus users’ attention on posts that reduce <strong>cognitive dissonance</strong> – difference of belief that exist only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of entropy.</p>
-<p>In information theory, information is simply the reduction of entropy. So reducing cognitive dissonance can also be seen as gaining information. So the goal of the global brain algorithm should be to direct attention to notes with the greatest potential information gain.</p>
 <div id="key-concepts-from-information-theory" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Key Concepts from Information Theory<a href="cognitive-dissonance-and-information-gain.html#key-concepts-from-information-theory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.1</span> Key Concepts from Information Theory<a href="cognitive-dissonance.html#key-concepts-from-information-theory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here’s a quick summary of some basic concepts of information theory, building up from simple to complex concepts.</p>
 <ul>
 <li><strong>surprisal</strong>: how surprised I am when I learn that the value of X is x:</li>
 </ul>
-<p><span class="math display">\[Suprisal(x) = -lg~P(X=x)\]</span></p>
+<p><span class="math display">\[Suprisal(x) = -{\lg P(X=x)}\]</span></p>
 <ul>
 <li><strong>entropy</strong>: how surprised I expect to be:</li>
 </ul>
 <p><span class="math display">\[
 \begin{aligned}
     H(P) &amp;= 𝔼 Suprisal(X) \\
-         &amp;= 𝔼 -lg~P(X)  \\
-         &amp;= ∑_x P(X=x) × -lg~P(X=x) \\
+         &amp;= 𝔼 -{\lg P(X)}  \\
+         &amp;= ∑_x P(X=x) × -{\lg P(X=x)} \\
 \end{aligned}
 \]</span></p>
 <ul>
@@ -166,8 +174,8 @@ algorithms and components of the software.</p>" />
 <p><span class="math display">\[
 \begin{aligned}
     H(P,Q) &amp;= 𝔼 Suprisal_Q(X) \\
-           &amp;= 𝔼 -lg~Q(X) \\
-           &amp;= ∑_x P(X=x) × -lg~Q(X=x)
+           &amp;= 𝔼 -{\lg Q(X)} \\
+           &amp;= ∑_x P(X=x) × -{\lg Q(X=x)}
 \end{aligned}
 \]</span></p>
 <ul>
@@ -175,100 +183,82 @@ algorithms and components of the software.</p>" />
 </ul>
 <p><span class="math display">\[
 \begin{aligned}
-        Dkl(P || Q) &amp;= H(P,Q) - H(P) \\
-                    &amp;= ∑_x P(X=x) × lg~\frac{P(X=x)}{Q(X=x)}
+        D_{KL}(P || Q) &amp;= H(P,Q) - H(P) \\
+                    &amp;= ∑_x P(X=x) × {\lg \frac{P(X=x)}{Q(X=x)}}
 \end{aligned}
 \]</span></p>
 <p>When dealing with binary variables then these formulas can be written as:</p>
 <ul>
 <li><strong>entropy</strong>:</li>
 </ul>
-<p><span class="math display">\[ H(p) = - p × lg~p - (1-p) × lg~(1-p) \]</span></p>
+<p><span class="math display">\[ H(p) = - p × {\lg p} - (1-p) × {\lg (1-p)} \]</span></p>
 <ul>
 <li><strong>cross-entropy</strong>:</li>
 </ul>
-<p><span class="math display">\[ H(p,q) = -p × -lg~q - (1-p) × lg~(1-q) \]</span></p>
+<p><span class="math display">\[ H(p,q) = - p × -{\lg q} - (1-p) × {\lg (1-q)} \]</span></p>
 <ul>
 <li><strong>relative entropy or KL-divergence</strong>:</li>
 </ul>
-<p><span class="math display">\[ Dkl(p||q) = - p × lg~\frac{p}{q} - (1-p) × lg~\frac{1-p}{1-q} \]</span></p>
+<p><span class="math display">\[ D_{KL}(p||q) = - p × {\lg \frac{p}{q}} - (1-p) × {\lg \frac{1-p}{1-q}} \]</span></p>
 </div>
 <div id="surprisal-as-a-measure-of-error" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Surprisal as a Measure of Error<a href="cognitive-dissonance-and-information-gain.html#surprisal-as-a-measure-of-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Surprisal can be thought of, for our purposes, as a measure of the “error” of a prediction. Whenever we predict something is very unlikely to happen, and it happens, then there is a large amount of surprisal, or error. If we predicted it was likely to happen, and it happens, there is only a small amount of error.</p>
-<p>For example, suppose we predict that the probability of a user upvoting a post is <span class="math inline">\(p\)</span>. Then suppose there are actually <span class="math inline">\(upvotes\)</span> upvotes and <span class="math inline">\(downvotes\)</span> downvotes. What is the total error of our predictions?</p>
-<p>Every time there is an upvote, surprisal is <span class="math inline">\(-lg(p)\)</span>. Our estimate of the probability of a downvote is <span class="math inline">\(1-p\)</span>, so whenever there is a downvote surprisal is <span class="math inline">\(-lg(1-p)\)</span>.</p>
+<h2><span class="header-section-number">4.2</span> Surprisal as a Measure of Error<a href="cognitive-dissonance.html#surprisal-as-a-measure-of-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Surprisal can be thought of, for our purposes, as a measure of the “error” of a prediction. If we predict that something has a 1% chance of happening, and it happens, surprisal is <span class="math inline">\(-{\lg .01} = 6.64\)</span>, whereas if we predicted it had a 99% chance of happening, surprisal is only <span class="math inline">\(-{\lg .99} = 0.14\)</span>. If we thought there was a 50/50 chance, surprisal is <span class="math inline">\(-{\lg .5} = 1\)</span>.</p>
+<p>Suppose we predict that the probability of a user upvoting a post is <span class="math inline">\(p\)</span>. Then suppose there are actually <span class="math inline">\(upvotes\)</span> upvotes and <span class="math inline">\(downvotes\)</span> downvotes. What is the total error of our predictions?</p>
+<p>Every time there is an upvote, surprisal is <span class="math inline">\(-{\lg p}\)</span>. Our estimate of the probability of a downvote is <span class="math inline">\(1-p\)</span>, so whenever there is a downvote surprisal is <span class="math inline">\(-{\lg (1-p)}\)</span>.</p>
 <p>So our total error is:</p>
 <p><span class="math display">\[
-    upvotes × -lg(p) + downvotes × -lg(1-p)
+    upvotes × -{\lg p} + downvotes × -{\lg (1-p)}
 \]</span></p>
 <p>Since <span class="math inline">\(upvotes ≈ votesTotal×p\)</span>, and <span class="math inline">\(downvotes ≈ votesTotal×(1-p)\)</span> our total error is approximately:</p>
 <p><span class="math display">\[
 \begin{aligned}
-    &amp; votesTotal × p × -lg(p) + votesTotal × (1-p) × -lg(1-p) \\
+    &amp; votesTotal × p × -{\lg p} + votesTotal × (1-p) × -{\lg (1-p)} \\
     &amp; = votesTotal × H(p)
 \end{aligned}
 \]</span></p>
 <p>In other words, our error is roughly entropy per vote, times the number of votes.</p>
 </div>
 <div id="total-cross-entropy" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Total Cross Entropy<a href="cognitive-dissonance-and-information-gain.html#total-cross-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s say Alice estimates the probability of an upvote to be <span class="math inline">\(q\)</span>, but Bob thinks the probability of an upvote is <span class="math inline">\(p\)</span>. So Bob’s measure of Alice’s error will different from Alice’s expectation of her own error! Bob’s measure of Alice’s error is:</p>
+<h2><span class="header-section-number">4.3</span> Total Cross Entropy<a href="cognitive-dissonance.html#total-cross-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s say Alice estimates the probability of an upvote to be <span class="math inline">\(q\)</span>, but Bob thinks the probability of an upvote is <span class="math inline">\(p\)</span>. So Bob’s measure of Alice’s error will different from Alice’s measure of her own error! Bob’s measure of Alice’s error is:</p>
 <p><span class="math display">\[
 \begin{aligned}
-    &amp;~~upvotes × -lg(q) + downvotes × -lg(1-q) \\
-    &amp;= votesTotal×p × -lg(q) + votesTotal×(1-p) × -lg(1-q) )  \\
-    &amp;= votesTotal×( p×-lg(q) + (1-p)×-lg(1-q) ) \\
+    &amp;upvotes × -{\lg q} + downvotes × -{\lg (1-q)} \\
+    &amp;≈ votesTotal×p × -{\lg q} + votesTotal×(1-p) × -{\lg (1-q)} )  \\
+    &amp;= votesTotal×( p×-{\lg q} + (1-p)×-{\lg (1-q)} ) \\
     &amp;= votesTotal×H(p,q) \\
 \end{aligned}
 \]</span></p>
-<p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s probabilities: Bob’s estimate of how surprised Alice will be on average.</p>
+<p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s probabilities: Bob’s estimate of Alice’s average error. The closer the estimate <span class="math inline">\(q\)</span> is to what Bob thinks is the more correct frequency <span class="math inline">\(p\)</span>, the lower the expected error. Cross entropy is minimized when <span class="math inline">\(p=q\)</span>, at which point <span class="math inline">\(H(p,q)=H(p,p)=H(p)\)</span>.</p>
 <p>In our case, Alice represents the average uninformed user (users who haven’t seen the note on a post), and Bob represents the informed user. There are <span class="math inline">\(votesTotal\)</span> “Alices”, or uninformed users. Bob expects the total error of all the uninformed users to be <span class="math inline">\(votesTotal×H(p,q)\)</span>.</p>
 </div>
 <div id="total-relative-entropy-cognitive-dissonance" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Total Relative Entropy = Cognitive Dissonance<a href="cognitive-dissonance-and-information-gain.html#total-relative-entropy-cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.4</span> Total Relative Entropy = Cognitive Dissonance<a href="cognitive-dissonance.html#total-relative-entropy-cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The difference between <span class="math inline">\(H(p,q)\)</span> and <span class="math inline">\(H(p)\)</span> is the <strong>relative entropy</strong>, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as “how much <strong>more</strong> surprised I expect Alice to be than Bob”.</p>
 <p>A very interesting property of relative entropy is that <strong>it is never negative</strong>. It doesn’t matter whether <span class="math inline">\(p\)</span> is greater or less than <span class="math inline">\(q\)</span>. Plug in different values to the formula to see.</p>
-<p>So Bob measure of Alice’s error is always greater than his measure of his own error as long as <span class="math inline">\(p ≠ q\)</span>. He always expect Alice to be more surprised than him. That is because presumably Bob thinks he knows something Alice doesn’t know. If Bob thought Alices’s estimate <span class="math inline">\(q\)</span> was better than his estimate <span class="math inline">\(p\)</span>, Bob would change his estimate to <span class="math inline">\(q\)</span>!</p>
+<p>This is because relative entropy is an expectation over the probability distribution <span class="math inline">\(p\)</span> – it is an error measured from Bob’s point of view. Bob measure of Alice’s error is always greater than his measure of his own error because as long as his beliefs differ from Alice’s. That is because presumably Bob thinks he knows something Alice doesn’t know. If Bob thought Alices’s estimate <span class="math inline">\(q\)</span> was better than his own estimate <span class="math inline">\(p\)</span>, Bob would change his estimate to <span class="math inline">\(q\)</span>!</p>
 <p>Relative entropy is zero if <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> are the same, because cross entropy <span class="math inline">\(H(p,q)\)</span> just equals entropy <span class="math inline">\(H(p)\)</span> when <span class="math inline">\(p=q\)</span> (because <span class="math inline">\(H(p,p)=H(p)\)</span>).</p>
 <p>If we take Bob’s measure of Alices’s total error, minus his measure of his own total error, we get the total relative entropy: how much <strong>more</strong> error Bob expects for Alice than he would expect if Alice knew more.</p>
-<p>This total error is our measure of cognitive dissonance.</p>
+<p>The total relative entropy is our measure of cognitive dissonance.</p>
 <p><span class="math display">\[
 \begin{aligned}
 cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
             &amp;= votesTotal × ( H(p,q) - H(p) ) \\
-            &amp;= votesTotal × Dkl(p || q)
+            &amp;= votesTotal × D_{KL}(p || q)
 \end{aligned}
 \]</span></p>
-<p>So whenever the global brain learns that a note has change the probability of an upvote on a post, <span class="math inline">\(p\)</span> becomes different from <span class="math inline">\(q\)</span> and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that <span class="math inline">\(q\)</span> once again approaches <span class="math inline">\(p\)</span>, cognitive dissonance is reduced.</p>
 </div>
-<div id="information-gain" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> Information Gain<a href="cognitive-dissonance-and-information-gain.html#information-gain" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>When users change their votes after seeing a note, <span class="math inline">\(q\)</span> approaches <span class="math inline">\(p\)</span> and relative entropy is reduced. The reduction in relative-entropy is known as the <strong>information gain</strong>. The information gain from moving from <span class="math inline">\(q\)</span> to <span class="math inline">\(q_1\)</span>, given informed probability <span class="math inline">\(p\)</span>, is</p>
-<p><span class="math display">\[
-\begin{aligned}
-    IG_p(q, q1) &amp;= Dkl(p || q) - Dkl(p || q_1) \\
-                &amp;= p × lg~(q1/q) + (1-p) × lg~((1-q1)/(1-q))
-\end{aligned}
-\]</span></p>
-<p>The total information gain is:</p>
-<p><span class="math display">\[
-\begin{aligned}
-    totalInformationGain    &amp;= votesTotal * IG_p(q, q1) \\
-                            &amp;= votesTotal × ( Dkl(p || q) - Dkl(p || q_1) ) \\
-                            &amp;= cognitiveDissonance - cognitiveDissonance\_1
-\end{aligned}
-\]</span></p>
-<div id="example-1" class="section level3 hasAnchor" number="4.5.1">
-<h3><span class="header-section-number">4.5.1</span> Example<a href="cognitive-dissonance-and-information-gain.html#example-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="detailed-example" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Detailed Example<a href="cognitive-dissonance.html#detailed-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.</p>
-<p>The total cognitive dissonance is:</p>
+<p>The total cognitive dissonance is</p>
 <p><span class="math display">\[
 \begin{aligned}
-        cognitiveDissonance    &amp;= votesTotal × Dkl(p || q) \\
-                               &amp;= votesTotal × ( p × lg~\frac{p}{q} + (1-p) × lg~\frac{1-p}{1-q} ) \\
-                               &amp;= 1000 × ( .2 × lg~\frac{.2}{.9} + .8 × lg~\frac{.8}{.1} ) \\
-                               &amp;= 1966.01
+        cognitiveDissonance    &amp;= votesTotal × D_{KL}(p || q) \\
+                               &amp;= votesTotal × ( p × {\lg \frac{p}{q}} + (1-p) × {\lg \frac{1-p}{1-q}} ) \\
+                               &amp;= 1000 × ( .2 × lg~\frac{.2}{.9} + .8 × lg~\frac{.8}{.1} )  \\
+                               &amp;= 1966.01~bits
 \end{aligned}
 \]</span></p>
 <p>Suppose that, after showing the note to users that already upvoted the post, 70 users change their upvote to a downvote.</p>
@@ -290,23 +280,6 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
     &amp;= 1376.95~bits
 \end{aligned}
 \]</span></p>
-<p>The reduction in cognitive dissonance is the total information gain:</p>
-<p><span class="math display">\[
-\begin{aligned}
-    totalInformationGain    &amp;= cognitiveDissonance - cognitiveDissonance_1 \\
-                            &amp;= 1966.01~bits - 1376.95~bits \\
-                            &amp;= 589.07~bits
-\end{aligned}
-\]</span></p>
-<p>Which can also be calculated as:</p>
-<p><span class="math display">\[
-\begin{aligned}
-    totalInformationGain    &amp;= votesTotal × IG_p(q, q1)  \\
-                            &amp;= votesTotal × p × lg~(q1/q) + (1-p) × lg~((1-q1)/(1-q)) \\
-                            &amp;= 1000 × 0.58907~bits \\
-                            &amp;= 589.07~bits
-\end{aligned}
-\]</span></p>
 <p>The table below shows how relative entropy falls as users change upvotes to downvotes, reaching zero when <span class="math inline">\(p=q_t\)</span> and therefore <span class="math inline">\(upvotes=p×votesTotal=200\)</span>.</p>
 <table>
 <thead>
@@ -315,7 +288,7 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 <th align="right">upvotes</th>
 <th align="right">dkl</th>
 <th align="right">dissonance</th>
-<th align="right">informationGain</th>
+<th align="right">informationValue</th>
 </tr>
 </thead>
 <tbody>
@@ -399,51 +372,50 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 </tbody>
 </table>
 <p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
-<p>Note how changing upvotes produces diminishing returns. Focusing attention on posts and notes that maximize the rate of information gain is the overall goal of the global brain algorithm. See the next document on [information-rate.html].</p>
-</div>
+<p>Note how the rate that cognitive dissonance is reduced falls upvotes approaches 200: changing upvotes produces diminishing returns.</p>
+<p>Focusing attention on posts and notes that maximize the rate of information value is the overall goal of the global brain algorithm. See the next document on [information-value.html].</p>
 </div>
 <div id="discussion" class="section level2 hasAnchor" number="4.6">
-<h2><span class="header-section-number">4.6</span> Discussion<a href="cognitive-dissonance-and-information-gain.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">4.6</span> Discussion<a href="cognitive-dissonance.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="parallel-to-machine-learning" class="section level3 hasAnchor" number="4.6.1">
-<h3><span class="header-section-number">4.6.1</span> Parallel to Machine Learning<a href="cognitive-dissonance-and-information-gain.html#parallel-to-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">4.6.1</span> Parallel to Machine Learning<a href="cognitive-dissonance.html#parallel-to-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs a probability (e.g. that the image is a cat). The cost function computes how far these probability estimates are from the correct labels, and the neural network is trained by minimizing the cost function.</p>
 <p>If <span class="math inline">\(ŷ_i\)</span> is the machine’s predicted probability for training example <span class="math inline">\(i\)</span>, and <span class="math inline">\(y_i\)</span> is the correct output (1 or 0), then the total cross entropy cost is:</p>
 <p><span class="math display">\[
-    \sum_i H(y_i, ŷ) = \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i)
+    \sum_i H(y_i, ŷ) = \sum_i y_i × -{\lg ŷ_i} + (1-y_i) × -{\lg(1 - ŷ_i)}
 \]</span></p>
 <p>In our case, if we say that <span class="math inline">\(y_i\)</span> are users votes, and <span class="math inline">\(ŷ_i\)</span> is always equal to the uninformed users prediction <span class="math inline">\(q\)</span>, then our cost function is identical to the cost function used when training a neural network:</p>
 <p><span class="math display">\[
 \begin{aligned}
-    \sum_i H(y_i, q) &amp;= \sum_i y_i × -lg(ŷ_i) + (1-y_i) × -lg(1 - ŷ_i) \\
-                     &amp;= \sum_i y_i × -lg(q) + (1-y_i) × -lg(1 - q)  \\
-                     &amp;= upvotes × -lg(q) + downvotes  × -lg(1 - q) \\
+    \sum_i H(y_i, q) &amp;= \sum_i y_i × -{\lg ŷ_i} + (1-y_i) × -{\lg(1 - ŷ_i)} \\
+                     &amp;= \sum_i y_i × -{\lg q} + (1-y_i) × -{\lg(1 - q)}  \\
+                     &amp;= upvotes × -{\lg q} + downvotes  × -{\lg(1 - q)} \\
                      &amp;≈ votesTotal×H(p,q) \\
 \end{aligned}
 \]</span></p>
 <p>So both neural networks and the global brain “learn” by reducing cross entropy. The difference is that the global brain reduces entropy not by learning to make better predictions, but by in a sense teaching users to make better predictions of how a fully-informed user would vote.</p>
 </div>
 <div id="a-subtle-point" class="section level3 hasAnchor" number="4.6.2">
-<h3><span class="header-section-number">4.6.2</span> A Subtle Point<a href="cognitive-dissonance-and-information-gain.html#a-subtle-point" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">4.6.2</span> A Subtle Point<a href="cognitive-dissonance.html#a-subtle-point" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Note that cross-entropy in our case is a measure of the total surprise of uninformed users at the hypothetical future votes of informed users. That is to say, it is:</p>
 <p><span class="math display">\[
 \begin{aligned}
-    &amp; votesTotal×p × -lg(q) + votesTotal×(1-p) × -lg(1-q) ) \\
-    &amp;≈ hypotheticalInformedUpvotes × -lg(q) + hypotheticalInformedDownvotes × -lg(1-q) ) \\
+    &amp; votesTotal×p × -{\lg q} + votesTotal×(1-p) × -{\lg (1-q)} ) \\
+    &amp;≈ hypotheticalInformedUpvotes × -{\lg q} + hypotheticalInformedDownvotes × -{\lg (1-q)} ) \\
     &amp;= votesTotal×H(p,q)
 \end{aligned}
 \]</span></p>
 <p>And not</p>
 <p><span class="math display">\[
 \begin{aligned}
-    &amp; votesTotal×q × -lg(q) + votesTotal×(1-q) × -lg(1-q) ) \\
-    &amp;≈ actualUpvotes × -lg(q) + actualDownvotes × -lg(1-q) ) \\
+    &amp; votesTotal×q × -{\lg q} + votesTotal×(1-q) × -{\lg (1-q)} ) \\
+    &amp;≈ actualUpvotes × -{\lg q} + actualDownvotes × -{\lg (1-q)} ) \\
     &amp;= votesTotal×H(q)
 \end{aligned}
 \]</span></p>
 <p>This is potentially confusing (it caused me a great deal of confusion before I figured this out) because we are measuring the error of Alice’s estimated probability <span class="math inline">\(q\)</span> with respect to hypothetical events that have have not yet actually occurred. But shouldn’t we be measuring the error of the votes that have occurred?</p>
-<p>No, because surprisal is a measure of the error of a probability estimate: how likely the event was estimated to be, vs. what event actually occurred.</p>
-<p>The uninformed user’s total surprisal about uninformed vote events is just <span class="math inline">\(votesTotal*H(q)\)</span>. But this tells us nothing about error with respect to an informed users’s beliefs. The informed users’s total surprisal about uninformed votes <span class="math inline">\(votesTotal*H(q,p)\)</span> is potentially interesting is a measure of the distance between actual and informed belief, but is less correct because it is measuring Bob’s error, not Alices’s.</p>
-<p><span class="math inline">\(votesTotal×H(p,q)\)</span> makes the most sense as a measure of the tension between the current state of user’s beliefs, and what that state <strong>should</strong> be, which is a hypothetical future where all users have changed their upvotes because of the information in the note, and thus <span class="math inline">\(actualUpvotes = hypotheticalInformedUpvotes\)</span> and <span class="math inline">\(actualDownvotes = hypotheticalInformedDownvotes\)</span>.</p>
+<p>No, because surprisal is a measure of the error of a probability estimate, no the error of the event. The events are “what actually happens” or, in case of uncertainty, “what we think will actually happen” given our best current estimate <span class="math inline">\(p\)</span>.</p>
+<p>Measuring error against actual vote events just gives us <span class="math inline">\(votesTotal*H(q)\)</span>, which doesn’t tell us how much actual votes differ from what they should be if users were more informed. <span class="math inline">\(votesTotal×H(p,q)\)</span> makes the most sense as a measure of the tension between the current state of user’s beliefs, and what that state <strong>should</strong> be, which is a hypothetical future where all users have changed their upvotes because of the information in the note, and thus <span class="math inline">\(actualUpvotes = hypotheticalInformedUpvotes\)</span> and <span class="math inline">\(actualDownvotes = hypotheticalInformedDownvotes\)</span>.</p>
 
 </div>
 </div>
@@ -454,7 +426,7 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
         </div>
       </div>
 <a href="rating-and-evaluating-content.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="information-value.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Information Value | Introduction to the Global Brain</title>
+  <meta name="description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Information Value | Introduction to the Global Brain" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  <meta name="github-repo" content="social-protocols/y-docs" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Information Value | Introduction to the Global Brain" />
+  
+  <meta name="twitter:description" content="<p>This is a collection of explanations arount the Y platform. In this document,
+we explain core concepts in simple terms that help to understand the
+algorithms and components of the software.</p>" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cognitive-dissonance.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The Y Platform</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="global-brain-overview.html"><a href="global-brain-overview.html"><i class="fa fa-check"></i><b>2</b> Global Brain Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="global-brain-overview.html"><a href="global-brain-overview.html#informed-votes"><i class="fa fa-check"></i><b>2.1</b> Informed Votes</a></li>
+<li class="chapter" data-level="2.2" data-path="global-brain-overview.html"><a href="global-brain-overview.html#the-causal-model"><i class="fa fa-check"></i><b>2.2</b> The Causal Model</a></li>
+<li class="chapter" data-level="2.3" data-path="global-brain-overview.html"><a href="global-brain-overview.html#distributed-reasoning"><i class="fa fa-check"></i><b>2.3</b> Distributed Reasoning</a></li>
+<li class="chapter" data-level="2.4" data-path="global-brain-overview.html"><a href="global-brain-overview.html#informal-argument-model"><i class="fa fa-check"></i><b>2.4</b> Informal Argument Model</a></li>
+<li class="chapter" data-level="2.5" data-path="global-brain-overview.html"><a href="global-brain-overview.html#example"><i class="fa fa-check"></i><b>2.5</b> Example</a></li>
+<li class="chapter" data-level="2.6" data-path="global-brain-overview.html"><a href="global-brain-overview.html#reason-and-argument"><i class="fa fa-check"></i><b>2.6</b> Reason and Argument</a></li>
+<li class="chapter" data-level="2.7" data-path="global-brain-overview.html"><a href="global-brain-overview.html#checking-misinformation"><i class="fa fa-check"></i><b>2.7</b> Checking Misinformation</a></li>
+<li class="chapter" data-level="2.8" data-path="global-brain-overview.html"><a href="global-brain-overview.html#marketplace-of-ideas"><i class="fa fa-check"></i><b>2.8</b> Marketplace of Ideas</a></li>
+<li class="chapter" data-level="2.9" data-path="global-brain-overview.html"><a href="global-brain-overview.html#defining-cognitive-dissonance"><i class="fa fa-check"></i><b>2.9</b> Defining Cognitive Dissonance</a></li>
+<li class="chapter" data-level="2.10" data-path="global-brain-overview.html"><a href="global-brain-overview.html#cognitive-dissonance-as-relative-entropy"><i class="fa fa-check"></i><b>2.10</b> Cognitive Dissonance as Relative Entropy</a></li>
+<li class="chapter" data-level="2.11" data-path="global-brain-overview.html"><a href="global-brain-overview.html#the-causal-model-1"><i class="fa fa-check"></i><b>2.11</b> The Causal Model</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html"><i class="fa fa-check"></i><b>3</b> Rating and Evaluating Content</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-upvote-rates"><i class="fa fa-check"></i><b>3.1</b> Modeling Upvote Rates</a></li>
+<li class="chapter" data-level="3.2" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.2</b> Modeling Belief about the “True” Upvote Rate</a></li>
+<li class="chapter" data-level="3.3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.3</b> Estimating the True Upvote Rate</a></li>
+<li class="chapter" data-level="3.4" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#the-bayesian-average"><i class="fa fa-check"></i><b>3.4</b> The Bayesian Average</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html"><i class="fa fa-check"></i><b>4</b> Cognitive Dissonance</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#key-concepts-from-information-theory"><i class="fa fa-check"></i><b>4.1</b> Key Concepts from Information Theory</a></li>
+<li class="chapter" data-level="4.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#surprisal-as-a-measure-of-error"><i class="fa fa-check"></i><b>4.2</b> Surprisal as a Measure of Error</a></li>
+<li class="chapter" data-level="4.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#total-cross-entropy"><i class="fa fa-check"></i><b>4.3</b> Total Cross Entropy</a></li>
+<li class="chapter" data-level="4.4" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#total-relative-entropy-cognitive-dissonance"><i class="fa fa-check"></i><b>4.4</b> Total Relative Entropy = Cognitive Dissonance</a></li>
+<li class="chapter" data-level="4.5" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#detailed-example"><i class="fa fa-check"></i><b>4.5</b> Detailed Example</a></li>
+<li class="chapter" data-level="4.6" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#discussion"><i class="fa fa-check"></i><b>4.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>4.6.1</b> Parallel to Machine Learning</a></li>
+<li class="chapter" data-level="4.6.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#a-subtle-point"><i class="fa fa-check"></i><b>4.6.2</b> A Subtle Point</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="information-value.html"><a href="information-value.html"><i class="fa fa-check"></i><b>5</b> Information Value</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="information-value.html"><a href="information-value.html#the-information-value-of-a-vote"><i class="fa fa-check"></i><b>5.0.1</b> The Information Value of a Vote</a></li>
+<li class="chapter" data-level="5.1" data-path="information-value.html"><a href="information-value.html#information-value-of-changed-votes"><i class="fa fa-check"></i><b>5.1</b> Information Value of Changed Votes</a></li>
+<li class="chapter" data-level="5.2" data-path="information-value.html"><a href="information-value.html#information-value-of-new-votes"><i class="fa fa-check"></i><b>5.2</b> Information Value of New Votes</a></li>
+<li class="chapter" data-level="5.3" data-path="information-value.html"><a href="information-value.html#what-does-a-vote-mean"><i class="fa fa-check"></i><b>5.3</b> What Does a Vote Mean?</a></li>
+<li class="chapter" data-level="5.4" data-path="information-value.html"><a href="information-value.html#example-1-a-storm-in-madrid"><i class="fa fa-check"></i><b>5.4</b> Example 1: A Storm in Madrid</a></li>
+<li class="chapter" data-level="5.5" data-path="information-value.html"><a href="information-value.html#example-2-a-typhoon-in-oslo"><i class="fa fa-check"></i><b>5.5</b> Example 2: A Typhoon in Oslo</a></li>
+<li class="chapter" data-level="5.6" data-path="information-value.html"><a href="information-value.html#desired-properties-of-information-value-formula"><i class="fa fa-check"></i><b>5.6</b> Desired Properties of Information Value Formula</a></li>
+<li class="chapter" data-level="5.7" data-path="information-value.html"><a href="information-value.html#upvote-only-relative-entropy"><i class="fa fa-check"></i><b>5.7</b> Upvote-Only Relative Entropy</a></li>
+<li class="chapter" data-level="5.8" data-path="information-value.html"><a href="information-value.html#example-charts"><i class="fa fa-check"></i><b>5.8</b> Example Charts</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to the Global Brain</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="information-value" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Information Value<a href="information-value.html#information-value" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The goal of the global brain algorithm is to focus users’ attention on posts that reduce <strong>cognitive dissonance</strong>. Our formula for measuring cognitive dissonance is described in <a href="cognitive-dissonance.html">Cognitive Dissonance</a>.</p>
+<p>In information theory, information is simply the reduction of entropy. So reducing cognitive dissonance can also be seen as gaining information. Thus the goal of the global brain algorithm is to directs attention to notes with the greatest potential information gain, or information value.</p>
+<p>But how much information is gained by directing attention to a post that users have not already voted on? We don’t know how much that post changed users beliefs, because we don’t know what their beliefs were before they saw the post. Without two probability distributions to compare, we can’t calculate information value in terms of reduction of entropy. Yet obviously new posts do convey information – something users didn’t know or hadn’t seen before, or they wouldn’t upvote the post.</p>
+<p>So by making some conservative estimates about prior beliefs, we can derive a single metric for estimating the information value of a vote, depending on whether the vote is a <em>new</em> upvote (new information learned by users), or a <em>changed</em> vote (decrease in cognitive dissonance). In this article we will introduce the formula and the reasoning behind it.</p>
+<div id="the-information-value-of-a-vote" class="section level3 hasAnchor" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> The Information Value of a Vote<a href="information-value.html#the-information-value-of-a-vote" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, here is a summary of the information value formula:</p>
+<ul>
+<li><strong>new votes</strong>:</li>
+</ul>
+<p><span class="math display">\[
+    votesTotal × p × (1 + {\lg p})
+\]</span></p>
+<ul>
+<li><strong>changed votes</strong>:</li>
+</ul>
+<p><span class="math display">\[
+\begin{aligned}
+    votesTotal × ( p × {\lg \frac{q_1}{q}} + (1-p) × {\lg \frac{1-q_1}{1-q}} )
+\end{aligned}
+\]</span></p>
+</div>
+<div id="information-value-of-changed-votes" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Information Value of Changed Votes<a href="information-value.html#information-value-of-changed-votes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Whenever the global brain learns that a note has change the probability of an upvote on a post, <span class="math inline">\(p\)</span> becomes different from <span class="math inline">\(q\)</span> and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that <span class="math inline">\(q\)</span> once again approaches <span class="math inline">\(p\)</span>, and cognitive dissonance is reduced.</p>
+<p>The information value from moving from <span class="math inline">\(q\)</span> to <span class="math inline">\(q_1\)</span> is just the reduction in in cognitive dissonance, or reduction in total relative entropy.</p>
+<p><span class="math display">\[
+\begin{aligned}
+    votesTotal × D_{KL}(p || q) - votesTotal × D_{KL}(p || q_1)
+\end{aligned}
+\]</span></p>
+<p>This equation simplifies to:</p>
+<p><span class="math display">\[
+\begin{aligned}
+                  &amp;votesTotal × D_{KL}(p || q) - D_{KL}(p || q_1) ) \\
+                = &amp;votesTotal × ( p × {\lg \frac{p}{q}} + (1-p) × {\lg \frac{1-p}{1-q}} ) \\
+                  &amp;- votesTotal × ( p × {\lg \frac{p}{q_1}} + (1-p) × {\lg \frac{1-p}{1-q_1}} ) \\
+                = &amp;votesTotal × p × {\lg \frac{q_1}{q}} + (1-p) × {\lg \frac{1-q_1}{1-q}}
+\end{aligned}
+\]</span></p>
+</div>
+<div id="information-value-of-new-votes" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Information Value of New Votes<a href="information-value.html#information-value-of-new-votes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the case of new votes, measuring the change in entropy is harder because we don’t know what users beliefs were <strong>before</strong> they voted. Yet clearly new posts provide information, otherwise users would not upvote them. The upvotes tell us that the post has <strong>changed</strong> beliefs in some way: caused users to believe things they didn’t believe before.</p>
+<p>We don’t know what those beliefs were, but we can make a <em>conservative</em> estimates about those prior beliefs using the maximum entropy principle. The probability with maximum entropy (for binary outcomes such as upvote/downvote) is <span class="math inline">\(q=0.5\)</span>: which has an entropy of 1 bit.</p>
+<p>However, if we just plug <span class="math inline">\(q=0.5\)</span> into the information value formula, the results don’t make sense. First, information value is always positive: moving from <span class="math inline">\(q\)</span> to <span class="math inline">\(p\)</span> always reduces relative entropy, no matter what <span class="math inline">\(q\)</span> and <span class="math inline">\(p\)</span> are. And the information value is larger the further <span class="math inline">\(q\)</span> is from <span class="math inline">\(p\)</span>. This makes sense in the case of a users changing their mind after seeing a note – the further <span class="math inline">\(q\)</span> is from <span class="math inline">\(p\)</span>, the greater the cognitive dissonance, and the greater the information value from changing votes. But a new post with a very small <span class="math inline">\(p\)</span> will also have a very high relative entropy if we assume <span class="math inline">\(q=0.5\)</span>, yet presumably new posts with a small <span class="math inline">\(p\)</span> have a small information value.</p>
+<p>The solution is to observe that new upvotes mean something different from changed upvotes.</p>
+</div>
+<div id="what-does-a-vote-mean" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> What Does a Vote Mean?<a href="information-value.html#what-does-a-vote-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We assume that an upvotes reflect the intent of community for a post to receive more attention. Further, we assume that the intent of the community is to find information that is both:</p>
+<ul>
+<li>informative, and</li>
+<li>relevant</li>
+</ul>
+<p>A post is informative if it causes a user to hold a belief, or mental state, they didn’t hold before. Simple statements of facts are informative if the user trusts the source. “There’s going to be a big storm in Madrid tomorrow” is likely informative. A joke can also be informative if the user hadn’t heard the joke before, because it causes a change in belief or hidden mental state (“here is a funny joke!”). “Bigfoot exists” is likely not informative, because people are unlikely to believe bigfoot exists just because somebody on the internet said so.</p>
+<p>Therefore, we assume that <strong>people do not upvote posts that are not informative</strong>.</p>
+<p>On the other hand, people downvote posts because they think it is not informative or not relevant. A downvote means that the post <strong>did not change beliefs</strong> – or if it did, that belief was irrelevant. If somebody downvotes “There’s going to be a big storm in Madrid tomorrow” it’s because they think it’s irrelevant (e.g. if it is posted in the wrong forum) or uncertain. But they believe this despite seeing the post, not because of it. The post itself did not change their beliefs.</p>
+<p>So there is an asymmetry between upvotes and downvotes. If the information is in fact false, people who downvoted weren’t harmed, because they knew it was false an their beliefs did not change (yes their time was wasted, but let’s ignore wasted time and focus on the idea of cognitive dissonance). But those who upvoted it changed their beliefs or thought other users changed their beliefs and these beliefs are false. So upvotes on false information indicate harm was done. Relative entropy actually <em>increased</em>.</p>
+</div>
+<div id="example-1-a-storm-in-madrid" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Example 1: A Storm in Madrid<a href="information-value.html#example-1-a-storm-in-madrid" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose I have not yet seen post A, telling me about a big storm forecast for Madrid tomorrow, posted in a Spain travel forum. If I have not yet heard about the storm, than <em>I do not believe</em> there will be a big storm tomorrow. I am not absolutely certain about the belief, but my prior belief before seeing the post, if expressed as a probability, is probably quite small. But this probability would likely change if I saw the post.</p>
+<p>Suppose that users who see this post are very likely to upvote it, but almost nobody downvotes it. This means that a lot of people didn’t know about the storm before they saw the post: a lot of information was gained for these users (it also means there is a lot of potential information value for users who have <em>not yet seen the post</em>).</p>
+<p>So a high upvote rate, with relatively few downvotes, represent an information value proportional to the number of upvotes. But as downvotes increase, uncertainty increases even more rapidly, falling below zero once downvotes exceeds upvotes, and the information is more uncertain than not.</p>
+</div>
+<div id="example-2-a-typhoon-in-oslo" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Example 2: A Typhoon in Oslo<a href="information-value.html#example-2-a-typhoon-in-oslo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now consider a post that receives a very large number of downvotes, and only 1 upvote. For example a post falsely claiming that a category 5 typhoon will hit Oslo tomorrow (a geographical impossibility). How much information was gained, or lost?</p>
+<p>Here the upvote tells us somebody actually believed the post (still assuming good faith voting). So somebody now believes something they didn’t believe before. And what’s more, what they believe is probably not true and relevant, in the judgment of the community.</p>
+<p>So the increase in the number of users who believe something that is probably not true and relevant actually <strong>increases</strong> entropy.</p>
+<p>Now suppose instead of only 1 upvote, there were 10 upvotes. Now 10x as much entropy was created, because 10 users were misinformed, not just 1.</p>
+<p>However, eventually the number of upvotes starts to overtake the number of downvotes. The value of the information becomes less uncertain, and starts to rise.</p>
+<p>So a post with a very low upvote rate indicates an information loss (negative information value) proportional to the number of upvotes.</p>
+</div>
+<div id="desired-properties-of-information-value-formula" class="section level2 hasAnchor" number="5.6">
+<h2><span class="header-section-number">5.6</span> Desired Properties of Information Value Formula<a href="information-value.html#desired-properties-of-information-value-formula" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So for new information, the information value formula should have the following properties:</p>
+<ol style="list-style-type: decimal">
+<li>Many upvotes, no downvotes: informationValue ≈ upvotes</li>
+<li>Many downvotes, no upvotes: informationValue ≈ 0</li>
+<li>Many downvotes, small number of upvotes: informationValue ≈ -upvotes</li>
+<li>Equal number of upvotes and downvotes: informationValue ≈ 0</li>
+</ol>
+</div>
+<div id="upvote-only-relative-entropy" class="section level2 hasAnchor" number="5.7">
+<h2><span class="header-section-number">5.7</span> Upvote-Only Relative Entropy<a href="information-value.html#upvote-only-relative-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>These properties are all met by a formula that assumes a prior belief <span class="math inline">\(q=0.5\)</span> and then only counts the information value of <em>upvotes</em>. Going back to the fundamental concept of surprisal from information theory, which we introduced when developing the formula for <a href="cognitive-dissonance.html">cognitive dissonance</a>, we can calculate the total suprisal of upvotes as:</p>
+<p><span class="math display">\[
+    upvotes × -{\lg p}
+\]</span></p>
+<p>Assuming <span class="math inline">\(q=0.5\)</span>, the most conservative estimate of the total surprisal before users saw the post as:</p>
+<p><span class="math display">\[
+    upvotes × -{\lg 0.5} = upvotes
+\]</span></p>
+<p>The difference is therefore</p>
+<p><span class="math display">\[
+\begin{aligned}
+    &amp;upvotes × -{\lg 0.5} - (upvotes × -{\lg p}) \\
+    &amp;= upvotes × {\lg \frac{p}{0.5}}
+\end{aligned}
+\]</span></p>
+<p>This is basically the formula for relative entropy <span class="math inline">\(upvotes × D_{KL}(p, 0.5)\)</span>, but cut in half, counting only the upvotes.</p>
+<p>Since <span class="math inline">\(-{\lg 0.5} = 1\)</span>, we can further simplify to</p>
+<p><span class="math display">\[
+\begin{aligned}
+    upvotes × (1 + {\lg p})
+\end{aligned}
+\]</span></p>
+<p>One way of looking at this formula is to think of each upvote representing one 1 potentially-uncertain bit of information. If <span class="math inline">\(p\)</span> is 100%, then there is no uncertainty, and each upvote is worth 1 bit of information. But if <span class="math inline">\(q\)</span> is, say, .25, then we have one uncertain bit. The uncertainty of the user was reduced by 1 bit, but another <span class="math inline">\(-{\lg .25} = 2~bits\)</span> of uncertainty about the accuracy of the information was created, for a net loss of 1 bit of uncertainty.</p>
+</div>
+<div id="example-charts" class="section level2 hasAnchor" number="5.8">
+<h2><span class="header-section-number">5.8</span> Example Charts<a href="information-value.html#example-charts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The chart below illustrates how the information value of a post with a large number of upvotes falls as the number of downvotes increases (e.g. the Storm in Madrid example, but as doubts about the accuracy of the forecast start to increase).</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>The chart below illustrates how the information value of a post with a large number of downvotes becomes increasingly negative as the number of upvotes increases, but then begins to rise as the information becomes less uncertain.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cognitive-dissonance.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/2023-10-19-information-value.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
