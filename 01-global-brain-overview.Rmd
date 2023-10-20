@@ -59,9 +59,9 @@ Suppose that people who are shown note B along with the video in post A are less
 
 Now, suppose that it turns out the information in note B is actually wrong. For example, somebody may reply to B with a subnote C saying "No, the video in that link is completely different! This video is recent footage from CNN. Here's a link."
 
-The global brain can actually look at how C affects users' votes on both B, to estimate how a fully informed user **would** have voted on A. 
+The global brain can actually look at how C affects users' votes on B to estimate how a fully informed user **would** have voted on A. Even if there is no fully informed user who saw post C and then changed their vote on A, we can in a sense simulate a fully-informed user. This is what allows the global brain to act like a kind of neural network, with the links between posts acting as synapses. No matter how many posts there are in the system, we can simulate the actions of a user who has read every post ever posted in the network -- in other words, a user who has processed all available information.
 
-If post B links different groups of users in different conversations -- for example if B is "reposted" or cross-posted to more than one forum -- then the global brain can observe how C affects B in one forum, and how B affects A in another forum, and "link" the two forums, predicting the probability that a fully-informed user woudl upvote A after seeing subnote C, even if no user whote voted on A actually saw subnote C.
+For example, if post B links different groups of users in different conversations -- for example if B is "reposted" or cross-posted to more than one forum -- then the global brain can observe how C affects B in one forum, and how B affects A in another forum, and "link" the two forums, predicting the probability that a fully-informed user would upvote A after seeing subnote C, even if no user who voted on A actually saw subnote C.
 
 ## Reason and Argument
 

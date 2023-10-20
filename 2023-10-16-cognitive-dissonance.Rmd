@@ -4,7 +4,7 @@ As described in the [Global Brain Overview](global-brain-overview.html), the goa
 
 ## Key Concepts from Information Theory
 
-Here's a quick summary of some basic concepts of information theory, building up from simple to complex concepts.
+Here's a quick summary of the relevant concepts of information theory:
 
 - **surprisal**: how surprised I am when I learn that the value of X is x:
 
@@ -58,11 +58,11 @@ $$ D_{KL}(p||q) = - p × {\lg \frac{p}{q}} - (1-p) × {\lg \frac{1-p}{1-q}} $$
 
 ## Surprisal as a Measure of Error
 
-Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. If we predict that something has a 1% chance of happening, and it happens, surprisal is $-{\lg .01} = 6.64$, whereas if we predicted it had a 99% chance of happening, surprisal is only $-{\lg .99} = 0.14$. If we thought there was a 50/50 chance, surprisal is $-{\lg .5} = 1$.
+Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. If we predict that something has a 1% chance of happening, and it happens, surprisal is $-{\lg .01} = 6.64~bits$, whereas if we predicted it had a 99% chance of happening, surprisal is only $-{\lg .99} = 0.14~bits$, which is much  smaller. If we thought there was a 50/50 chance, surprisal is $-{\lg .5} = 1~bit$.
 
 Suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $upvotes$ upvotes and $downvotes$ downvotes. What is the total error of our predictions?
 
-Every time there is an upvote, surprisal is $-{\lg p}$. Our estimate of the probability of a downvote is $1-p$, so whenever there is a downvote surprisal is $-{\lg (1-p)}$.
+Every time there is an upvote, surprisal is $-{\lg p}$. The probability of a downvote is just $1-p$, so whenever there is a downvote surprisal is $-{\lg (1-p)}$.
 
 So our total error is:
 
@@ -80,7 +80,7 @@ $$
 \end{aligned}
 $$
 
-In other words, our error is roughly entropy per vote, times the number of votes.
+In other words, our error is roughly entropy times the number of votes.
 
 
 ## Total Cross Entropy
@@ -96,19 +96,21 @@ $$
 \end{aligned}
 $$
 
-$H(p,q)$ is the cross entropy between Bob and Alices's probabilities: Bob's estimate of Alice's average error. The closer the estimate $q$ is to what Bob thinks is the more correct frequency $p$, the lower the expected error. Cross entropy is minimized when $p=q$, at which point $H(p,q)=H(p,p)=H(p)$.
+$H(p,q)$ is the cross entropy between Bob and Alices's probabilities: Bob's estimate of Alice's average error. The closer the estimate $q$ is to what Bob thinks is the more correct probability $p$, the lower the expected error. Cross entropy is minimized when $p=q$, at which point $H(p,q)=H(p,p)=H(p)$.
 
 In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. There are $votesTotal$ "Alices", or uninformed users. Bob expects the total error of all the uninformed users to be $votesTotal×H(p,q)$.
 
+$H(p,q)$ will always be greater than $H(p)$. Bob measure of Alice's error will always be greater than his measure of his own error as long as his beliefs differ from Alice's. 
+
+This is due to a very powerful property of surprisal: in the long term, surprisal is minimized when the estimated probability equals the actual frequency of the event. Over- or under- estimating the probability always results in more error in the long run. So if you truly think 90% of votes will be upvotes, then you will minimize your expected error by estimating the probability of an upvote to be 90%.
+
+$H(p,q)$ is always greater than $H(p,p)=H($p)$ because $H(p,q)$ tells us what Alice's average error *would* be, in the long term, if $p$ were the true frequency. The closer $q$ is to $p$, the smaller the expected average error.
+
+Another way of looking at this is to realize Bob will always expect Alices's average error to be greater than his own, as long as he thinks $p$ is a better estimate than $q$. Presumably, Bob thinks he knows something Alice doesn't know. If Bob thought Alices's estimate $q$ was better than his own estimate $p$, Bob would change his estimate to $q$!
+
 ## Total Relative Entropy = Cognitive Dissonance
 
-The difference between $H(p,q)$ and $H(p)$ is the **relative entropy**, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as "how much **more** surprised I expect Alice to be than Bob".
-
-A very interesting property of relative entropy is that **it is never negative**. It doesn't matter whether $p$ is greater or less than $q$. Plug in different values to the formula to see. 
-
-This is because relative entropy is an expectation over the probability distribution $p$ -- it is an error measured from Bob's point of view. Bob measure of Alice's error is always greater than his measure of his own error because as long as his beliefs differ from Alice's. That is because presumably Bob thinks he knows something Alice doesn't know. If Bob thought Alices's estimate $q$ was better than his own estimate $p$, Bob would change his estimate to $q$!
-
-Relative entropy is zero if $p$ and $q$ are the same, because cross entropy $H(p,q)$ just equals entropy $H(p)$ when $p=q$ (because $H(p,p)=H(p)$).
+The difference between $H(p,q)$ and $H(p)$ is **relative entropy**, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as "how much **more** surprised I expect Alice to be than Bob". Since $H(p,q) >= $H(p)$, relative entropy is that **it is never negative**, regardless of whether $p$ is greater or less than $q$.
 
 If we take Bob's measure of Alices's total error, minus his measure of his own total error, we get the total relative entropy: how much **more** error Bob expects for Alice than he would expect if Alice knew more. 
 
@@ -126,7 +128,7 @@ $$
 
 ## Detailed Example
 
-Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.
+Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%.
 
 The total cognitive dissonance is
 
@@ -145,9 +147,8 @@ The new upvote probability $q_1$ will be approximately
 
 $$
 \begin{aligned}
-    q_1  &≈ \frac{upvotes}{votesTotal} \\
-       &= \frac{votesTotal×q - 70}{votesTotal} \\
-       &= \frac{1000 * .90 - 70}{1000} \\
+    q_1  &≈ \frac{upvotes - 70}{votesTotal} \\
+       &= \frac{900 - 70}{1000} \\
        &= .83 
 \end{aligned}
 $$
@@ -232,7 +233,7 @@ plot
 
 ```
 
-Note how the rate that cognitive dissonance is reduced falls upvotes approaches 200: changing upvotes produces diminishing returns. 
+Note also how the rate of reduction of cognitive dissonance falls as $q$ approaches $p$.
 
 Focusing attention on posts and notes that maximize the rate of information value is the overall goal of the global brain algorithm. See the next document on [information-value.html].
 

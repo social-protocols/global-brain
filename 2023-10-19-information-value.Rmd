@@ -8,7 +8,7 @@ But how much information is gained by directing attention to a post that users h
 
 So by making some conservative estimates about prior beliefs, we can derive a single metric for estimating the information value of a vote, depending on whether the vote is a *new* upvote (new information learned by users), or a *changed* vote (decrease in cognitive dissonance). In this article we will introduce the formula and the reasoning behind it.
 
-### The Information Value of a Vote
+## The Information Value of a Vote
 
 First, here is a summary of the information value formula:
 
@@ -26,6 +26,14 @@ $$
 \end{aligned}
 $$
 
+where:
+
+- p is the informed probability
+- q is the uninformed probability
+- q1 is the probability after $deltaUpvotes$ votes where changed: $(upvotes + deltaUpvotes)/votesTotal$
+
+
+
 ## Information Value of Changed Votes
 
 Whenever the global brain learns that a note has change the probability of an upvote on a post, $p$ becomes different from $q$ and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that $q$ once again approaches $p$, and cognitive dissonance is reduced.
@@ -42,10 +50,10 @@ This equation simplifies to:
 
 $$
 \begin{aligned}
-                  &votesTotal × D_{KL}(p || q) - D_{KL}(p || q_1) ) \\
-                = &votesTotal × ( p × {\lg \frac{p}{q}} + (1-p) × {\lg \frac{1-p}{1-q}} ) \\
-                  &- votesTotal × ( p × {\lg \frac{p}{q_1}} + (1-p) × {\lg \frac{1-p}{1-q_1}} ) \\
-                = &votesTotal × p × {\lg \frac{q_1}{q}} + (1-p) × {\lg \frac{1-q_1}{1-q}}
+                &  votesTotal × D_{KL}(p || q) - D_{KL}(p || q_1) ) \\
+                &= votesTotal × ( p × {\lg \frac{p}{q}} + (1-p) × {\lg \frac{1-p}{1-q}} ) \\
+                &- votesTotal × ( p × {\lg \frac{p}{q_1}} + (1-p) × {\lg \frac{1-p}{1-q_1}} ) \\
+                &= votesTotal × p × {\lg \frac{q_1}{q}} + (1-p) × {\lg \frac{1-q_1}{1-q}}
 \end{aligned}
 $$
 
@@ -58,10 +66,9 @@ In the case of new votes, measuring the change in entropy is harder because we d
 
 We don't know what those beliefs were, but we can make a *conservative* estimates about those prior beliefs using the maximum entropy principle. The probability with maximum entropy (for binary outcomes such as upvote/downvote) is $q=0.5$: which has an entropy of 1 bit. 
 
-However, if we just plug $q=0.5$ into the information value formula, the results don't make sense. First, information value is always positive: moving from $q$ to $p$ always reduces relative entropy, no matter what $q$ and $p$ are. And the information value is larger the further $q$ is from $p$. This makes sense in the case of a users changing their mind after seeing a note -- the further $q$ is from $p$, the greater the cognitive dissonance, and the greater the information value from changing votes. But a new post with a very small $p$ will also have a very high relative entropy if we assume $q=0.5$, yet presumably new posts with a small $p$ have a small information value.
+However, if we just plug $q=0.5$ into the information value formula, the results don't make sense. First, information value is always positive: moving from $q$ to $p$ always reduces relative entropy, no matter what $q$ and $p$ are. But a new post with a very small $p$ will also have a very high relative entropy if we assume $q=0.5$, yet presumably new posts with a small $p$ have little information value.
 
 The solution is to observe that new upvotes mean something different from changed upvotes. 
-
 
 ## What Does a Vote Mean?
 
@@ -76,12 +83,11 @@ Therefore, we assume that **people do not upvote posts that are not informative*
 
 On the other hand, people downvote posts because they think it is not informative or not relevant. A downvote means that the post **did not change beliefs** -- or if it did, that belief was irrelevant. If somebody downvotes "There's going to be a big storm in Madrid tomorrow" it's because they think it's irrelevant (e.g. if it is posted in the wrong forum) or uncertain. But they believe this despite seeing the post, not because of it. The post itself did not change their beliefs.
 
-So there is an asymmetry between upvotes and downvotes. If the information is in fact false, people who downvoted weren't harmed, because they knew it was false an their beliefs did not change (yes their time was wasted, but let's ignore wasted time and focus on the idea of cognitive dissonance). But those who upvoted it changed their beliefs or thought other users changed their beliefs and these beliefs are false. So upvotes on false information indicate harm was done. Relative entropy actually *increased*.
-
+So there is an asymmetry between upvotes and downvotes. If the information is in fact false, people who downvoted weren't harmed, because they knew it was false an their beliefs did not change (yes their time was wasted, but let's ignore wasted time and focus on the idea of cognitive dissonance). But those who upvoted it changed their beliefs and these beliefs are false. So upvotes on false information indicate harm was done. Users were misinformed, and misinformation has negative information value.
 
 ## Example 1: A Storm in Madrid
 
-Suppose I have not yet seen post A, telling me about a big storm forecast for Madrid tomorrow, posted in a Spain travel forum. If I have not yet heard about the storm, than *I do not believe* there will be a big storm tomorrow. I am not absolutely certain about the belief, but my prior belief before seeing the post, if expressed as a probability, is probably quite small. But this probability would likely change if I saw the post.
+For example, suppose I have not yet seen post A, telling me about a big storm forecast for Madrid tomorrow, posted in a Spain travel forum. If I have not yet heard about the storm, than *I do not believe* there will be a big storm tomorrow. I am not absolutely certain about the belief, but my prior belief before seeing the post, if expressed as a probability, is probably quite small. But this probability would likely change if I saw the post.
 
 Suppose that users who see this post are very likely to upvote it, but almost nobody downvotes it. This means that a lot of people didn't know about the storm before they saw the post: a lot of information was gained for these users (it also means there is a lot of potential information value for users who have *not yet seen the post*). 
 
@@ -98,8 +104,6 @@ So the increase in the number of users who believe something that is probably no
 
 Now suppose instead of only 1 upvote, there were 10 upvotes. Now 10x as much entropy was created, because 10 users were misinformed, not just 1.
 
-However, eventually the number of upvotes starts to overtake the number of downvotes. The value of the information becomes less uncertain, and starts to rise.
-
 So a post with a very low upvote rate indicates an information loss (negative information value) proportional to the number of upvotes.
 
 ## Desired Properties of Information Value Formula
@@ -114,19 +118,19 @@ So for new information, the information value formula should have the following 
 
 ## Upvote-Only Relative Entropy
 
-These properties are all met by a formula that assumes a prior belief $q=0.5$ and then only counts the information value of *upvotes*. Going back to the fundamental concept of surprisal from information theory, which we introduced when developing the formula for [cognitive dissonance](cognitive-dissonance.html), we can calculate the total suprisal of upvotes as:
+These properties are all met by a formula that assumes a prior belief $q=0.5$ and then only counts the information value of *upvotes*. Going back to the fundamental concept of surprisal from information theory, which we introduced when developing the formula for [cognitive dissonance](cognitive-dissonance.html), we can calculate the total suprisal of upvotes is
 
 $$
     upvotes × -{\lg p}
 $$
 
-Assuming $q=0.5$, the most conservative estimate of the total surprisal before users saw the post as:
+Assuming $q=0.5$, the most conservative estimate of the total surprisal before users saw the post as
 
 $$
-    upvotes × -{\lg 0.5} = upvotes
+    upvotes × -{\lg 0.5}
 $$
 
-The difference is therefore
+The difference is
 
 $$
 \begin{aligned}
@@ -137,7 +141,7 @@ $$
 
 This is basically the formula for relative entropy $upvotes × D_{KL}(p, 0.5)$, but cut in half, counting only the upvotes.
 
-Since $-{\lg 0.5} = 1$, we can further simplify to
+Since $-{\lg 0.5} = 1$, we can further simplify this to
 
 $$
 \begin{aligned}
@@ -145,7 +149,7 @@ $$
 \end{aligned}
 $$
 
-One way of looking at this formula is to think of each upvote representing one 1 potentially-uncertain bit of information. If $p$ is 100%, then there is no uncertainty, and each upvote is worth 1 bit of information. But if $q$ is, say, .25, then we have one uncertain bit. The uncertainty of the user was reduced by 1 bit, but another $-{\lg .25} = 2~bits$ of uncertainty about the accuracy of the information was created, for a net loss of 1 bit of uncertainty.
+One way of looking at this formula is to think of each upvote representing 1 potentially-uncertain bit of information. If $p$ is 100%, then there is no uncertainty, and each upvote is worth 1 bit of information. But if $q$ is, say, .25, then we have 1 uncertain bit. The uncertainty of the user was reduced by 1 bit, but another $-{\lg .25} = 2$ bits of uncertainty about the accuracy of the information was created, for a net loss of 1 bit.
 
 ## Example Charts
 
