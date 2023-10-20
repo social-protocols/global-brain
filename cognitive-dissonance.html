@@ -117,15 +117,15 @@ algorithms and components of the software.</p>" />
 </ul></li>
 <li class="chapter" data-level="5" data-path="information-value.html"><a href="information-value.html"><i class="fa fa-check"></i><b>5</b> Information Value</a>
 <ul>
-<li class="chapter" data-level="5.0.1" data-path="information-value.html"><a href="information-value.html#the-information-value-of-a-vote"><i class="fa fa-check"></i><b>5.0.1</b> The Information Value of a Vote</a></li>
-<li class="chapter" data-level="5.1" data-path="information-value.html"><a href="information-value.html#information-value-of-changed-votes"><i class="fa fa-check"></i><b>5.1</b> Information Value of Changed Votes</a></li>
-<li class="chapter" data-level="5.2" data-path="information-value.html"><a href="information-value.html#information-value-of-new-votes"><i class="fa fa-check"></i><b>5.2</b> Information Value of New Votes</a></li>
-<li class="chapter" data-level="5.3" data-path="information-value.html"><a href="information-value.html#what-does-a-vote-mean"><i class="fa fa-check"></i><b>5.3</b> What Does a Vote Mean?</a></li>
-<li class="chapter" data-level="5.4" data-path="information-value.html"><a href="information-value.html#example-1-a-storm-in-madrid"><i class="fa fa-check"></i><b>5.4</b> Example 1: A Storm in Madrid</a></li>
-<li class="chapter" data-level="5.5" data-path="information-value.html"><a href="information-value.html#example-2-a-typhoon-in-oslo"><i class="fa fa-check"></i><b>5.5</b> Example 2: A Typhoon in Oslo</a></li>
-<li class="chapter" data-level="5.6" data-path="information-value.html"><a href="information-value.html#desired-properties-of-information-value-formula"><i class="fa fa-check"></i><b>5.6</b> Desired Properties of Information Value Formula</a></li>
-<li class="chapter" data-level="5.7" data-path="information-value.html"><a href="information-value.html#upvote-only-relative-entropy"><i class="fa fa-check"></i><b>5.7</b> Upvote-Only Relative Entropy</a></li>
-<li class="chapter" data-level="5.8" data-path="information-value.html"><a href="information-value.html#example-charts"><i class="fa fa-check"></i><b>5.8</b> Example Charts</a></li>
+<li class="chapter" data-level="5.1" data-path="information-value.html"><a href="information-value.html#the-information-value-of-a-vote"><i class="fa fa-check"></i><b>5.1</b> The Information Value of a Vote</a></li>
+<li class="chapter" data-level="5.2" data-path="information-value.html"><a href="information-value.html#information-value-of-changed-votes"><i class="fa fa-check"></i><b>5.2</b> Information Value of Changed Votes</a></li>
+<li class="chapter" data-level="5.3" data-path="information-value.html"><a href="information-value.html#information-value-of-new-votes"><i class="fa fa-check"></i><b>5.3</b> Information Value of New Votes</a></li>
+<li class="chapter" data-level="5.4" data-path="information-value.html"><a href="information-value.html#what-does-a-vote-mean"><i class="fa fa-check"></i><b>5.4</b> What Does a Vote Mean?</a></li>
+<li class="chapter" data-level="5.5" data-path="information-value.html"><a href="information-value.html#example-1-a-storm-in-madrid"><i class="fa fa-check"></i><b>5.5</b> Example 1: A Storm in Madrid</a></li>
+<li class="chapter" data-level="5.6" data-path="information-value.html"><a href="information-value.html#example-2-a-typhoon-in-oslo"><i class="fa fa-check"></i><b>5.6</b> Example 2: A Typhoon in Oslo</a></li>
+<li class="chapter" data-level="5.7" data-path="information-value.html"><a href="information-value.html#desired-properties-of-information-value-formula"><i class="fa fa-check"></i><b>5.7</b> Desired Properties of Information Value Formula</a></li>
+<li class="chapter" data-level="5.8" data-path="information-value.html"><a href="information-value.html#upvote-only-relative-entropy"><i class="fa fa-check"></i><b>5.8</b> Upvote-Only Relative Entropy</a></li>
+<li class="chapter" data-level="5.9" data-path="information-value.html"><a href="information-value.html#example-charts"><i class="fa fa-check"></i><b>5.9</b> Example Charts</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -153,7 +153,7 @@ algorithms and components of the software.</p>" />
 <p>As described in the <a href="global-brain-overview.html">Global Brain Overview</a>, the goal of the global brain algorithm is to focus users’ attention on posts that reduce <strong>cognitive dissonance</strong> – difference of belief that exist only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of entropy.</p>
 <div id="key-concepts-from-information-theory" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Key Concepts from Information Theory<a href="cognitive-dissonance.html#key-concepts-from-information-theory" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here’s a quick summary of some basic concepts of information theory, building up from simple to complex concepts.</p>
+<p>Here’s a quick summary of the relevant concepts of information theory:</p>
 <ul>
 <li><strong>surprisal</strong>: how surprised I am when I learn that the value of X is x:</li>
 </ul>
@@ -203,9 +203,9 @@ algorithms and components of the software.</p>" />
 </div>
 <div id="surprisal-as-a-measure-of-error" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Surprisal as a Measure of Error<a href="cognitive-dissonance.html#surprisal-as-a-measure-of-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Surprisal can be thought of, for our purposes, as a measure of the “error” of a prediction. If we predict that something has a 1% chance of happening, and it happens, surprisal is <span class="math inline">\(-{\lg .01} = 6.64\)</span>, whereas if we predicted it had a 99% chance of happening, surprisal is only <span class="math inline">\(-{\lg .99} = 0.14\)</span>. If we thought there was a 50/50 chance, surprisal is <span class="math inline">\(-{\lg .5} = 1\)</span>.</p>
+<p>Surprisal can be thought of, for our purposes, as a measure of the “error” of a prediction. If we predict that something has a 1% chance of happening, and it happens, surprisal is <span class="math inline">\(-{\lg .01} = 6.64~bits\)</span>, whereas if we predicted it had a 99% chance of happening, surprisal is only <span class="math inline">\(-{\lg .99} = 0.14~bits\)</span>, which is much smaller. If we thought there was a 50/50 chance, surprisal is <span class="math inline">\(-{\lg .5} = 1~bit\)</span>.</p>
 <p>Suppose we predict that the probability of a user upvoting a post is <span class="math inline">\(p\)</span>. Then suppose there are actually <span class="math inline">\(upvotes\)</span> upvotes and <span class="math inline">\(downvotes\)</span> downvotes. What is the total error of our predictions?</p>
-<p>Every time there is an upvote, surprisal is <span class="math inline">\(-{\lg p}\)</span>. Our estimate of the probability of a downvote is <span class="math inline">\(1-p\)</span>, so whenever there is a downvote surprisal is <span class="math inline">\(-{\lg (1-p)}\)</span>.</p>
+<p>Every time there is an upvote, surprisal is <span class="math inline">\(-{\lg p}\)</span>. The probability of a downvote is just <span class="math inline">\(1-p\)</span>, so whenever there is a downvote surprisal is <span class="math inline">\(-{\lg (1-p)}\)</span>.</p>
 <p>So our total error is:</p>
 <p><span class="math display">\[
     upvotes × -{\lg p} + downvotes × -{\lg (1-p)}
@@ -217,7 +217,7 @@ algorithms and components of the software.</p>" />
     &amp; = votesTotal × H(p)
 \end{aligned}
 \]</span></p>
-<p>In other words, our error is roughly entropy per vote, times the number of votes.</p>
+<p>In other words, our error is roughly entropy times the number of votes.</p>
 </div>
 <div id="total-cross-entropy" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Total Cross Entropy<a href="cognitive-dissonance.html#total-cross-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -230,15 +230,16 @@ algorithms and components of the software.</p>" />
     &amp;= votesTotal×H(p,q) \\
 \end{aligned}
 \]</span></p>
-<p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s probabilities: Bob’s estimate of Alice’s average error. The closer the estimate <span class="math inline">\(q\)</span> is to what Bob thinks is the more correct frequency <span class="math inline">\(p\)</span>, the lower the expected error. Cross entropy is minimized when <span class="math inline">\(p=q\)</span>, at which point <span class="math inline">\(H(p,q)=H(p,p)=H(p)\)</span>.</p>
+<p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s probabilities: Bob’s estimate of Alice’s average error. The closer the estimate <span class="math inline">\(q\)</span> is to what Bob thinks is the more correct probability <span class="math inline">\(p\)</span>, the lower the expected error. Cross entropy is minimized when <span class="math inline">\(p=q\)</span>, at which point <span class="math inline">\(H(p,q)=H(p,p)=H(p)\)</span>.</p>
 <p>In our case, Alice represents the average uninformed user (users who haven’t seen the note on a post), and Bob represents the informed user. There are <span class="math inline">\(votesTotal\)</span> “Alices”, or uninformed users. Bob expects the total error of all the uninformed users to be <span class="math inline">\(votesTotal×H(p,q)\)</span>.</p>
+<p><span class="math inline">\(H(p,q)\)</span> will always be greater than <span class="math inline">\(H(p)\)</span>. Bob measure of Alice’s error will always be greater than his measure of his own error as long as his beliefs differ from Alice’s.</p>
+<p>This is due to a very powerful property of surprisal: in the long term, surprisal is minimized when the estimated probability equals the actual frequency of the event. Over- or under- estimating the probability always results in more error in the long run. So if you truly think 90% of votes will be upvotes, then you will minimize your expected error by estimating the probability of an upvote to be 90%.</p>
+<p><span class="math inline">\(H(p,q)\)</span> is always greater than <span class="math inline">\(H(p,p)=H(\)</span>p)$ because <span class="math inline">\(H(p,q)\)</span> tells us what Alice’s average error <em>would</em> be, in the long term, if <span class="math inline">\(p\)</span> were the true frequency. The closer <span class="math inline">\(q\)</span> is to <span class="math inline">\(p\)</span>, the smaller the expected average error.</p>
+<p>Another way of looking at this is to realize Bob will always expect Alices’s average error to be greater than his own, as long as he thinks <span class="math inline">\(p\)</span> is a better estimate than <span class="math inline">\(q\)</span>. Presumably, Bob thinks he knows something Alice doesn’t know. If Bob thought Alices’s estimate <span class="math inline">\(q\)</span> was better than his own estimate <span class="math inline">\(p\)</span>, Bob would change his estimate to <span class="math inline">\(q\)</span>!</p>
 </div>
 <div id="total-relative-entropy-cognitive-dissonance" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Total Relative Entropy = Cognitive Dissonance<a href="cognitive-dissonance.html#total-relative-entropy-cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The difference between <span class="math inline">\(H(p,q)\)</span> and <span class="math inline">\(H(p)\)</span> is the <strong>relative entropy</strong>, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as “how much <strong>more</strong> surprised I expect Alice to be than Bob”.</p>
-<p>A very interesting property of relative entropy is that <strong>it is never negative</strong>. It doesn’t matter whether <span class="math inline">\(p\)</span> is greater or less than <span class="math inline">\(q\)</span>. Plug in different values to the formula to see.</p>
-<p>This is because relative entropy is an expectation over the probability distribution <span class="math inline">\(p\)</span> – it is an error measured from Bob’s point of view. Bob measure of Alice’s error is always greater than his measure of his own error because as long as his beliefs differ from Alice’s. That is because presumably Bob thinks he knows something Alice doesn’t know. If Bob thought Alices’s estimate <span class="math inline">\(q\)</span> was better than his own estimate <span class="math inline">\(p\)</span>, Bob would change his estimate to <span class="math inline">\(q\)</span>!</p>
-<p>Relative entropy is zero if <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> are the same, because cross entropy <span class="math inline">\(H(p,q)\)</span> just equals entropy <span class="math inline">\(H(p)\)</span> when <span class="math inline">\(p=q\)</span> (because <span class="math inline">\(H(p,p)=H(p)\)</span>).</p>
+<p>The difference between <span class="math inline">\(H(p,q)\)</span> and <span class="math inline">\(H(p)\)</span> is <strong>relative entropy</strong>, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as “how much <strong>more</strong> surprised I expect Alice to be than Bob”. Since $H(p,q) &gt;= <span class="math inline">\(H(p)\)</span>, relative entropy is that <strong>it is never negative</strong>, regardless of whether <span class="math inline">\(p\)</span> is greater or less than <span class="math inline">\(q\)</span>.</p>
 <p>If we take Bob’s measure of Alices’s total error, minus his measure of his own total error, we get the total relative entropy: how much <strong>more</strong> error Bob expects for Alice than he would expect if Alice knew more.</p>
 <p>The total relative entropy is our measure of cognitive dissonance.</p>
 <p><span class="math display">\[
@@ -251,7 +252,7 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 </div>
 <div id="detailed-example" class="section level2 hasAnchor" number="4.5">
 <h2><span class="header-section-number">4.5</span> Detailed Example<a href="cognitive-dissonance.html#detailed-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%, without changing the vote rate.</p>
+<p>Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%.</p>
 <p>The total cognitive dissonance is</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -265,9 +266,8 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 <p>The new upvote probability <span class="math inline">\(q_1\)</span> will be approximately</p>
 <p><span class="math display">\[
 \begin{aligned}
-    q_1  &amp;≈ \frac{upvotes}{votesTotal} \\
-       &amp;= \frac{votesTotal×q - 70}{votesTotal} \\
-       &amp;= \frac{1000 * .90 - 70}{1000} \\
+    q_1  &amp;≈ \frac{upvotes - 70}{votesTotal} \\
+       &amp;= \frac{900 - 70}{1000} \\
        &amp;= .83
 \end{aligned}
 \]</span></p>
@@ -372,7 +372,7 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 </tbody>
 </table>
 <p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
-<p>Note how the rate that cognitive dissonance is reduced falls upvotes approaches 200: changing upvotes produces diminishing returns.</p>
+<p>Note also how the rate of reduction of cognitive dissonance falls as <span class="math inline">\(q\)</span> approaches <span class="math inline">\(p\)</span>.</p>
 <p>Focusing attention on posts and notes that maximize the rate of information value is the overall goal of the global brain algorithm. See the next document on [information-value.html].</p>
 </div>
 <div id="discussion" class="section level2 hasAnchor" number="4.6">
