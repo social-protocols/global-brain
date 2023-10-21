@@ -104,8 +104,6 @@ $H(p,q)$ will always be greater than $H(p)$ if $p≠q$. That is, Bob measure of 
 
 This is due to a very powerful property of surprisal: in the long term, surprisal is minimized when the estimated probability equals the actual frequency of the event. Over- or under- estimating the probability always results in more error in the long run. Since $H(p,q)$ tells us what Alice's average error *would* be, in the long run, if $p$ were the true frequency, $H(p,q)$ is minimized when $q=p$, at which point $H(p,q)=H(p,p)=H(p)$.
 
-So Bob will always expect Alice to be more surprised than him, because he thinks his estimate $p$ is a better estimate than her estimate $q$ (If Bob thought Alices's estimate $q$ was better than his own estimate $p$, Bob would change his estimate to $q$)!
-
 ## Total Relative Entropy = Cognitive Dissonance
 
 The difference between $H(p,q)$ and $H(p)$ is **relative entropy**, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as "how much **more** surprised I expect Alice to be than Bob". Since $H(p,q) >= H(p)$, **relative entropy is never negative**, regardless of whether $p$ is greater or less than $q$.
@@ -162,7 +160,9 @@ $$
 \end{aligned}
 $$
 
-The table below shows how relative entropy falls as users change upvotes to downvotes, reaching zero when $p=q_t$ and therefore $upvotes=p×votesTotal=200$.
+So cognitive dissonance was decreased by $1966.01-1376.95 ≈ 589$ bits. Or in other words, 589 of information was gained.
+
+The table below shows how relative cognitive dissonance falls as users change upvotes to downvotes, reaching zero when $p=q_t$ and therefore $upvotes=p×votesTotal=200$.
 
 ```{r}
 
