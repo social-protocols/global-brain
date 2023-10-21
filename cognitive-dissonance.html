@@ -234,7 +234,6 @@ algorithms and components of the software.</p>" />
 <p>In our case, Alice represents the average uninformed user (users who haven’t seen the note on a post), and Bob represents the informed user. There are <span class="math inline">\(votesTotal\)</span> “Alices”, or uninformed users. Bob expects the total error of all the uninformed users to be <span class="math inline">\(votesTotal×H(p,q)\)</span>.</p>
 <p><span class="math inline">\(H(p,q)\)</span> will always be greater than <span class="math inline">\(H(p)\)</span> if <span class="math inline">\(p≠q\)</span>. That is, Bob measure of Alice’s error will always be greater than his measure of his own error as long as their beliefs differ.</p>
 <p>This is due to a very powerful property of surprisal: in the long term, surprisal is minimized when the estimated probability equals the actual frequency of the event. Over- or under- estimating the probability always results in more error in the long run. Since <span class="math inline">\(H(p,q)\)</span> tells us what Alice’s average error <em>would</em> be, in the long run, if <span class="math inline">\(p\)</span> were the true frequency, <span class="math inline">\(H(p,q)\)</span> is minimized when <span class="math inline">\(q=p\)</span>, at which point <span class="math inline">\(H(p,q)=H(p,p)=H(p)\)</span>.</p>
-<p>So Bob will always expect Alice to be more surprised than him, because he thinks his estimate <span class="math inline">\(p\)</span> is a better estimate than her estimate <span class="math inline">\(q\)</span> (If Bob thought Alices’s estimate <span class="math inline">\(q\)</span> was better than his own estimate <span class="math inline">\(p\)</span>, Bob would change his estimate to <span class="math inline">\(q\)</span>)!</p>
 </div>
 <div id="total-relative-entropy-cognitive-dissonance" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Total Relative Entropy = Cognitive Dissonance<a href="cognitive-dissonance.html#total-relative-entropy-cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -279,7 +278,8 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
     &amp;= 1376.95~bits
 \end{aligned}
 \]</span></p>
-<p>The table below shows how relative entropy falls as users change upvotes to downvotes, reaching zero when <span class="math inline">\(p=q_t\)</span> and therefore <span class="math inline">\(upvotes=p×votesTotal=200\)</span>.</p>
+<p>So cognitive dissonance was decreased by <span class="math inline">\(1966.01-1376.95 ≈ 589\)</span> bits. Or in other words, 589 of information was gained.</p>
+<p>The table below shows how relative cognitive dissonance falls as users change upvotes to downvotes, reaching zero when <span class="math inline">\(p=q_t\)</span> and therefore <span class="math inline">\(upvotes=p×votesTotal=200\)</span>.</p>
 <table>
 <thead>
 <tr class="header">
