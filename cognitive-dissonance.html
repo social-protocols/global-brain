@@ -230,16 +230,15 @@ algorithms and components of the software.</p>" />
     &amp;= votesTotal×H(p,q) \\
 \end{aligned}
 \]</span></p>
-<p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s probabilities: Bob’s estimate of Alice’s average error. The closer the estimate <span class="math inline">\(q\)</span> is to what Bob thinks is the more correct probability <span class="math inline">\(p\)</span>, the lower the expected error. Cross entropy is minimized when <span class="math inline">\(p=q\)</span>, at which point <span class="math inline">\(H(p,q)=H(p,p)=H(p)\)</span>.</p>
+<p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s estimates: Bob’s estimate of Alice’s average error.</p>
 <p>In our case, Alice represents the average uninformed user (users who haven’t seen the note on a post), and Bob represents the informed user. There are <span class="math inline">\(votesTotal\)</span> “Alices”, or uninformed users. Bob expects the total error of all the uninformed users to be <span class="math inline">\(votesTotal×H(p,q)\)</span>.</p>
-<p><span class="math inline">\(H(p,q)\)</span> will always be greater than <span class="math inline">\(H(p)\)</span>. Bob measure of Alice’s error will always be greater than his measure of his own error as long as his beliefs differ from Alice’s.</p>
-<p>This is due to a very powerful property of surprisal: in the long term, surprisal is minimized when the estimated probability equals the actual frequency of the event. Over- or under- estimating the probability always results in more error in the long run. So if you truly think 90% of votes will be upvotes, then you will minimize your expected error by estimating the probability of an upvote to be 90%.</p>
-<p><span class="math inline">\(H(p,q)\)</span> is always greater than <span class="math inline">\(H(p,p)=H(\)</span>p)$ because <span class="math inline">\(H(p,q)\)</span> tells us what Alice’s average error <em>would</em> be, in the long term, if <span class="math inline">\(p\)</span> were the true frequency. The closer <span class="math inline">\(q\)</span> is to <span class="math inline">\(p\)</span>, the smaller the expected average error.</p>
-<p>Another way of looking at this is to realize Bob will always expect Alices’s average error to be greater than his own, as long as he thinks <span class="math inline">\(p\)</span> is a better estimate than <span class="math inline">\(q\)</span>. Presumably, Bob thinks he knows something Alice doesn’t know. If Bob thought Alices’s estimate <span class="math inline">\(q\)</span> was better than his own estimate <span class="math inline">\(p\)</span>, Bob would change his estimate to <span class="math inline">\(q\)</span>!</p>
+<p><span class="math inline">\(H(p,q)\)</span> will always be greater than <span class="math inline">\(H(p)\)</span> if <span class="math inline">\(p≠q\)</span>. That is, Bob measure of Alice’s error will always be greater than his measure of his own error as long as their beliefs differ.</p>
+<p>This is due to a very powerful property of surprisal: in the long term, surprisal is minimized when the estimated probability equals the actual frequency of the event. Over- or under- estimating the probability always results in more error in the long run. Since <span class="math inline">\(H(p,q)\)</span> tells us what Alice’s average error <em>would</em> be, in the long run, if <span class="math inline">\(p\)</span> were the true frequency, <span class="math inline">\(H(p,q)\)</span> is minimized when <span class="math inline">\(q=p\)</span>, at which point <span class="math inline">\(H(p,q)=H(p,p)=H(p)\)</span>.</p>
+<p>So Bob will always expect Alice to be more surprised than him, because he thinks his estimate <span class="math inline">\(p\)</span> is a better estimate than her estimate <span class="math inline">\(q\)</span> (If Bob thought Alices’s estimate <span class="math inline">\(q\)</span> was better than his own estimate <span class="math inline">\(p\)</span>, Bob would change his estimate to <span class="math inline">\(q\)</span>)!</p>
 </div>
 <div id="total-relative-entropy-cognitive-dissonance" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Total Relative Entropy = Cognitive Dissonance<a href="cognitive-dissonance.html#total-relative-entropy-cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The difference between <span class="math inline">\(H(p,q)\)</span> and <span class="math inline">\(H(p)\)</span> is <strong>relative entropy</strong>, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as “how much <strong>more</strong> surprised I expect Alice to be than Bob”. Since $H(p,q) &gt;= <span class="math inline">\(H(p)\)</span>, relative entropy is that <strong>it is never negative</strong>, regardless of whether <span class="math inline">\(p\)</span> is greater or less than <span class="math inline">\(q\)</span>.</p>
+<p>The difference between <span class="math inline">\(H(p,q)\)</span> and <span class="math inline">\(H(p)\)</span> is <strong>relative entropy</strong>, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as “how much <strong>more</strong> surprised I expect Alice to be than Bob”. Since <span class="math inline">\(H(p,q) &gt;= H(p)\)</span>, <strong>relative entropy is never negative</strong>, regardless of whether <span class="math inline">\(p\)</span> is greater or less than <span class="math inline">\(q\)</span>.</p>
 <p>If we take Bob’s measure of Alices’s total error, minus his measure of his own total error, we get the total relative entropy: how much <strong>more</strong> error Bob expects for Alice than he would expect if Alice knew more.</p>
 <p>The total relative entropy is our measure of cognitive dissonance.</p>
 <p><span class="math display">\[
@@ -372,14 +371,14 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 </tbody>
 </table>
 <p><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="576" /></p>
-<p>Note also how the rate of reduction of cognitive dissonance falls as <span class="math inline">\(q\)</span> approaches <span class="math inline">\(p\)</span>.</p>
-<p>Focusing attention on posts and notes that maximize the rate of information value is the overall goal of the global brain algorithm. See the next document on [information-value.html].</p>
+<p>Note how the rate of reduction of cognitive dissonance falls as <span class="math inline">\(q\)</span> approaches <span class="math inline">\(p\)</span>.</p>
+<p>Focusing attention on posts and notes that maximize the rate of reduction of cognitive dissonance is the overall goal of the global brain algorithm. See the next document on [information-value.html].</p>
 </div>
 <div id="discussion" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> Discussion<a href="cognitive-dissonance.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="parallel-to-machine-learning" class="section level3 hasAnchor" number="4.6.1">
 <h3><span class="header-section-number">4.6.1</span> Parallel to Machine Learning<a href="cognitive-dissonance.html#parallel-to-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs a probability (e.g. that the image is a cat). The cost function computes how far these probability estimates are from the correct labels, and the neural network is trained by minimizing the cost function.</p>
+<p>Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs an estimated probability (e.g. that the image is a cat). The cost function computes how far these probability estimates are from the correct labels, and the neural network is trained by minimizing the cost function.</p>
 <p>If <span class="math inline">\(ŷ_i\)</span> is the machine’s predicted probability for training example <span class="math inline">\(i\)</span>, and <span class="math inline">\(y_i\)</span> is the correct output (1 or 0), then the total cross entropy cost is:</p>
 <p><span class="math display">\[
     \sum_i H(y_i, ŷ) = \sum_i y_i × -{\lg ŷ_i} + (1-y_i) × -{\lg(1 - ŷ_i)}
@@ -400,22 +399,27 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 <p>Note that cross-entropy in our case is a measure of the total surprise of uninformed users at the hypothetical future votes of informed users. That is to say, it is:</p>
 <p><span class="math display">\[
 \begin{aligned}
-    &amp; votesTotal×p × -{\lg q} + votesTotal×(1-p) × -{\lg (1-q)} ) \\
-    &amp;≈ hypotheticalInformedUpvotes × -{\lg q} + hypotheticalInformedDownvotes × -{\lg (1-q)} ) \\
+    &amp;votesTotal×p × -{\lg q} \\
+    &amp;+ votesTotal×(1-p) × -{\lg (1-q)} ) \\
+    &amp;≈ hypotheticalInformedUpvotes × -{\lg q} \\
+    &amp;+ hypotheticalInformedDownvotes × -{\lg (1-q)} ) \\
     &amp;= votesTotal×H(p,q)
 \end{aligned}
 \]</span></p>
 <p>And not</p>
 <p><span class="math display">\[
 \begin{aligned}
-    &amp; votesTotal×q × -{\lg q} + votesTotal×(1-q) × -{\lg (1-q)} ) \\
-    &amp;≈ actualUpvotes × -{\lg q} + actualDownvotes × -{\lg (1-q)} ) \\
+    &amp; votesTotal×q × -{\lg q} \\
+    &amp;+ votesTotal×(1-q) × -{\lg (1-q)} ) \\
+    &amp;≈ actualUpvotes × -{\lg q} \\
+    &amp;+ actualDownvotes × -{\lg (1-q)} ) \\
     &amp;= votesTotal×H(q)
 \end{aligned}
 \]</span></p>
-<p>This is potentially confusing (it caused me a great deal of confusion before I figured this out) because we are measuring the error of Alice’s estimated probability <span class="math inline">\(q\)</span> with respect to hypothetical events that have have not yet actually occurred. But shouldn’t we be measuring the error of the votes that have occurred?</p>
+<p>This is potentially confusing (it caused me a great deal of confusion initially) because we are measuring the error of Alice’s estimated probability <span class="math inline">\(q\)</span> with respect to hypothetical events that have have not yet actually occurred. But shouldn’t we be measuring the error of the votes that have occurred?</p>
 <p>No, because surprisal is a measure of the error of a probability estimate, no the error of the event. The events are “what actually happens” or, in case of uncertainty, “what we think will actually happen” given our best current estimate <span class="math inline">\(p\)</span>.</p>
-<p>Measuring error against actual vote events just gives us <span class="math inline">\(votesTotal*H(q)\)</span>, which doesn’t tell us how much actual votes differ from what they should be if users were more informed. <span class="math inline">\(votesTotal×H(p,q)\)</span> makes the most sense as a measure of the tension between the current state of user’s beliefs, and what that state <strong>should</strong> be, which is a hypothetical future where all users have changed their upvotes because of the information in the note, and thus <span class="math inline">\(actualUpvotes = hypotheticalInformedUpvotes\)</span> and <span class="math inline">\(actualDownvotes = hypotheticalInformedDownvotes\)</span>.</p>
+<p>Measuring error against actual vote events just gives us <span class="math inline">\(votesTotal*H(q)\)</span>, which doesn’t tell us how much actual votes differ from what they should be if users were more informed.</p>
+<p><span class="math inline">\(votesTotal×H(p,q)\)</span> makes the most sense as a measure of the tension between the current state of user’s beliefs, and what that state <strong>should</strong> be, which is a hypothetical future where all users have changed their upvotes because of the information in the note, and thus <span class="math inline">\(actualUpvotes = hypotheticalInformedUpvotes\)</span> and <span class="math inline">\(actualDownvotes = hypotheticalInformedDownvotes\)</span>.</p>
 
 </div>
 </div>
