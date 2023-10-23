@@ -100,13 +100,13 @@ $H(p,q)$ is the cross entropy between Bob and Alices's estimates: Bob's estimate
 
 In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. There are $votesTotal$ "Alices", or uninformed users. Bob expects the total error of all the uninformed users to be $votesTotal×H(p,q)$.
 
-$H(p,q)$ will always be greater than $H(p)$ if $p≠q$. That is, Bob measure of Alice's error will always be greater than his measure of his own error as long as their beliefs differ.
+$H(p,q)$ will always be greater than $H(p)$ if $p≠q$. That is, Bob's measure of Alice's error will always be greater than his measure of his own error as long as his beliefs differ from Alice's.
 
-This is due to a very powerful property of surprisal: in the long term, surprisal is minimized when the estimated probability equals the actual frequency of the event. Over- or under- estimating the probability always results in more error in the long run. Since $H(p,q)$ tells us what Alice's average error *would* be, in the long run, if $p$ were the true frequency, $H(p,q)$ is minimized when $q=p$, at which point $H(p,q)=H(p,p)=H(p)$.
+This is due to a very powerful property of surprisal as a measure of error: expected surprisal is minimized when the estimated probability equals the actual frequency of the event. So over- or under- estimating the probability always results in more error in the long run. Since $H(p,q)$ tells us what Alice's average error *would* be, in the long run, if $p$ were the true frequency, $H(p,q)$ is minimized when Alice's estimate $q$ equals the true frequency $p$, or when $H(p,q)=H(p,p)=H(p)$.
 
 ## Total Relative Entropy = Cognitive Dissonance
 
-The difference between $H(p,q)$ and $H(p)$ is **relative entropy**, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as "how much **more** surprised I expect Alice to be than Bob". Since $H(p,q) >= H(p)$, **relative entropy is never negative**, regardless of whether $p$ is greater or less than $q$.
+The difference between $H(p,q)$ and $H(p)$ is **relative entropy**, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as "how much **more** surprised Bob expects Alice to be than himself". Since $H(p,q) >= H(p)$, **relative entropy is never negative**, regardless of whether $p$ is greater or less than $q$.
 
 If we take Bob's measure of Alices's total error, minus his measure of his own total error, we get the total relative entropy: how much **more** error Bob expects for Alice than he would expect if Alice knew more. 
 
