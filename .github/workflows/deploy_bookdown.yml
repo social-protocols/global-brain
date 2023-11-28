@@ -9,7 +9,6 @@ jobs:
   bookdown:
     name: Render-Book
     runs-on: macOS-latest
-    needs: setup-renv
     env:
       RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
