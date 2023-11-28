@@ -33,7 +33,7 @@ jobs:
       # - name: Install rmarkdown
       #   run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "dplyr", "tidyr", "ggplot2", "knitr"))'
       - name: Render Book
-        shel:: Rscript {0}
+        shell: Rscript {0}
         run: |
           renv::activate()
           bookdown::render_book("index.Rmd")
