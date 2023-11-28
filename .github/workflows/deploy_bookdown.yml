@@ -6,15 +6,39 @@ on:
 name: renderbook
 
 jobs:
+  setup-renv:
+    steps:
+      - uses: actions/checkout@v3
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-renv@v2
+
+  use-cache:
+    env:
+      RENV_PATHS_ROOT: ~/.local/share/renv
+    steps:
+      - name: Cache packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
+      - name: Restore packages
+        shell: Rscript {0}
+        run: |
+          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+          renv::restore()
+
   bookdown:
     name: Render-Book
     runs-on: macOS-latest
+    needs: [setup-renv, use-cache]
     steps:
       - uses: actions/checkout@v4
-      - uses: r-lib/actions/setup-r@v2
-      - uses: r-lib/actions/setup-pandoc@v2
-      - name: Install rmarkdown
-        run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "dplyr", "tidyr", "ggplot2", "knitr"))'
+      # - uses: r-lib/actions/setup-r@v2
+      # - uses: r-lib/actions/setup-pandoc@v2
+      # - name: Install rmarkdown
+      #   run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "dplyr", "tidyr", "ggplot2", "knitr"))'
       - name: Render Book
         run: Rscript -e 'bookdown::render_book("index.Rmd")'
       - uses: actions/upload-artifact@v3
