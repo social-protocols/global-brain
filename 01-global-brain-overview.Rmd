@@ -1,5 +1,5 @@
 --- 
-title: "Introduction to the Global Brain"
+title: "Introduction to the Global Brain Algorithm"
 date: "Last updated: `r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
