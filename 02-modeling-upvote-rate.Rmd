@@ -30,7 +30,7 @@ theme_sp <- function() {
 
 ```
 
-The basic form of content users can provide on the Y platform is a post.
+The basic form of content users can provide on the platform is a post.
 In the following explanations, we visually represent a post by a rectangle with
 rounded corners like this.
 
@@ -60,7 +60,7 @@ knitr::include_graphics("images/01-modeling-upvote-rate/promote-top-reply-to-not
 
 ```
 
-Users on Y can rate content by adding an **upvote** or a **downvote**.
+Users on the platform can rate content by adding an **upvote** or a **downvote**.
 There are two essential forms of content users can rate:
 posts and posts with a note.
 We call those units *Voting Units*.
