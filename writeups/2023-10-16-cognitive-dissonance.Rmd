@@ -60,7 +60,7 @@ $$ D_{KL}(p||q) = - p × {\lg \frac{p}{q}} - (1-p) × {\lg \frac{1-p}{1-q}} $$
 
 Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. If we predict that something has a 1% chance of happening, and it happens, surprisal is $-{\lg .01} = 6.64~bits$, whereas if we predicted it had a 99% chance of happening, surprisal is only $-{\lg .99} = 0.14~bits$, which is much  smaller. If we thought there was a 50/50 chance, surprisal is $-{\lg .5} = 1~bit$.
 
-Suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $upvotes$ upvotes and $downvotes$ downvotes. What is the total error of our predictions?
+Suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $upvotes$ upvotes and $downvotes$ downvotes. What is the total error of our prediction?
 
 Every time there is an upvote, surprisal is $-{\lg p}$. The probability of a downvote is just $1-p$, so whenever there is a downvote surprisal is $-{\lg (1-p)}$.
 
@@ -80,8 +80,7 @@ $$
 \end{aligned}
 $$
 
-In other words, our error is roughly entropy times the number of votes.
-
+In other words, our error is roughly entropy times the number of votes. That's why entropy is often described as the average surprisal, or expected value of surprisal -- it is the surprisal per vote. However For our purposes, we will be defining cognitive dissonance in terms of **total** surprisal -- specifically, as total relative entropy -- which we will define below.
 
 ## Total Cross Entropy
 
@@ -90,7 +89,7 @@ Let's say Alice estimates the probability of an upvote to be $q$, but Bob thinks
 $$
 \begin{aligned}
     &upvotes × -{\lg q} + downvotes × -{\lg (1-q)} \\
-    &≈ votesTotal×p × -{\lg q} + votesTotal×(1-p) × -{\lg (1-q)} )  \\
+    &≈ votesTotal×p × -{\lg q} + votesTotal×(1-p) × -{\lg (1-q)}   \\
     &= votesTotal×( p×-{\lg q} + (1-p)×-{\lg (1-q)} ) \\
     &= votesTotal×H(p,q) \\
 \end{aligned}
@@ -102,7 +101,7 @@ In our case, Alice represents the average uninformed user (users who haven't see
 
 $H(p,q)$ will always be greater than $H(p)$ if $p≠q$. That is, Bob's measure of Alice's error will always be greater than his measure of his own error as long as his beliefs differ from Alice's.
 
-This is due to a very powerful property of surprisal as a measure of error: expected surprisal is minimized when the estimated probability equals the actual frequency of the event. So over- or under- estimating the probability always results in more error in the long run. Since $H(p,q)$ tells us what Alice's average error *would* be, in the long run, if $p$ were the true frequency, $H(p,q)$ is minimized when Alice's estimate $q$ equals the true frequency $p$, or when $H(p,q)=H(p,p)=H(p)$.
+This is due to a very powerful property of surprisal as a measure of error: expected surprisal is minimized when the estimated probability equals the "true" probability. So over- or under- estimating the probability always results in more error in the long run. Since $H(p,q)$ tells us what Alice's average error *would* be, in the long run, if $p$ were the true frequency, $H(p,q)$ is minimized when Alice's estimate $q$ equals the true frequency $p$, or when $H(p,q)=H(p,p)=H(p)$.
 
 ## Total Relative Entropy = Cognitive Dissonance
 
@@ -160,9 +159,9 @@ $$
 \end{aligned}
 $$
 
-So cognitive dissonance was decreased by $1966.01-1376.95 ≈ 589$ bits. Or in other words, 589 of information was gained.
+So cognitive dissonance was decreased by $1966.01-1376.95 ≈ 589$ bits. Or in other words, 589 bits of information was gained.
 
-The table below shows how relative cognitive dissonance falls as users change upvotes to downvotes, reaching zero when $p=q_t$ and therefore $upvotes=p×votesTotal=200$.
+The table below shows how relative cognitive dissonance falls as users change upvotes to downvotes, reaching zero when $p=q_t$ and thus $upvotes=p×votesTotal=200$.
 
 ```{r}
 
@@ -233,14 +232,14 @@ plot
 
 Note how the rate of reduction of cognitive dissonance falls as $q$ approaches $p$.
 
-Focusing attention on posts and notes that maximize the rate of reduction of cognitive dissonance is the overall goal of the global brain algorithm. See the next document on [information value](#information-value).
+Focusing attention on posts and notes that maximize the rate of reduction of cognitive dissonance is the overall goal of the global brain algorithm. See the next document on [information value](information-value.html).
 
 
 ## Discussion
 
 ### Parallel to Machine Learning
 
-Cross entropy is commonly used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs an estimated probability (e.g. that the image is a cat). The cost function computes how far these probability estimates are from the correct labels, and the neural network is trained by minimizing the cost function.
+Cross entropy is commonly used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs an estimated probability (e.g. that the image is a cat). The cost quantifies the error of these probability estimates with respect to the correct labels, and the neural network is trained by minimizing the cost function.
 
 If $ŷ_i$ is the machine's predicted probability for training example $i$, and $y_i$ is the correct output (1 or 0), then the total cross entropy cost is:
 
@@ -262,7 +261,11 @@ $$
 
 So both neural networks and the global brain "learn" by reducing cross entropy. The difference is that the global brain reduces entropy not by learning to make better predictions, but by in a sense teaching users to make better predictions of how a fully-informed user would vote.
 
-### A Subtle Point
+### Subtle Point 1
+
+Our measure of cognitive dissonance is relative entropy, not cross entropy. But minimizing relative entropy is the same as minimizing cross entropy, since relative entropy $H(P,Q) - H(P)$ is just cross entropy minus a constant $H(P)$ ($H(P)$ is a constant since there's nothing we can to do change the true probability $P$).
+
+### Subtle Point 1
 
 Note that cross-entropy in our case is a measure of the total surprise of uninformed users at the hypothetical future votes of informed users. That is to say, it is:
 

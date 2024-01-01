@@ -4,7 +4,7 @@ The goal of the global brain algorithm is to focus users' attention on posts tha
 
 In information theory, information is the reduction of entropy. Since we define cognitive dissonance as entropy, reducing cognitive dissonance can also be seen as gaining information. Thus the goal of the global brain algorithm is to directs attention to notes with the greatest potential information gain.
 
-In [cognitive dissonance], we explain how relative entropy is reduced as users change their votes, which means that information is gained when users change beliefs. But how much information is gained when users upvote or downvote a new post they have not previously voted on? We don't know how much that post changed users beliefs, because we don't know what their beliefs were before they saw the post. Without two probability distributions to compare, we can't calculate information value in terms of reduction of entropy. Yet obviously new posts do convey information -- something users didn't know or hadn't seen before, or they wouldn't upvote the post.
+In the section on [cognitive dissonance], we explain how relative entropy is reduced as users change their votes, which means that information is gained when users change beliefs. But how much information is gained when users upvote or downvote a new post they have not previously voted on? We don't know how much that post changed users beliefs, because we don't know what their beliefs were before they saw the post. Without two probability distributions to compare, we can't calculate information value in terms of reduction of entropy. Yet obviously new posts do convey information -- something users didn't know or hadn't seen before, or they wouldn't upvote the post.
 
 By making some conservative estimates about users' prior beliefs, we can quantify the information gain for new posts and derive a single metric for estimating the information value of a vote, whether that vote is a *new* upvote (new information learned by users), or a *changed* vote (decrease in cognitive dissonance). In this article we will introduce the formula and the reasoning behind it.
 
@@ -38,7 +38,7 @@ where:
 
 Whenever the global brain learns that a note has change the probability of an upvote on a post, $p$ becomes different from $q$ and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that $q$ once again approaches $p$, cognitive dissonance is reduced.
 
-The information value from moving from $q$ to $q_1$ is just the reduction in in cognitive dissonance, or reduction in total relative entropy.
+The information value from moving from $q$ to $q_1$ is just the reduction in cognitive dissonance, or reduction in total relative entropy.
 
 $$
 \begin{aligned}
@@ -64,9 +64,7 @@ $$
 
 In the case of new votes, measuring the change in entropy is harder because we don't know what users' beliefs were **before** they voted. Yet clearly new posts provide information, otherwise users would not upvote them. The upvotes tell us that the post has **changed** beliefs in some way. They caused users to believe things they didn't believe before. 
 
-We don't know what those beliefs were, but we can make a *conservative* estimates about those prior beliefs using the maximum entropy principle. The probability with maximum entropy (for binary outcomes such as upvote/downvote) is $q=0.5$: which has an entropy of 1 bit. 
-
-However, if we just plug $q=0.5$ into the information value formula, the results don't make sense. First, information value is always positive: moving from $q$ to $p$ always reduces relative entropy, no matter what $q$ and $p$ are. What's more, a new post with a very small $p$ will have high relative entropy -- the smaller the $p$ the higher -- yet shouldn't posts with small $p$ have less information value?
+TODO fix here:
 
 To create an information value formula that makes sense for new upvotes, we need recognize that new upvotes mean something different from changed upvotes. 
 
@@ -117,13 +115,28 @@ So for new information, the information value formula should have the following 
 
 ## Upvote-Only Relative Entropy
 
-These properties are all met by a formula that assumes a prior belief $q=0.5$ and then only counts the information value of *upvotes*. Going back to the fundamental concept of surprisal from information theory, which we introduced when developing the formula for [cognitive dissonance](cognitive-dissonance.html), we can calculate the total suprisal of upvotes is
+These properties are all met by the formula:
+
+$$
+\begin{aligned}
+    upvotes × (1 + {\lg p})
+\end{aligned}
+$$
+
+This formula is based on two assumptions:
+
+1. The average users prior beliefs before upvoting is $q=0.5$
+2. We only count the information value of upvotes
+
+We don't know what users beliefs were before they voted, but we can make a *conservative* estimates about those prior beliefs using the maximum entropy principle. The probability with maximum entropy (for binary outcomes such as upvote/downvote) is $q=0.5$: which has an entropy of 1 bit. 
+
+Next, going back to the fundamental concept of surprisal from information theory, which we introduced when developing the formula for [cognitive dissonance](cognitive-dissonance.html), we can calculate the total suprisal of upvotes as
 
 $$
     upvotes × -{\lg p}
 $$
 
-Assuming $q=0.5$, the most conservative estimate of the total surprisal before users saw the post is
+And our most conservative estimate of the total surprisal before users saw the post is
 
 $$
     upvotes × -{\lg 0.5}
@@ -148,7 +161,7 @@ $$
 \end{aligned}
 $$
 
-One way of looking at this formula is to think of each upvote as representing 1 potentially-uncertain bit of information. If $p$ is 100%, then there is no uncertainty, and each upvote is worth 1 bit of information. But if $q$ is, say, .25, then there are  $-{\lg .25} = 2$ bits of uncertainty about the information. For each user who accepted the information, uncertainty was reduced by 1 bit, but another $-{\lg .25} = 2$ bits of uncertainty about the accuracy of the information was created, for a net loss of 1 bit.
+One way of looking at this formula is to think of each upvote as representing 1 potentially-uncertain bit of information. If $p$ is 100%, then there is no uncertainty, and each upvote is worth 1 bit of information. But if $p$ is, say, .25, then there are  $-{\lg .25} = 2$ bits of uncertainty about the information. For each user who accepted the information, uncertainty was reduced by 1 bit, but another $-{\lg .25} = 2$ bits of uncertainty about the accuracy of the information was created, for a net loss of 1 bit.
 
 ## Example Charts
 
