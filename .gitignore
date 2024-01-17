@@ -6,3 +6,5 @@
 # Don't push locally rendered files
 _book
 _bookdown_files
+
+/.direnv
