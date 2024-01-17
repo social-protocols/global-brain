@@ -1,5 +1,5 @@
 --- 
-title: "A Social Network with Collective Bayesian Reasoning"
+title: "The Global Brain Algorithm"
 # author: "John Doe"
 date: "Last updated: `r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -8,9 +8,9 @@ bibliography: [book.bib, packages.bib]
 # url: your book url like https://bookdown.org/yihui/bookdown
 # cover-image: path to the social sharing image like images/cover.jpg
 description: |
-  This is a collection of explanations arount the global brain algorithm. In this document,
-  we explain core concepts in simple terms that help to understand the
-  algorithms and components of the software.
+  This is a collection of explanations on the global brain algorithm.
+  We explain core concepts in simple terms that help to understand the
+  algorithms as a whole.
 link-citations: yes
 github-repo: social-protocols/global-brain
 ---
