@@ -1,4 +1,4 @@
-# Cognitive Dissonance
+# Cognitive Dissonance {#cognitive-dissonance}
 
 As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that exist only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of entropy.
 
