@@ -1,5 +1,5 @@
 render:
-  Rscript -e 'bookdown::render_book("index.Rmd")'
+  Rscript -e 'renv::load("."); bookdown::render_book("index.Rmd")'
 
 watch:
   Rscript -e 'bookdown::render_book("index.Rmd")'

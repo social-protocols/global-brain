@@ -1,5 +1,5 @@
 --- 
-title: "Introduction to the Global Brain Algorithm"
+# title: "Introduction to the Global Brain Algorithm"
 date: "Last updated: `r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -10,8 +10,7 @@ link-citations: yes
 github-repo: social-protocols/y-docs
 ---
 
-
-# Global Brain Overview
+# Introduction to the Global Brain
 
 > *Falsehood flies, and truth comes limping after it, so that when men come to be undeceived, it is too late...*
 >
@@ -23,23 +22,33 @@ The algorithm works by identifying information that is likely to change minds, a
 
 The result is a [social protocol](https://social-protocols.org) that drives productive conversations, maximizes the flow of useful and reliable information, reduces the flow of misinformation, and increases [human alignment](https://social-protocols.org/human-alignment-technology/).
 
-## Informed Votes
+## Overview
+
+We represent the basic UI and interactive handles with the following visual primitives:
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/visual-primitives.png")
+
+```
+
+
+### Informed Votes {-}
 
 The basic computational unit in the Global Brain is the **informed vote**. Before users vote on a post, the UI shows them a **note** (any reply to that post), and then records their vote **given** they were shown that note before voting. If the informed vote is different from the uninformed vote, it means the note **caused** changes in votes. We call notes that do change behavior **informative**. 
 
-## Establishing Causality
+### Establishing Causality
 
-So every reply to every post becomes effectively an AB test that tells us how exposure to a note affects votes on a post. What makes properly-run AB tests very powerful is that they establish **causality**. They tell us not just that upvotes on the note and post are correlated, but that the note actually *causes* changes to votes on the post.
+Every reply to every post becomes effectively an AB test that tells us how exposure to a note affects votes on a post. What makes properly-run AB tests very powerful is that they establish **causality**. They tell us not just that upvotes on the note and post are correlated, but that the note actually *causes* changes to votes on the post.
 
 Establishing these causal links allows us to model the Global Brain as a causal Bayesian network. The causal links between notes and posts are the synapses of the Global Brain. They allow us to predict how the average user **would** vote if they were exposed to some combination of notes and posts, by predicting how exposure to those posts will influence upvotes on other posts, and how that influences upvotes on other posts, and so on. 
 
-## Distributed Reasoning
+### Distributed Reasoning
 
 By simulating how beliefs propagate through the network, the global brain engages in a form of **reasoning**, loosely defined. Each neuron in the global brain reasons -- or processes information -- using the same inferences the average user makes. But unlike the average user, the Global Brain can process **all** information in the system in a valid Bayesian manner. So in a way the global simulates an average user who has unlimited time, memory, and processing capacity.
 
 We can then query this model to estimate how the Global Brain would vote if it was exposed to **all** information -- all posts ever made. We can also use the model to identify where to direct users' attention in order to reduce cognitive dissonance in the network.
 
-## Informal Argument Model 
+### Informal Argument Model 
 
 The Global Brain does not require a formal model of belief. It doesn't need posts to be structured as formal propositions or claims. It doesn't need to know if users agree or disagree with posts.
 
@@ -50,7 +59,7 @@ The only assumptions are that
 
 By making some reasonable assumptions about the causal relationship between beliefs and votes and then watching how exposure to notes causes changes to votes, we can model these underlying beliefs and predict how exposure to a note will cause changes to these beliefs, which will cause changes to other beliefs, and so on. We describe our model in more detail below.
 
-## Example
+### Example
 
 For example, suppose post A is a video showing the aftermath of a recent earthquake. This post goes viral, but then somebody posts a note B on the video which says "This video is actually from an earthquake in 2004. Here is a link to the original video.".
 
