@@ -204,7 +204,7 @@ beta_data(4, 10, 1000) %>%
 
 ```
 
-As you can see, the distribution updates and the probability mass becomes more
+The distribution updates and the probability mass becomes more
 concentrated around a smaller range of values which means we become more and
 more certain about our beliefs about the true upvote rate.
 If the post above would develop further with a similar trajectory, the following
@@ -240,8 +240,7 @@ P(U) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
 $$
 
 This solution is naive because it ignores an important fact:
-In the beginning, we have very little information (in fact no information) about
-the upvote rate of the post.
+In the beginning, we have no information about the upvote rate of the post.
 Thus, each new arriving vote has an outsized effect on our estimate that just
 gets increasingly small over time.
 This would result in very erratic estimates in the beginning which would only
@@ -317,7 +316,7 @@ $$
 \frac{C \cdot m + upvotes}{C + upvotes + downvotes}
 $$
 
-Now what does it mean that we add $C \cdot m$ to the nominator and $C$ to the
+Now, what does it mean that we add $C \cdot m$ to the nominator and $C$ to the
 denominator?
 
 Practically, adding these terms to our formula means that we calculate the
@@ -404,8 +403,7 @@ data_plain %>%
 
 ```
 
-As you can see, the cumulative Bayesian average is much less erratic when little
-data is available.
+The cumulative Bayesian average is much less erratic when little data is available.
 However, there is an important question left:
 How do we chose a good prior and a good weight?
 
