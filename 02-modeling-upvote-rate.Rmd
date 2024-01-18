@@ -24,48 +24,6 @@ theme_sp <- function() {
 
 ```
 
-The basic form of content users can provide on the platform is a post.
-In the following explanations, we visually represent a post by a rectangle with
-rounded corners like this.
-
-```{r}
-knitr::include_graphics("images/01-modeling-upvote-rate/post.png")
-
-```
-
-A post is the start of a conversation.
-Users can leave replies to posts which then form a conversation thread.
-Replies are posts themselves.
-
-```{r}
-knitr::include_graphics("images/01-modeling-upvote-rate/post-with-replies.png")
-
-```
-
-For each post that has any replies, we try to find the reply that adds the
-most useful context to the post.
-We call this reply the post's *note* (in reference to X's Community Notes from
-which we took a lot of inspiration).
-Obviously, "most useful" is a very vague term and we will go further into our
-rationale what the most useful context is later on.
-
-```{r}
-knitr::include_graphics("images/01-modeling-upvote-rate/promote-top-reply-to-note.png")
-
-```
-
-Users on the platform can rate content by adding an **upvote** or a **downvote**.
-There are two essential forms of content users can rate:
-posts and posts with a note.
-We call those units *Voting Units*.
-For each Voting Unit, we keep a tally of upvotes and downvotes.
-
-```{r}
-knitr::include_graphics("images/01-modeling-upvote-rate/vote-tallies-for-rui.png")
-
-```
-
-
 ## Modeling Upvote Rates
 
 A naive way of using upvotes and downotes for rating a post would be to simply

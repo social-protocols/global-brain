@@ -1,0 +1,55 @@
+# Objectives and Goals
+
+Before we go into the details of how the Global Brain algorithm evaluates and curates media, let's look at how users can create and interact with the system.
+There are three fundamental elements users interface with:
+
+- **Posts**: A piece of media submitted to the platform by a user, just like posts on any other social media platforms.
+- **Notes**: A post's note is its top^[We will go deeper into what the "top" reply is later.] reply . It is shown alongside the post to provide helpful context. Any reply to a post can be a note. Replies are posts themselves.
+- **Votes**: Users can upvote or downvote posts.
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/visual-primitives.png")
+
+```
+
+The basic form of content users can provide on the platform is a post.
+In the following explanations, we visually represent a post by a rectangle with
+rounded corners like this.
+
+```{r}
+knitr::include_graphics("images/01-modeling-upvote-rate/post.png")
+
+```
+
+A post is the start of a conversation.
+Users can leave replies to posts which then form a conversation thread.
+Replies are posts themselves.
+
+```{r}
+knitr::include_graphics("images/01-modeling-upvote-rate/post-with-replies.png")
+
+```
+
+For each post that has any replies, we try to find the reply that adds the
+most useful context to the post.
+We call this reply the post's *note*^[in reference to X's Community Notes from
+which we took a lot of inspiration].
+Obviously, "most useful" is a very vague term and we will go further into our
+rationale what the most useful context is later on.
+
+```{r}
+knitr::include_graphics("images/01-modeling-upvote-rate/promote-top-reply-to-note.png")
+
+```
+
+Users on the platform can rate content by adding an **upvote** or a **downvote**.
+There are two essential forms of content users can rate:
+posts and posts with a note.
+We call those units *Voting Units*.
+For each Voting Unit, we keep a tally of upvotes and downvotes.
+
+```{r}
+knitr::include_graphics("images/01-modeling-upvote-rate/vote-tallies-for-rui.png")
+
+```
+
