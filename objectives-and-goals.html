@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>The Global Brain Algorithm</title>
+  <title>1 Objectives and Goals | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The Global Brain Algorithm" />
+  <meta property="og:title" content="1 Objectives and Goals | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The Global Brain Algorithm" />
+  <meta name="twitter:title" content="1 Objectives and Goals | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -34,8 +34,8 @@ algorithms as a whole.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="objectives-and-goals.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="key-concepts-and-assumptions.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -151,41 +151,67 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">The Global Brain Algorithm</h1>
-<p class="date"><em>Last updated: 2024-01-18</em></p>
+<div id="objectives-and-goals" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Objectives and Goals<a href="objectives-and-goals.html#objectives-and-goals" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Before we go into the details of how the Global Brain algorithm evaluates and curates information, let’s look at how users can contribute information and interact with the system.
+There are three fundamental elements:</p>
+<ul>
+<li><strong>Posts</strong>: A piece of media submitted to the platform by a user, just like posts on any other social media platforms. Posts can either be <strong>top-level posts</strong> or <strong>replies</strong> to other posts, thus forming conversation threads.</li>
+<li><strong>Notes</strong>: A post’s note is a reply that is shown alongside it to provide helpful context.</li>
+<li><strong>Votes</strong>: Users evaluate content through upvotes and downvotes.</li>
+</ul>
+<p><img src="images/visual-primitives.png" style="display: block; margin: auto;" /></p>
+<p><strong>The Global Brain algorithm’s core objective is to maximize the impact of the best ideas and arguments by finding the best reply for any post and promoting it to be its note.</strong></p>
+<p><img src="images/top-note-promotion.png" style="display: block; margin: auto;" /></p>
+<div id="rationale" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Rationale<a href="objectives-and-goals.html#rationale" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Humans lie and humans pass on misinformation, whether inadvertantly or with the goal to manipulate others. No algorithm will ever change this. However, misinformation is harmful in social networks only when it is <strong>unchecked</strong>. Lies are only harmful if people don’t see the refutations. In fact, given that lies and misinformation will always be part of any online information eco-system, seeing lies along with rebuttals might actually be <em>useful</em> because people would have seen them anyways and thus become aware of the lies currently in circulation.</p>
+<p>The engagement-based algorithms in today’s social networks encourage the unchecked spread of rumors<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, regardless of how well they are supported, whereas the Global Brain algorithm discourages the spread of information that people are unlikely to upvote if they were fully informed, and encourages the spread of information that might check the spread of a false information that is already spreading.</p>
+<p>And yet the purpose of the Global Brain algorithm is NOT to tell people what is true. It is simply to direct people’s attention to information that may change their votes.</p>
+<p>But why do we want to <em>change</em> votes? An algorithm that tries to change minds sounds sinister. Propaganda changes how people vote. But propaganda works by selectively exposing users to information with the goal of changing opinions about specific things, all the while actively omitting contrary information. It is one sided and dishonest. The Global Brain, on the other hand, has no agenda other than driving productive conversation and reducing cognitive dissonance.</p>
+<p>The Global Brain algorithm drives a fair, unbiased process of weighing all the arguments that anyone cares to make. As long as there is sufficient intellectual diversity among recipients, the result is an adversarial process, where all the relevant information (the posts that change minds in either direction) is exposed and processed (the marketplace of ideas).</p>
 </div>
-<div id="about" class="section level1 unnumbered hasAnchor">
-<h1>About<a href="index.html#about" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<blockquote>
-<p><em>Falsehood flies, and truth comes limping after it, so that when men come to be undeceived, it is too late…</em></p>
-<p>– Jonathan Swift</p>
-</blockquote>
-<p>The Global Brain algorithm converts a social network into a distributed brain, where groups of individuals act like neurons that process information and pass it on to others, resulting in a whole that is more intelligent than the individual human parts.</p>
-<p>The algorithm works by identifying information that is likely to change minds, and modeling how those changes propagate through the network. It then uses this information to focus attention on posts that reduce “cognitive dissonance” – difference of opinion due to people being exposed to different information.</p>
-<p>The result is a <a href="https://social-protocols.org">social protocol</a> that drives productive conversations, maximizes the flow of useful and reliable information, reduces the flow of misinformation, and increases <a href="https://social-protocols.org/human-alignment-technology/">human alignment</a>.</p>
-<hr />
-<p>This document contains write-ups and explanations on the Global Brain
-algorithm developed by the <a href="https://www.social-protocols.org">social protocols organization</a>.
-This is a living document and the information in it may become outdated fast because
-the algorithm is still under active development.
-Nonetheless, we try to maintain up-to-date explanations of our ideas here.</p>
-<p>We will introduce the building blocks of our algorithms: simple, but important
-concepts which make up the foundation of the components from which the
-new platform is built.</p>
-<p>A proof of concept of this algorithm is being developed in
-<a href="https://github.com/social-protocols/social-network">The Social Network of the Future</a>.</p>
-<p>We are grateful for feedback. Do not hesitate to send an
-<a href="mailto:mail@social-protocols.org">email</a>.</p>
+<div id="an-informal-argument-model" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> An Informal Argument Model<a href="objectives-and-goals.html#an-informal-argument-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You may have noticed that we have used the term “best” above without qualifying it.
+We want to find the “best” reply to any post to make it its note – the most helpful context shown alongside it.
+But “best” is a tricky term in the realm of arguments and ideas.
+What makes an argument “best”?
+And how do we even know what an <em>argument</em> is if everything is just a post?</p>
+<p>Many attempts have been made to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate. [TODO: ADD LINKS]
+We deviate from this approach and propose an <strong>informal argument model</strong>.</p>
+<p><strong>The Global Brain does not require a formal model of belief. It doesn’t need posts to be structured as formal propositions or claims. It doesn’t need to know if users agree or disagree with posts.</strong></p>
+<p>The only assumptions are:</p>
+<ol style="list-style-type: decimal">
+<li>A vote reflects a users intent to give a post more/less attention (see <a href="https://jonathanwarden.com/the-law-of-attention">The Law of Attention</a>).</li>
+<li>This intent is caused by underlying beliefs that we cannot observe (latent variables – see section below).</li>
+</ol>
+<p>By making these assumptions about the causal relationship between beliefs and votes and then watching how exposure to notes causes changes to votes, we can model underlying beliefs and predict how exposure to a note will cause changes to these beliefs, which will cause changes to other beliefs, and so on.</p>
+<!-- NOTES: -->
+<!-- Chat Felix/Johannes -->
+<!-- also hier geht es ja, darum, dass sich die besten Ideen und Argumente verbreiten und bei den Richtigen Leuten ankommen -->
+<!-- Ein großer Teil davon ist überhaupt ein gemeinsames Verständnis davon zu haben, was überhaupt fakten sind -->
+<!-- Es geht darum information zu identifizieren, die etwas bewirkt. Bzw zu identifizieren wo es etwas bewirken kann. -->
+<!-- It is about identifying information that has an effect. Or rather, identifying where it can have an effect. -->
+<!-- --- -->
+<!-- exploration/exploitation trade-off -->
+<!-- Thompson Sampling -->
 
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>with the exception, perhaps, of X’s Community Notes<a href="objectives-and-goals.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="objectives-and-goals.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="key-concepts-and-assumptions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -216,7 +242,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-objectives-and-goals.Rmd",
 "text": "Edit"
 },
 "history": {
