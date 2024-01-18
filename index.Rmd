@@ -26,22 +26,33 @@ knitr::opts_chunk$set(
 
 # About {-}
 
+> *Falsehood flies, and truth comes limping after it, so that when men come to be undeceived, it is too late...*
+>
+> -- Jonathan Swift
+
+The Global Brain algorithm converts a social network into a distributed brain, where groups of individuals act like neurons that process information and pass it on to others, resulting in a whole that is more intelligent than the individual human parts.
+
+The algorithm works by identifying information that is likely to change minds, and modeling how those changes propagate through the network. It then uses this information to focus attention on posts that reduce "cognitive dissonance" -- difference of opinion due to people being exposed to different information.
+
+The result is a [social protocol](https://social-protocols.org) that drives productive conversations, maximizes the flow of useful and reliable information, reduces the flow of misinformation, and increases [human alignment](https://social-protocols.org/human-alignment-technology/).
+
+---
+
 This document contains write-ups and explanations on the Global Brain
 algorithm developed by the [social protocols organization](https://www.social-protocols.org).
-
-A proof of concept of this algorithm is being developed in
-[The Social Network of the Future](https://github.com/social-protocols/social-network).
-It has not been launched yet and is
-under rapid development, so this is a living document and the information in
-it may become outdated fast. Nonetheless, we try to maintain up-to-date
-explanations of our ideas here.
+This is a living document and the information in it may become outdated fast because
+the algorithm is still under active development.
+Nonetheless, we try to maintain up-to-date explanations of our ideas here.
 
 We will introduce the building blocks of our algorithms: simple, but important
 concepts which make up the foundation of the components from which the
 new platform is built.
 
-We are grateful for feedback. Do not hesitate to send a
-[mail](mailto:mail@social-protocols.org).
+A proof of concept of this algorithm is being developed in
+[The Social Network of the Future](https://github.com/social-protocols/social-network).
+
+We are grateful for feedback. Do not hesitate to send an
+[email](mailto:mail@social-protocols.org).
 
 
 
