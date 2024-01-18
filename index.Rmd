@@ -36,7 +36,7 @@ under rapid development, so this is a living document and the information in
 it may become outdated fast. Nonetheless, we try to maintain up-to-date
 explanations of our ideas here.
 
-We will introduce the building blocks of our algorithms; simple, but important
+We will introduce the building blocks of our algorithms: simple, but important
 concepts which make up the foundation of the components from which the
 new platform is built.
 
@@ -44,12 +44,6 @@ We are grateful for feedback. Do not hesitate to send a
 [mail](mailto:mail@social-protocols.org).
 
 
-
-
-
-<!-- TODO: -->
-
-<!-- - [ ] describe how Y works in broad terms -->
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
