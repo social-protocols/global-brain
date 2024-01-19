@@ -1,3 +1,5 @@
+# (PART) Concepts {-}
+
 # Estimating Upvote Rates
 
 ```{r, include=FALSE}
@@ -44,7 +46,7 @@ $$
 \frac{upvotes}{upvotes + downvotes}
 $$
 
-We call this rate the **upvote rate**.
+We call this the **upvote rate**.
 
 You can also think about the upvote rate as an **average vote**.
 If we model the upvote rate as a random variable, we might encode upvotes with a
@@ -189,19 +191,18 @@ beta_data(137, 363, 1000) %>%
 
 ```
 
-We are now relatively certain that the true upvote rate is somewhere between
-around 0.2 and 0.3.
+We are now relatively certain that the true upvote rate is somewhere between 0.2 and 0.3.
 
 
 ## Estimating Upvote Rates: Naive Approach
 
 Now that we can express our beliefs about the true upvote rate, how do we make a
 "best guess" at any given point in time?
-A naive solution would be to just take the sample upvote rate as introduced
-above:
+A naive solution would be to just take the sample upvote rate or **the plain average vote** as introduced
+above at any point in time $t$:
 
 $$
-P(U) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
+P_t(upvote) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
 $$
 
 This solution is naive because it ignores an important fact:
@@ -245,48 +246,35 @@ We have to take into account **prior information** to avoid this.
 
 ## The Bayesian Average
 
-The Bayesian Average uses a weighted prior estimate of the average to avoid the
+The Bayesian Average uses a **weighted prior estimate of the average** to avoid the
 erratic shifts in the estimate when there is not a lot of data.
-It is calculated as follows:
+It is calculated as
 
 $$
-\frac{Cm + \sum_{i=1}^n x_i}{C + n}
+\frac{\color{blue}{C \cdot m} + \sum_{i=1}^n x_i}{\color{blue}{C} + n}
 $$
 
-$C$ is a weight constant and $m$ is our prior belief about the average.
-But what does this achieve in concrete terms?
+where $C$ is a weight constant and $m$ is our prior belief about the average.
+If you compare it to the plain average, <span style="color: blue">we simply add $C \cdot m$ to the nominator and $C$ to the denominator</span>.
 
-Let's build up to this formula step by step using our example of estimating the
+**But what does this achieve in concrete terms?**
+
+Let's build up to this formula step by step for estimating the
 true upvote rate of a post.
-First, remember that the sample upvote rate constitutes the "plain" average.
-Let's say our dataset $X$ consists of $1$s and $0$s, where $1$ denotes an upvote
-and $0$ denotes a downvote.
+First, remember that the sample upvote rate can be thought of as the "plain" average vote.
+Let's say our dataset $X$ consists of $1$s and $0$s, where $1$ denotes an upvote and $0$ denotes a downvote.
 Then $\sum_{i=1}^n{x_i}$ is the *number of upvotes* (because downvotes are
 encoded as $0$s) and $n$ is $upvotes + downvotes$, the *total number of votes*.
-The plain average is calculated as follows:
+Substituting the values in the Bayesian average formula gives us:
 
 $$
-\frac{\sum_{i=1}^n x_i}{n}
+\frac{C \cdot m + \sum_{i=1}^n x_i}{C + n} = \frac{C \cdot m + upvotes}{C + upvotes + downvotes}
 $$
 
-Or in concrete terms:
-
-$$
-\frac{upvotes}{upvotes + downvotes}
-$$
-
-The Bayesian average is thus:
-
-$$
-\frac{C \cdot m + upvotes}{C + upvotes + downvotes}
-$$
-
-Now, what does it mean that we add $C \cdot m$ to the nominator and $C$ to the
-denominator?
-
-Practically, adding these terms to our formula means that we calculate the
+**Practically, adding these terms to our formula means that we calculate the
 cumulative average as if we had collected $C$ votes with an upvote rate of $m$
-before we collected the first vote on our post.
+before we collected the first vote on our post.**
+
 If our prior belief about the average is 0.68 and we chose a weighting factor of
 10, this would mean that we calculate the average as if we had previously
 collected 10 data points which amounted to an upvote rate of exactly 0.68.
@@ -524,4 +512,4 @@ data_bayes %>%
 
 ```
 
-TODO: write a section about how to chose a prior
+<!--- TODO: write a section about how to chose a prior --->

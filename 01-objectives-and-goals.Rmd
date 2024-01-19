@@ -1,3 +1,5 @@
+# (PART) Introduction {-}
+
 # Objectives and Goals
 
 Before we go into the details of how the Global Brain algorithm evaluates and curates information, let's look at how users can contribute information and interact with the system.
