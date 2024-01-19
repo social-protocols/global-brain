@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Rating and Evaluating Content | The Global Brain Algorithm</title>
+  <title>3 Estimating Upvote Rates | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Rating and Evaluating Content | The Global Brain Algorithm" />
+  <meta property="og:title" content="3 Estimating Upvote Rates | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Rating and Evaluating Content | The Global Brain Algorithm" />
+  <meta name="twitter:title" content="3 Estimating Upvote Rates | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -81,6 +81,7 @@ algorithms as a whole.</p>" />
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="part"><span><b>I Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="objectives-and-goals.html"><a href="objectives-and-goals.html"><i class="fa fa-check"></i><b>1</b> Objectives and Goals</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="objectives-and-goals.html"><a href="objectives-and-goals.html#rationale"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
@@ -98,12 +99,15 @@ algorithms as a whole.</p>" />
 <li class="chapter" data-level="2.5" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#cognitive-dissonance-as-relative-entropy"><i class="fa fa-check"></i><b>2.5</b> Cognitive Dissonance as Relative Entropy</a></li>
 <li class="chapter" data-level="2.6" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#the-causal-model"><i class="fa fa-check"></i><b>2.6</b> The Causal Model</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html"><i class="fa fa-check"></i><b>3</b> Rating and Evaluating Content</a>
+<li class="part"><span><b>II Concepts</b></span></li>
+<li class="chapter" data-level="3" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html"><i class="fa fa-check"></i><b>3</b> Estimating Upvote Rates</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-upvote-rates"><i class="fa fa-check"></i><b>3.1</b> Modeling Upvote Rates</a></li>
-<li class="chapter" data-level="3.2" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.2</b> Modeling Belief about the “True” Upvote Rate</a></li>
-<li class="chapter" data-level="3.3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.3</b> Estimating the True Upvote Rate</a></li>
-<li class="chapter" data-level="3.4" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#the-bayesian-average"><i class="fa fa-check"></i><b>3.4</b> The Bayesian Average</a></li>
+<li class="chapter" data-level="3.1" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html#the-upvote-rate"><i class="fa fa-check"></i><b>3.1</b> The Upvote Rate</a>
+<ul>
+<li class="chapter" data-level="" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i>Modeling Belief about the “True” Upvote Rate</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html#estimating-upvote-rates-naive-approach"><i class="fa fa-check"></i><b>3.2</b> Estimating Upvote Rates: Naive Approach</a></li>
+<li class="chapter" data-level="3.3" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html#the-bayesian-average"><i class="fa fa-check"></i><b>3.3</b> The Bayesian Average</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html"><i class="fa fa-check"></i><b>4</b> Cognitive Dissonance</a>
 <ul>
@@ -151,24 +155,23 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="rating-and-evaluating-content" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Rating and Evaluating Content<a href="rating-and-evaluating-content.html#rating-and-evaluating-content" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="estimating-upvote-rates" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Estimating Upvote Rates<a href="estimating-upvote-rates.html#estimating-upvote-rates" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Users on the platform can rate content by adding an <strong>upvote</strong> or a <strong>downvote</strong>.
 There are two essential forms of content users can rate:
 posts and posts with a note.
-We call those units <em>Voting Units</em>.
-For each Voting Unit, we keep a tally of upvotes and downvotes.</p>
-<p><img src="images/01-modeling-upvote-rate/vote-tallies-for-rui.png" /><!-- --></p>
-<div id="modeling-upvote-rates" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Modeling Upvote Rates<a href="rating-and-evaluating-content.html#modeling-upvote-rates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A naive way of using upvotes and downotes for rating a post would be to simply
+For all posts and post/note combinations, we keep a tally of upvotes and downvotes.</p>
+<p><img src="images/voting-tallies.png" /><!-- --></p>
+<div id="the-upvote-rate" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> The Upvote Rate<a href="estimating-upvote-rates.html#the-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The simplest way of using upvotes and downotes for rating a post is to simply
 calculate the ratio between them: <span class="math inline">\(upvotes:downvotes\)</span>.
 Or expressed as the fraction of upvotes over all votes:</p>
 <p><span class="math display">\[
 \frac{upvotes}{upvotes + downvotes}
 \]</span></p>
-<p>We call this rate the <em>upvote rate</em>.</p>
-<p>Another way of thinking about the upvote rate is as an <em>average vote</em>.
+<p>We call this the <strong>upvote rate</strong>.</p>
+<p>You can also think about the upvote rate as an <strong>average vote</strong>.
 If we model the upvote rate as a random variable, we might encode upvotes with a
 value of <span class="math inline">\(1\)</span> and downvotes with a value of <span class="math inline">\(0\)</span>.
 A sample post’s gathered votes at a certain point in time <span class="math inline">\(t\)</span> might look like
@@ -182,19 +185,16 @@ The upvote rate (i.e., the “average” vote) for this sample is:</p>
 <p><span class="math display">\[
 \rho = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
 \]</span></p>
-</div>
-<div id="modeling-belief-about-the-true-upvote-rate" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Modeling Belief about the “True” Upvote Rate<a href="rating-and-evaluating-content.html#modeling-belief-about-the-true-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="modeling-belief-about-the-true-upvote-rate" class="section level3 unnumbered hasAnchor">
+<h3>Modeling Belief about the “True” Upvote Rate<a href="estimating-upvote-rates.html#modeling-belief-about-the-true-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We assume that each post has a “true” upvote rate that we can only estimate by
 collecting data on it (i.e., collecting votes on a post).
-We model the true upvote rate as a random variable that follows a Beta
+We think about the upvote rate as the <strong>probability of a vote being an upvote</strong>.
+A suitable model for proportions or probabilities is given by the Beta distribution, thus we model the true upvote rate as a random variable that follows a Beta
 distribution:</p>
 <p><span class="math display">\[
 upvoteRate \sim \beta(upvotes, downvotes)
 \]</span></p>
-<p>We use this model because yet another way of thinking about the upvote rate is
-as the <strong>probability of a vote being an upvote</strong> and the Beta distribution is a
-suitable model for proportions or probabilities.</p>
 <p>The Beta distribution has two shape parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> which in our
 case are given by our upvote and downvote counts.
 To provide a more intuitive understanding of how this distribution models our
@@ -219,17 +219,17 @@ more certain about our beliefs about the true upvote rate.
 If the post above would develop further with a similar trajectory, the following
 could be the outcome after 500 votes:</p>
 <p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="768" /></p>
-<p>We are now relatively certain that the true upvote rate is somewhere between
-around 0.2 and 0.3.</p>
+<p>We are now relatively certain that the true upvote rate is somewhere between 0.2 and 0.3.</p>
 </div>
-<div id="estimating-the-true-upvote-rate" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Estimating the True Upvote Rate<a href="rating-and-evaluating-content.html#estimating-the-true-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="estimating-upvote-rates-naive-approach" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Estimating Upvote Rates: Naive Approach<a href="estimating-upvote-rates.html#estimating-upvote-rates-naive-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now that we can express our beliefs about the true upvote rate, how do we make a
 “best guess” at any given point in time?
-A naive solution would be to just take the sample upvote rate as introduced
-above:</p>
+A naive solution would be to just take the sample upvote rate or <strong>the plain average vote</strong> as introduced
+above at any point in time <span class="math inline">\(t\)</span>:</p>
 <p><span class="math display">\[
-P(U) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
+P_t(upvote) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
 \]</span></p>
 <p>This solution is naive because it ignores an important fact:
 In the beginning, we have no information about the upvote rate of the post.
@@ -246,41 +246,31 @@ It might then temporarily fare overly well (or overly poorly) compared to other
 posts.
 We have to take into account <strong>prior information</strong> to avoid this.</p>
 </div>
-<div id="the-bayesian-average" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> The Bayesian Average<a href="rating-and-evaluating-content.html#the-bayesian-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Bayesian Average uses a weighted prior estimate of the average to avoid the
+<div id="the-bayesian-average" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> The Bayesian Average<a href="estimating-upvote-rates.html#the-bayesian-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Bayesian Average uses a <strong>weighted prior estimate of the average</strong> to avoid the
 erratic shifts in the estimate when there is not a lot of data.
-It is calculated as follows:</p>
+It is calculated as</p>
 <p><span class="math display">\[
-\frac{Cm + \sum_{i=1}^n x_i}{C + n}
+\frac{\color{blue}{C \cdot m} + \sum_{i=1}^n x_i}{\color{blue}{C} + n}
 \]</span></p>
-<p><span class="math inline">\(C\)</span> is a weight constant and <span class="math inline">\(m\)</span> is our prior belief about the average.
-But what does this achieve in concrete terms?</p>
-<p>Let’s build up to this formula step by step using our example of estimating the
+<p>where <span class="math inline">\(C\)</span> is a weight constant and <span class="math inline">\(m\)</span> is our prior belief about the average.
+If you compare it to the plain average, <span style="color: blue">we simply add <span class="math inline">\(C \cdot m\)</span> to the nominator and <span class="math inline">\(C\)</span> to the denominator</span>.</p>
+<p><strong>But what does this achieve in concrete terms?</strong></p>
+<p>Let’s build up to this formula step by step for estimating the
 true upvote rate of a post.
-First, remember that the sample upvote rate constitutes the “plain” average.
-Let’s say our dataset <span class="math inline">\(X\)</span> consists of <span class="math inline">\(1\)</span>s and <span class="math inline">\(0\)</span>s, where <span class="math inline">\(1\)</span> denotes an upvote
-and <span class="math inline">\(0\)</span> denotes a downvote.
+First, remember that the sample upvote rate can be thought of as the “plain” average vote.
+Let’s say our dataset <span class="math inline">\(X\)</span> consists of <span class="math inline">\(1\)</span>s and <span class="math inline">\(0\)</span>s, where <span class="math inline">\(1\)</span> denotes an upvote and <span class="math inline">\(0\)</span> denotes a downvote.
 Then <span class="math inline">\(\sum_{i=1}^n{x_i}\)</span> is the <em>number of upvotes</em> (because downvotes are
-encoded as <span class="math inline">\(0\)</span>s) and <span class="math inline">\(n\)</span> is the <em>total number of votes</em> <span class="math inline">\(upvotes + downvotes\)</span>.
-The plain average is calculated as follows:</p>
+encoded as <span class="math inline">\(0\)</span>s) and <span class="math inline">\(n\)</span> is <span class="math inline">\(upvotes + downvotes\)</span>, the <em>total number of votes</em>.
+Substituting the values in the Bayesian average formula gives us:</p>
 <p><span class="math display">\[
-\frac{\sum_{i=1}^n x_i}{n}
+\frac{C \cdot m + \sum_{i=1}^n x_i}{C + n} = \frac{C \cdot m + upvotes}{C + upvotes + downvotes}
 \]</span></p>
-<p>Or in concrete terms:</p>
-<p><span class="math display">\[
-\frac{upvotes}{upvotes + downvotes}
-\]</span></p>
-<p>The Bayesian average is thus:</p>
-<p><span class="math display">\[
-\frac{C \cdot m + upvotes}{C + upvotes + downvotes}
-\]</span></p>
-<p>Now, what does it mean that we add <span class="math inline">\(C \cdot m\)</span> to the nominator and <span class="math inline">\(C\)</span> to the
-denominator?</p>
-<p>Practically, adding these terms to our formula means that we calculate the
+<p><strong>Practically, adding these terms to our formula means that we calculate the
 cumulative average as if we had collected <span class="math inline">\(C\)</span> votes with an upvote rate of <span class="math inline">\(m\)</span>
-before we collected the first vote on our post.
-If our prior belief about the average is 0.68 and we chose a weighting factor of
+before we collected the first vote on our post.</strong></p>
+<p>If our prior belief about the average is 0.68 and we chose a weighting factor of
 10, this would mean that we calculate the average as if we had previously
 collected 10 data points which amounted to an upvote rate of exactly 0.68.</p>
 <p>Plugging in the values makes this apparent:</p>
@@ -301,7 +291,7 @@ The plain average is overlayed in darker grey for reference.</p>
 <p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="768" /></p>
 <p>And here is that same plot with the same priors, but with a weight of 100.</p>
 <p><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="768" /></p>
-<p>TODO: write a section about how to chose a prior</p>
+<!--- TODO: write a section about how to chose a prior --->
 
 </div>
 </div>

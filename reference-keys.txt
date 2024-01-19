@@ -8,10 +8,9 @@ optimizing-for-information-value
 reducing-cognitive-dissonance
 cognitive-dissonance-as-relative-entropy
 the-causal-model
-rating-and-evaluating-content
-modeling-upvote-rates
-modeling-belief-about-the-true-upvote-rate
-estimating-the-true-upvote-rate
+estimating-upvote-rates
+the-upvote-rate
+estimating-upvote-rates-naive-approach
 the-bayesian-average
 cognitive-dissonance
 key-concepts-from-information-theory

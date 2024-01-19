@@ -81,6 +81,7 @@ algorithms as a whole.</p>" />
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="part"><span><b>I Introduction</b></span></li>
 <li class="chapter" data-level="1" data-path="objectives-and-goals.html"><a href="objectives-and-goals.html"><i class="fa fa-check"></i><b>1</b> Objectives and Goals</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="objectives-and-goals.html"><a href="objectives-and-goals.html#rationale"><i class="fa fa-check"></i><b>1.1</b> Rationale</a></li>
@@ -98,12 +99,15 @@ algorithms as a whole.</p>" />
 <li class="chapter" data-level="2.5" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#cognitive-dissonance-as-relative-entropy"><i class="fa fa-check"></i><b>2.5</b> Cognitive Dissonance as Relative Entropy</a></li>
 <li class="chapter" data-level="2.6" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#the-causal-model"><i class="fa fa-check"></i><b>2.6</b> The Causal Model</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html"><i class="fa fa-check"></i><b>3</b> Rating and Evaluating Content</a>
+<li class="part"><span><b>II Concepts</b></span></li>
+<li class="chapter" data-level="3" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html"><i class="fa fa-check"></i><b>3</b> Estimating Upvote Rates</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-upvote-rates"><i class="fa fa-check"></i><b>3.1</b> Modeling Upvote Rates</a></li>
-<li class="chapter" data-level="3.2" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.2</b> Modeling Belief about the “True” Upvote Rate</a></li>
-<li class="chapter" data-level="3.3" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#estimating-the-true-upvote-rate"><i class="fa fa-check"></i><b>3.3</b> Estimating the True Upvote Rate</a></li>
-<li class="chapter" data-level="3.4" data-path="rating-and-evaluating-content.html"><a href="rating-and-evaluating-content.html#the-bayesian-average"><i class="fa fa-check"></i><b>3.4</b> The Bayesian Average</a></li>
+<li class="chapter" data-level="3.1" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html#the-upvote-rate"><i class="fa fa-check"></i><b>3.1</b> The Upvote Rate</a>
+<ul>
+<li class="chapter" data-level="" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html#modeling-belief-about-the-true-upvote-rate"><i class="fa fa-check"></i>Modeling Belief about the “True” Upvote Rate</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html#estimating-upvote-rates-naive-approach"><i class="fa fa-check"></i><b>3.2</b> Estimating Upvote Rates: Naive Approach</a></li>
+<li class="chapter" data-level="3.3" data-path="estimating-upvote-rates.html"><a href="estimating-upvote-rates.html#the-bayesian-average"><i class="fa fa-check"></i><b>3.3</b> The Bayesian Average</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html"><i class="fa fa-check"></i><b>4</b> Cognitive Dissonance</a>
 <ul>
@@ -162,6 +166,7 @@ There are three fundamental elements:</p>
 </ul>
 <p><img src="images/visual-primitives.png" style="display: block; margin: auto;" /></p>
 <p><strong>The Global Brain algorithm’s core objective is to maximize the impact of the best ideas and arguments by finding the best reply for any post and promoting it to be its note.</strong></p>
+<p>We do this by identifying the reply for any post that <strong>most likely changes the voting behavior</strong> on that post.</p>
 <p><img src="images/top-note-promotion.png" style="display: block; margin: auto;" /></p>
 <div id="rationale" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Rationale<a href="objectives-and-goals.html#rationale" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -178,7 +183,8 @@ We want to find the “best” reply to any post to make it its note – the mos
 But “best” is a tricky term in the realm of arguments and ideas.
 What makes an argument “best”?
 And how do we even know what an <em>argument</em> is if everything is just a post?</p>
-<p>Many attempts have been made to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate. [TODO: ADD LINKS]
+<!-- [TODO: ADD LINKS] -->
+<p>Many attempts have been made to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate.
 We deviate from this approach and propose an <strong>informal argument model</strong>.</p>
 <p><strong>The Global Brain does not require a formal model of belief. It doesn’t need posts to be structured as formal propositions or claims. It doesn’t need to know if users agree or disagree with posts.</strong></p>
 <p>The only assumptions are:</p>
