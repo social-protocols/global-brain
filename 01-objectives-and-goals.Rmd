@@ -14,10 +14,13 @@ knitr::include_graphics("images/visual-primitives.png")
 
 **The Global Brain algorithm's core objective is to maximize the impact of the best ideas and arguments by finding the best reply for any post and promoting it to be its note.**
 
+We do this by identifying the reply for any post that **most likely changes the voting behavior** on that post.
+
 ```{r, fig.align='center'}
 knitr::include_graphics("images/top-note-promotion.png")
 
 ```
+
 
 ## Rationale
 
@@ -40,7 +43,8 @@ But "best" is a tricky term in the realm of arguments and ideas.
 What makes an argument "best"?
 And how do we even know what an *argument* is if everything is just a post?
 
-Many attempts have been made to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate. [TODO: ADD LINKS]
+<!-- [TODO: ADD LINKS] -->
+Many attempts have been made to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate.
 We deviate from this approach and propose an **informal argument model**.
 
 **The Global Brain does not require a formal model of belief. It doesn't need posts to be structured as formal propositions or claims. It doesn't need to know if users agree or disagree with posts.**
