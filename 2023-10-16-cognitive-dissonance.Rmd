@@ -1,6 +1,6 @@
 # Cognitive Dissonance {#cognitive-dissonance}
 
-As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that exist only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of entropy.
+As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of **entropy**.
 
 ## Key Concepts from Information Theory
 
@@ -233,14 +233,14 @@ plot
 
 Note how the rate of reduction of cognitive dissonance falls as $q$ approaches $p$.
 
-Focusing attention on posts and notes that maximize the rate of reduction of cognitive dissonance is the overall goal of the global brain algorithm. See the next document on [information-value.html].
+Focusing attention on posts and notes that maximize the rate of reduction of cognitive dissonance is the overall goal of the global brain algorithm. See the next document on [information value](#information-value).
 
 
 ## Discussion
 
 ### Parallel to Machine Learning
 
-Cross entropy is commonly used used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs an estimated probability (e.g. that the image is a cat). The cost function computes how far these probability estimates are from the correct labels, and the neural network is trained by minimizing the cost function.
+Cross entropy is commonly used as the cost function in many machine learning algorithms. A neural network for example takes an input with labels (e.g. images of cats and dogs) and outputs an estimated probability (e.g. that the image is a cat). The cost function computes how far these probability estimates are from the correct labels, and the neural network is trained by minimizing the cost function.
 
 If $ŷ_i$ is the machine's predicted probability for training example $i$, and $y_i$ is the correct output (1 or 0), then the total cross entropy cost is:
 
