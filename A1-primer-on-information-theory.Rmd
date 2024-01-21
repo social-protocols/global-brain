@@ -1,0 +1,94 @@
+# (APPENDIX) Appendix {-}
+
+# Primer on Information Theory
+
+## Surprisal
+
+```{r, include=FALSE}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+surprisal <- function(p) log(1/p, 2)
+
+theme_sp <- function() {
+  theme(
+    panel.background = element_rect(
+      fill = "grey90",
+      color = "black",
+      linewidth = 1
+    ),
+    panel.grid.major = element_line(color = "grey70"),
+    panel.grid.minor = element_line(color = "grey80"),
+  )
+}
+
+```
+
+
+The notion of surprisal is consistent with a Bayesian vocabulary because it
+acknowledges the subjectivity of belief.
+In essence, surprisal is just a different way of thinking about probability.
+Instead of quantifying how likely an event is to occur (a claim to objectivity),
+we quantify surprised we would be should the event occur.
+
+Because of that, surprisal is inversely proportional to probability:
+The more likely an event is to occur, the less surprised we will be about it.
+
+The formula for surprisal is
+
+$$
+I(x) := log_b(\frac{1}{P(x)}) = -log_b(P(x))
+$$
+
+Here is what the relationship between probability and surprisal looks like
+graphically:
+
+```{r}
+data.frame(x = seq(0, 1, 0.0001)) %>% 
+  mutate(y = surprisal(x)) %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_line(size = 1) +
+  labs(x = "p", y = "surprisal") +
+  theme_sp()
+
+```
+
+The function is strictly monotonically decreasing.
+
+Surprisal is also called **information content**, **self-information**, or
+**Shannon information**.
+
+## Entropy
+
+We only need to consider discrete random variables for entropy for our cases,
+but entropy also generalizes for the continuous case.
+Entropy is given by^[You may ask yourself: Why the hell is $H$ the formula
+symbol for a metric called entropy? That's because Shannon entropy is based on
+Boltzmann's H-theorem in statistical thermodynamics. It is contested why
+Boltzmann called entropy $H$, but the common conjecture is that he actually
+meant the greek letter Eta ($H$) which would make a lot more sense. There
+have actually been typographical analyses of his handwriting to determine
+whether he meant Eta, not the letter $H$!]:
+
+$$
+H(X) := -\sum_{x \in X}{p(x)log(p(x))}
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
