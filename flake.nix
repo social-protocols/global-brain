@@ -19,6 +19,7 @@
         devShells = {
           default = with pkgs; pkgs.mkShellNoCC {
             buildInputs = [
+              just
               git
               R
               rPackages.renv
