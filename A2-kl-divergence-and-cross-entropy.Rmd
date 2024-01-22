@@ -1,0 +1,42 @@
+# KL Divergence and Cross-Entropy
+
+## KL Divergence
+
+KL divergence is a measure of distance between two probability distributions.
+
+RATIONALE TAKEN FROM: https://www.youtube.com/watch?v=SxGYPqCgJWM
+
+Main question:
+Do two probability distributions assign similar probability to a sequence of events?
+
+Let's say we have two distributions, P and Q.
+For a coin toss, we can calculate the probability of a sequence of tosses for each distribution.
+
+$$
+P(x) = p_1^{N_H}p_2^{N_T} \\
+Q(x) = q_1^{N_H}q_2^{N_T}
+$$
+
+Then, we take the ratio between the two probabilities:
+
+$$
+\frac{P(x)}{Q(x)} = \frac{p_1^{N_H}p_2^{N_T}}{q_1^{N_H}q_2^{N_T}}
+$$
+
+Even though this is not the final formula for the KL divergence, it *does* calculate something along those lines: the ratio between the probabilities.
+
+We then <span style="color: blue">normalize this measure by the sample size</span> and <span style="color: firebrick">take the logarithm</span>:
+
+$$
+\color{firebrick}{log} (\frac{p_1^{N_H}p_2^{N_T}}{q_1^{N_H}q_2^{N_T}})^\color{blue}{\frac{1}{N}}
+$$
+
+From video (see above):
+"How likely would the second distribution be to generate samples from the first?"
+
+
+## Cross-Entropy
+
+
+TODO
+
