@@ -276,13 +276,13 @@ cumulative average as if we had collected $C$ votes with an upvote rate of $m$
 before we collected the first vote on our post.**
 
 If our prior belief about the average is 0.68 and we chose a weighting factor of
-10, this would mean that we calculate the average as if we had previously
-collected 10 data points which amounted to an upvote rate of exactly 0.68.
+100, this would mean that we calculate the average as if we had previously
+collected 100 data points which amounted to an upvote rate of exactly 0.68.
 
 Plugging in the values makes this apparent:
 
 $$
-\frac{10 \cdot 0.68 + upvotes}{10 + upvotes + downvotes} = \frac{68 + upvotes}{100 + upvotes + downvotes}
+\frac{100 \cdot 0.68 + upvotes}{100 + upvotes + downvotes} = \frac{68 + upvotes}{100 + upvotes + downvotes}
 $$
 
 Graphically, it looks like this (the light grey line is the plain average for
