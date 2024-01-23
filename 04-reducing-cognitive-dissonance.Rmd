@@ -1,54 +1,62 @@
-# Information Asymmetries
+# Reducing Cognitive Dissonance
 
 As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of **entropy**.
 
-
-## Surprisal as a Measure of Error
-
-Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. If we predict that something has a 1~% chance of happening, and it happens, surprisal is $-\log(.01) = 6.64~bits$, whereas if we predicted it had a 99~% chance of happening, surprisal is only $-\log(.99) = 0.14~bits$, which is much  smaller. If we thought there was a 50/50 chance, surprisal is $-\log(.5) = 1~bit$.
-
-<!-- - shouldn't it be the probability of a vote being an upvote here? -->
-Suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $n$ votes with $n_U$ votes being upvotes and $n_D$ votes being downvotes. What is the total error of our predictions?
-
-Every time there is an upvote, surprisal is $-\log(p)$. The probability of a downvote is just $1-p$, so whenever there is a downvote surprisal is $-\log(1-p)$.
-
-So our total error is:
-
-$$
-n_U \cdot (-\log(p)) + n_D \cdot (-\log(1-p))
-$$
+*Note: This chapter requires a good grasp of some key concepts in information theory, namely [**surprisal**](#surprisal), [**entropy**](#entropy), [**cross-entropy**](#cross-entropy), and [**KL divergence**](#kl-divergence). If you need an introduction, check out our [Primer on Information Theory](#informtaion-theory-primer-1) in the appendix.*
 
 
-Since $n_U \approx n \cdot p$, and $n_D \approx n \cdot (1-p)$ our total error is approximately:
+## Informative Notes {#informative-notes}
 
-$$
-n \cdot p \cdot (-\log(p)) + n \cdot (1-p) \cdot (-\log(1-p))) = n \cdot H(p)
-$$
+First of all, we consider a post and a note and the two probability distributions denoting two distinct **upvote rates**^[as introduced in the [previous chapter](#estimating-upvote-rates)]:
+Let P be the upvote rate of the post *without* the note, and P* the upvote rate of the post *with* the note.
+The problem we are addressing is to calculate the **magnitude of the information asymmetry** between users that voted on the post *without* the note and the users that voted on the post *with* the note.
+We say that the note is **informative** if the upvote rate P* is different from P.
+What we want to calculate first is the magnitude of this difference.
 
-In other words, our error is roughly entropy times the number of votes.
+### Votes and Surprisal
 
+Let's say we have a post with upvote rate $p$.
+Then when we register a new vote, our surprisal about the outcome will be $-\log(p)$ if the vote is an upvote and $-\log(1-p)$ if the vote is a downvote.
+This means that if, for instance, $p = 0.99$ (i.e., the post has a very high upvote rate), then we will be very surprised if we see a downvote, and not very surprised if we see an upvote.
+If we see an upvote, our surprisal will be $-\log(0.99) = 0.014$ bits (very low), and if we see a downvote, our surprisal will be $-\log(0.01) = 6.64$ bits (very high).
+If $p = 0.5$, then we will be equally surprised by an upvote or a downvote, since $-\log(0.5) = 1$ bit in both cases.
 
-## Total Cross Entropy
-
-Let's say Alice estimates the probability of an upvote to be $q$, but Bob thinks the probability of an upvote is $p$. So Bob's measure of Alice's error will different from Alice's measure of her own error! Bob's measure of Alice's error is:
+Now, what would it mean if we were constantly surprised by the votes we see?
+It means that our current estimate of the upvote rate is not very good.
+In the long run, we can **take the average of our surprisals** to get a measure of how good our estimate is.
+This is equivalent to taking the **expected value** of the surprisal, which is the **entropy** of the distribution of votes.
+In a way, we can use entropy as a **measure of error**.
+So our average error is...
 
 $$
-\begin{aligned}
-    & n_U \cdot (-\log(q)) + n_D \cdot (-\log(1-q))) \\
-    & \approx n \cdot p \cdot (-\log(q)) + n \cdot (1-p) \cdot (-\log(1-q))  \\
-    & = n \cdot [p \cdot (-\log(q)) + (1-p) \cdot (-\log(1-q))] \\
-    & = n \cdot H(p,q) \\
-\end{aligned}
+H(p) = -(p \cdot \log(p) + (1-p) \cdot \log(1-p))
 $$
 
-$H(p,q)$ is the cross entropy between Bob and Alices's estimates: Bob's estimate of Alice's average error. 
+... which is **the entropy of the upvote rate**.
 
-In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. There are $n$ "Alices", or uninformed users. Bob expects the total error of all the uninformed users to be $n \cdot H(p,q)$.
+As entropy is normalized by the number of votes, we can get the total error by multiplying it by the number of votes:
 
-$H(p,q)$ will always be greater than $H(p)$ if $p \neq q$. That is, Bob's measure of Alice's error will always be greater than his measure of his own error as long as his beliefs differ from Alice's.
+$$
+\text{totalError} = n \cdot H(p)
+$$
 
-This is due to a very powerful property of surprisal as a measure of error: expected surprisal is minimized when the estimated probability equals the actual frequency of the event. So over- or under- estimating the probability always results in more error in the long run. Since $H(p,q)$ tells us what Alice's average error *would* be, in the long run, if $p$ were the true frequency, $H(p,q)$ is minimized when Alice's estimate $q$ equals the true frequency $p$, or when $H(p,q)=H(p,p)=H(p)$.
 
+### The Meaning of Cross-Entropy
+
+If we have a post and a note and the upvote rates $p$ for the post *without* the note and $p*$ for the post *with* the note, we can calculate the **cross-entropy** $H(p*, p)$:
+
+$$
+H(p*, p) = -(p* \cdot \log(p) + (1-p*) \cdot \log(1-p))
+$$
+
+As we believe $p*$ to be closer to the "true" upvote rate (because we assume that users who saw the post with the note to be **more informed**), we can interpret $H(p*, p)$ as our estimate for how much we err on average if we use the previously estimated (uninformed) upvote rate.
+
+$H(p*,p)$ will always be greater than $H(p)$ if $p \neq p*$. That is, given new information (the note), we assume that our error is always greater for the uninformed estimate than for the informed one.
+This is due to a very powerful property of surprisal as a measure of error:
+
+**Expected surprisal is minimal when the estimated probability equals the actual frequency of the event.**
+
+So over- or underestimating the probability always results in more error in the long run. Since $H(p*,p)$ tells us what our average error *would* be in the long run, if $p*$ were the true frequency and we still estimated the upvote rate using $p$, $H(p*,p)$ is minimized when $p*$ equals the previous upvote rate $p$, or when $H(p*,p)=H(p,p)=H(p)$. In that case, the note would not be informative at all.
 
 
 ## Total Relative Entropy = Cognitive Dissonance
@@ -61,9 +69,9 @@ The total relative entropy is our measure of cognitive dissonance.
 
 $$
 \begin{aligned}
-cognitiveDissonance  &= votesTotal × H(p,q) - votesTotal × H(p) \\
-            &= votesTotal × ( H(p,q) - H(p) ) \\
-            &= votesTotal × D_{KL}(p || q)
+cognitiveDissonance &= n \cdot H(p,q) - n \cdot H(p) \\
+                    &= n \cdot (H(p,q) - H(p)) \\
+                    &= n \cdot D_{KL}(p || q)
 \end{aligned}
 $$
 

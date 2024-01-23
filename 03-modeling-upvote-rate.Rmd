@@ -1,6 +1,6 @@
 # (PART) Concepts {-}
 
-# Estimating Upvote Rates
+# Estimating Upvote Rates {#estimating-upvote-rates}
 
 ```{r, include=FALSE}
 library(dplyr)

@@ -5,7 +5,7 @@ The two losses are actually equivalent.
 
 
 
-## Cross-Entropy
+## Cross-Entropy {#cross-entropy}
 
 "How surprised I expect Bob to be" (Jonathan)
 
@@ -21,7 +21,7 @@ $$
 
 
 
-## KL Divergence
+## KL Divergence {#kl-divergence}
 
 KL divergence is a measure of distance between two probability distributions.
 

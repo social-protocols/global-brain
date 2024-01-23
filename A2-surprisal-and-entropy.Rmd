@@ -1,6 +1,6 @@
 # A Primer on Information Theory II
 
-## Surprisal
+## Surprisal {#surprisal}
 
 ```{r, include=FALSE}
 library(dplyr)
@@ -105,7 +105,7 @@ This is fine because we have no need to express our surprise about an event that
 
 
 
-## Entropy
+## Entropy {#entropy}
 
 We only need to consider discrete random variables for entropy for our cases, but entropy also generalizes for the continuous case.
 Entropy is given by^[You may ask yourself: Why is $H$ the formula symbol for a metric called entropy? That's because Shannon entropy is based on Boltzmann's H-theorem in statistical thermodynamics. It is contested why Boltzmann called entropy $H$, but the common conjecture is that he actually meant the greek letter Eta ($H$) which would make a lot more sense.
@@ -125,7 +125,7 @@ $$
 <!-- show probability distributions alongside them for reference -->
 
 
-## How do Entropy and Surprisal Relate to One Another?
+## How do Entropy and Surprisal Relate to One Another? {#surprisal-entropy-relation}
 
 Entropy is the **expected surprisal**.
 This may sound odd at first.
