@@ -1,0 +1,24 @@
+# (APPENDIX) Appendix {-}
+
+# Primer on Information Theory I
+
+*We will introduce some key concepts of information theory that are prerequisites for understanding the Global Brain algorithm.
+Note that for all the concepts introduced in the following chapters, we will only discuss the case of **discrete probability distributions** because that's enough for our purposes.
+All of the concepts generalize to the continuous case though and should you be inclined to study those too, this introduction will give you a good start all the same.*
+
+## Intuitions about Key Concepts
+
+There are four key concepts in information theory that are important to have a good grasp on in order to understand the Global Brain algorithm:
+**surprisal**, **entropy**, **cross-entropy**, and **KL divergence** (or **relative entropy**).
+We will cover all of these concepts in detail in the following chapters, but for now, let's just build an intuition about what each of those measures mean *semantically*.
+
+Consider Alice and Bob, two friends who argue about a random variable $X$.
+Alice's beliefs about $X$ are distributed according to $P$ and Bob's beliefs are
+distributed according to $Q$.
+Then from Alice's perspective, the concepts listed above mean the following:
+
+- **surprisal**: how surprised Alice is when she learns that the value of X is x
+- **entropy**: how surprised Alice *expects* to be about the outcome of X
+- **cross-entropy**: how surprised Alice expects Bob to be (assuming that Bob believes $Q$)
+- **relative entropy** or **KL divergence**: how much *more* surprised Alice expects Bob to be than her
+

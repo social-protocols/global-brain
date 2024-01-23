@@ -1,4 +1,4 @@
-# A Primer on Information Theory II
+# A Primer on Information Theory III
 
 In machine learning, cross-entropy loss is common not because it is in any way different from KL divergence loss, but simply because it has a simpler formula.
 The two losses are actually equivalent.

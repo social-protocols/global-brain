@@ -1,11 +1,4 @@
-# (APPENDIX) Appendix {-}
-
-# A Primer on Information Theory I
-
-*We will introduce some key concepts of information theory that are prerequisites for understanding the Global Brain algorithm.
-Note that for all the concepts introduced below, we will only discuss the case of **discrete probability distributions** because that's enough for our purposes.
-All of the concepts generalize to the continuous case though and should you be inclined to study those too, this introduction will give you a good start all the same.*
-
+# A Primer on Information Theory II
 
 ## Surprisal
 

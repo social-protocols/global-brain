@@ -2,82 +2,27 @@
 
 As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of **entropy**.
 
-## Key Concepts from Information Theory
-
-Here's a quick summary of the relevant concepts of information theory:
-
-- **surprisal**: how surprised I am when I learn that the value of X is x:
-
-$$Suprisal(x) = -{\lg P(X=x)}$$
-
-- **entropy**: how surprised I expect to be:
-
-$$
-\begin{aligned}
-    H(P) &= 𝔼 Suprisal(X) \\
-         &= 𝔼 -{\lg P(X)}  \\
-         &= ∑_x P(X=x) × -{\lg P(X=x)} \\
-\end{aligned}
-$$
-
-- **cross-entropy**: how surprised I expect Bob to be (if Bob's beliefs are $Q$ instead of $P$):
-
-$$
-\begin{aligned}
-    H(P,Q) &= 𝔼 Suprisal_Q(X) \\
-           &= 𝔼 -{\lg Q(X)} \\
-           &= ∑_x P(X=x) × -{\lg Q(X=x)}
-\end{aligned}
-$$
-
-- **relative entropy** or **KL divergence**: how much *more* surprised I expect Bob to be than me:
-
-$$
-\begin{aligned}
-        D_{KL}(P || Q) &= H(P,Q) - H(P) \\
-                    &= ∑_x P(X=x) × {\lg \frac{P(X=x)}{Q(X=x)}}
-\end{aligned}
-$$
-
-
-When dealing with binary variables then these formulas can be written as:
-
-- **entropy**: 
-
-$$ H(p) = - p × {\lg p} - (1-p) × {\lg (1-p)} $$
-
-- **cross-entropy**: 
-
-$$ H(p,q) = - p × -{\lg q} - (1-p) × {\lg (1-q)} $$
-
-- **relative entropy or KL-divergence**:
-
-$$ D_{KL}(p||q) = - p × {\lg \frac{p}{q}} - (1-p) × {\lg \frac{1-p}{1-q}} $$
-
-
 
 ## Surprisal as a Measure of Error
 
-Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. If we predict that something has a 1% chance of happening, and it happens, surprisal is $-{\lg .01} = 6.64~bits$, whereas if we predicted it had a 99% chance of happening, surprisal is only $-{\lg .99} = 0.14~bits$, which is much  smaller. If we thought there was a 50/50 chance, surprisal is $-{\lg .5} = 1~bit$.
+Surprisal can be thought of, for our purposes, as a measure of the "error" of a prediction. If we predict that something has a 1~% chance of happening, and it happens, surprisal is $-\log(.01) = 6.64~bits$, whereas if we predicted it had a 99~% chance of happening, surprisal is only $-\log(.99) = 0.14~bits$, which is much  smaller. If we thought there was a 50/50 chance, surprisal is $-\log(.5) = 1~bit$.
 
-Suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $upvotes$ upvotes and $downvotes$ downvotes. What is the total error of our predictions?
+<!-- - shouldn't it be the probability of a vote being an upvote here? -->
+Suppose we predict that the probability of a user upvoting a post is $p$. Then suppose there are actually $n$ votes with $n_U$ votes being upvotes and $n_D$ votes being downvotes. What is the total error of our predictions?
 
-Every time there is an upvote, surprisal is $-{\lg p}$. The probability of a downvote is just $1-p$, so whenever there is a downvote surprisal is $-{\lg (1-p)}$.
+Every time there is an upvote, surprisal is $-\log(p)$. The probability of a downvote is just $1-p$, so whenever there is a downvote surprisal is $-\log(1-p)$.
 
 So our total error is:
 
 $$
-    upvotes × -{\lg p} + downvotes × -{\lg (1-p)}
+n_U \cdot (-\log(p)) + n_D \cdot (-\log(1-p))
 $$
 
 
-Since $upvotes ≈ votesTotal×p$, and $downvotes ≈ votesTotal×(1-p)$ our total error is approximately:
+Since $n_U \approx n \cdot p$, and $n_D \approx n \cdot (1-p)$ our total error is approximately:
 
 $$
-\begin{aligned}
-    & votesTotal × p × -{\lg p} + votesTotal × (1-p) × -{\lg (1-p)} \\
-    & = votesTotal × H(p)
-\end{aligned}
+n \cdot p \cdot (-\log(p)) + n \cdot (1-p) \cdot (-\log(1-p))) = n \cdot H(p)
 $$
 
 In other words, our error is roughly entropy times the number of votes.
@@ -89,20 +34,22 @@ Let's say Alice estimates the probability of an upvote to be $q$, but Bob thinks
 
 $$
 \begin{aligned}
-    &upvotes × -{\lg q} + downvotes × -{\lg (1-q)} \\
-    &≈ votesTotal×p × -{\lg q} + votesTotal×(1-p) × -{\lg (1-q)} )  \\
-    &= votesTotal×( p×-{\lg q} + (1-p)×-{\lg (1-q)} ) \\
-    &= votesTotal×H(p,q) \\
+    & n_U \cdot (-\log(q)) + n_D \cdot (-\log(1-q))) \\
+    & \approx n \cdot p \cdot (-\log(q)) + n \cdot (1-p) \cdot (-\log(1-q))  \\
+    & = n \cdot [p \cdot (-\log(q)) + (1-p) \cdot (-\log(1-q))] \\
+    & = n \cdot H(p,q) \\
 \end{aligned}
 $$
 
 $H(p,q)$ is the cross entropy between Bob and Alices's estimates: Bob's estimate of Alice's average error. 
 
-In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. There are $votesTotal$ "Alices", or uninformed users. Bob expects the total error of all the uninformed users to be $votesTotal×H(p,q)$.
+In our case, Alice represents the average uninformed user (users who haven't seen the note on a post), and Bob represents the informed user. There are $n$ "Alices", or uninformed users. Bob expects the total error of all the uninformed users to be $n \cdot H(p,q)$.
 
-$H(p,q)$ will always be greater than $H(p)$ if $p≠q$. That is, Bob's measure of Alice's error will always be greater than his measure of his own error as long as his beliefs differ from Alice's.
+$H(p,q)$ will always be greater than $H(p)$ if $p \neq q$. That is, Bob's measure of Alice's error will always be greater than his measure of his own error as long as his beliefs differ from Alice's.
 
 This is due to a very powerful property of surprisal as a measure of error: expected surprisal is minimized when the estimated probability equals the actual frequency of the event. So over- or under- estimating the probability always results in more error in the long run. Since $H(p,q)$ tells us what Alice's average error *would* be, in the long run, if $p$ were the true frequency, $H(p,q)$ is minimized when Alice's estimate $q$ equals the true frequency $p$, or when $H(p,q)=H(p,p)=H(p)$.
+
+
 
 ## Total Relative Entropy = Cognitive Dissonance
 
