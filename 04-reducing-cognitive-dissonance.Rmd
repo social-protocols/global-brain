@@ -1,6 +1,6 @@
 # Reducing Cognitive Dissonance
 
-As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that only exist because people have been exposed to different information. When a note on a post changes the probability that users upvote the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of **entropy**.
+As described in the [Global Brain Overview](global-brain-overview.html), the goal of the global brain algorithm is to focus users' attention on posts that reduce **cognitive dissonance** -- difference of belief that only exists because people have been exposed to different information. When a note on a post changes the upvote rate of the post, then there is cognitive dissonance in proportion to the number of people who voted on the post without being shown the note. Information theory lets us easily quantify this cognitive dissonance using the concept of **entropy**.
 
 *Note: This chapter requires a good grasp of some key concepts in information theory, namely [**surprisal**](#surprisal), [**entropy**](#entropy), [**cross-entropy**](#cross-entropy), and [**KL divergence**](#kl-divergence). If you need an introduction, check out our [Primer on Information Theory](#informtaion-theory-primer-1) in the appendix.*
 
@@ -8,10 +8,9 @@ As described in the [Global Brain Overview](global-brain-overview.html), the goa
 ## Informative Notes {#informative-notes}
 
 First of all, we consider a post and a note and the two probability distributions denoting two distinct **upvote rates**^[as introduced in the [previous chapter](#estimating-upvote-rates)]:
-Let P be the upvote rate of the post *without* the note, and P* the upvote rate of the post *with* the note.
+Let $P$ be the upvote rate of the post *without* the note, and $P^*$ the upvote rate of the post *with* the note.
 The problem we are addressing is to calculate the **magnitude of the information asymmetry** between users that voted on the post *without* the note and the users that voted on the post *with* the note.
-We say that the note is **informative** if the upvote rate P* is different from P.
-What we want to calculate first is the magnitude of this difference.
+We say that the note is **informative** if the upvote rate $P^*$ is different from $P$.
 
 ### Votes and Surprisal
 
@@ -43,25 +42,28 @@ $$
 
 ### The Meaning of Cross-Entropy
 
-If we have a post and a note and the upvote rates $p$ for the post *without* the note and $p*$ for the post *with* the note, we can calculate the **cross-entropy** $H(p*, p)$:
+If we have a post and a note and the upvote rates $p$ for the post *without* the note and $p^*$ for the post *with* the note, we can calculate the **cross-entropy** $H(p^*, p)$:
 
 $$
-H(p*, p) = -(p* \cdot \log(p) + (1-p*) \cdot \log(1-p))
+\begin{aligned}
+H(p^*, p) &= -\sum_{x \in X} p^*(x) \cdot \log(p(x)) \\
+          &= -(p^* \cdot \log(p) + (1-p^*) \cdot \log(1-p))
+\end{aligned}
 $$
 
-As we believe $p*$ to be closer to the "true" upvote rate (because we assume that users who saw the post with the note to be **more informed**), we can interpret $H(p*, p)$ as our estimate for how much we err on average if we use the previously estimated (uninformed) upvote rate.
+As we believe $p^*$ to be closer to the "true" upvote rate (because we assume that users who saw the post with the note to be **more informed**), we can interpret $H(p^*, p)$ as our estimate for how much we err on average if we use the previously estimated (uninformed) upvote rate.
 
-$H(p*,p)$ will always be greater than $H(p)$ if $p \neq p*$. That is, given new information (the note), we assume that our error is always greater for the uninformed estimate than for the informed one.
+$H(p^*,p)$ will always be greater than $H(p)$ if $p \neq p^*$. That is, given new information (the note), we assume that our error is always greater for the uninformed estimate than for the informed one.
 This is due to a very powerful property of surprisal as a measure of error:
 
 **Expected surprisal is minimal when the estimated probability equals the actual frequency of the event.**
 
-So over- or underestimating the probability always results in more error in the long run. Since $H(p*,p)$ tells us what our average error *would* be in the long run, if $p*$ were the true frequency and we still estimated the upvote rate using $p$, $H(p*,p)$ is minimized when $p*$ equals the previous upvote rate $p$, or when $H(p*,p)=H(p,p)=H(p)$. In that case, the note would not be informative at all.
+So over- or underestimating the probability always results in more error in the long run. Since $H(p^*,p)$ tells us what our average error *would* be in the long run, if $p^*$ were the true frequency and we still estimated the upvote rate using $p$, $H(p^*,p)$ is minimized when $p^*$ equals the previous upvote rate $p$, or when $H(p^*,p)=H(p,p)=H(p)$. In that case, the note would not be informative at all.
 
 
-## Total Relative Entropy = Cognitive Dissonance
+### Total Relative Entropy = Cognitive Dissonance
 
-The difference between $H(p,q)$ and $H(p)$ is **relative entropy**, also known as the Kullback–Leibler divergence or KL-divergence. It can be thought of as "how much **more** surprised Bob expects Alice to be than himself". Since $H(p,q) >= H(p)$, **relative entropy is never negative**, regardless of whether $p$ is greater or less than $q$.
+The difference between $H(p^*,p)$ and $H(p)$ is **relative entropy**, also known as the Kullback–Leibler divergence or KL divergence. Since $H(p^*,p) >= H(p^*)$, **relative entropy is never negative**, regardless of whether $p$ is greater or less than $p^*$.
 
 If we take Bob's measure of Alices's total error, minus his measure of his own total error, we get the total relative entropy: how much **more** error Bob expects for Alice than he would expect if Alice knew more. 
 
@@ -69,9 +71,9 @@ The total relative entropy is our measure of cognitive dissonance.
 
 $$
 \begin{aligned}
-cognitiveDissonance &= n \cdot H(p,q) - n \cdot H(p) \\
-                    &= n \cdot (H(p,q) - H(p)) \\
-                    &= n \cdot D_{KL}(p || q)
+cognitiveDissonance &= n \cdot H(p^*,p) - n \cdot H(p*) \\
+                    &= n \cdot (H(p^*,p) - H(p*)) \\
+                    &= n \cdot D_{KL}(p^* || p)
 \end{aligned}
 $$
 
