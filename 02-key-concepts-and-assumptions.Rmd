@@ -30,6 +30,9 @@ The Global Brain can actually look at how C affects users' votes on B to estimat
 
 For example, if post B links different groups of users in different conversations -- for example if B is "reposted" or cross-posted to more than one forum -- then the Global Brain can observe how C affects B in one forum, and how B affects A in another forum, and "link" the two forums, predicting the probability that a fully-informed user would upvote A after seeing subnote C, even if no user who voted on A actually saw subnote C.
 
+<!-- emphasize locality -> cutting the reply tree in two pieces, treat them independently -> still works -->
+<!-- works on ACYCLIC graphs -> we should avoid cyclic graphs (think through whether that could happen with cross-posting) -->
+
 ## Optimizing for Information Value
 
 **A key assumption we make is that more information leads to better judgments.**

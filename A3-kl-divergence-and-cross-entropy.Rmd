@@ -30,6 +30,9 @@ RATIONALE TAKEN FROM: https://www.youtube.com/watch?v=SxGYPqCgJWM
 Main question:
 Do two probability distributions assign similar probability to a sequence of events?
 
+
+<!-- make example more explicit -->
+
 Let's say we have two distributions, P and Q.
 For a coin toss, we can calculate the probability of a sequence of tosses for each distribution.
 
@@ -55,4 +58,10 @@ $$
 From video (see above):
 "How likely would the second distribution be to generate samples from the first?"
 
+
+<!-- Overall for global brain algorithm: formal definition of "agent"? -->
+<!-- agent: receives information and changes beliefs and then behavior because of it -->
+
+<!-- Core Algorithm description: -->
+<!-- Wenn du Agenten von Form X hast und deine Diskussion so (Y) strukturiert ist, dann errechnet unser Algorithmus den Information Value vom Root Node. -->
 

@@ -17,6 +17,10 @@ Alice's beliefs about $X$ are distributed according to $P$ and Bob's beliefs are
 distributed according to $Q$.
 Then from Alice's perspective, the concepts listed above mean the following:
 
+<!-- Maybe coin toss example here? -->
+<!-- With numbers -->
+
+
 - **surprisal**: how surprised Alice is when she learns that the value of X is x
 - **entropy**: how surprised Alice *expects* to be about the outcome of X
 - **cross-entropy**: how surprised Alice expects Bob to be (assuming that Bob believes $Q$)

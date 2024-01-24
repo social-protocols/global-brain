@@ -33,7 +33,7 @@ Surprisal expresses our uncertainty about an event by **quantifying how surprise
 The notion of surprisal is consistent with a Bayesian vocabulary because it acknowledges the **subjectivity of belief** and we can derive it from probability.
 First of all, we want surprisal and probability to be **inversely proportional** to one another:
 The **more likely** and event is to occur, the **less surprised** we will be about it.
-A simple way of expressing this would be to just take the inverse of the probability $p$:
+A naive way of expressing this would be to just take the inverse of the probability $p$:
 
 $$
 \frac{1}{p}
@@ -54,6 +54,8 @@ $$
 
 We use the symbol $I$ to denote surprisal because it is also commonly referred to as *information content*^[Other terms for surprisal that you might come across are **self-information** and **Shannon information**.].
 
+<!-- proportionality -> omit term -->
+<!-- -> logarithmically inversely proportional -->
 
 ### What about the Base of the Logarithm?
 
@@ -107,6 +109,33 @@ This is fine because we have no need to express our surprise about an event that
 
 ## Entropy {#entropy}
 
+<!-- >>> 0.99 * (-log(0.99)) + 0.01 * (-log(0.01)) -->
+<!-- Traceback (most recent call last): -->
+<!--   File "<stdin>", line 1, in <module> -->
+<!-- NameError: name 'log' is not defined -->
+<!-- >>> import math -->
+<!-- >>> 0.99 * (-math.log(0.99)) + 0.01 * (-math.log(0.01)) -->
+<!-- 0.056001534354847345 -->
+<!-- >>> 0.5 * (-math.log(0.99)) + 0.5 * (-math.log(0.01)) -->
+<!-- 2.307610260920796 -->
+<!-- >>> 0.5 * (-math.log(0.5)) + 0.5 * (-math.log(0.5)) -->
+<!-- 0.6931471805599453 -->
+<!-- >>> 0.5 * (-math.log(0.5, 2)) + 0.5 * (-math.log(0.5, 2)) -->
+<!-- 1.0 -->
+<!-- >>> math.log(e) -->
+<!-- Traceback (most recent call last): -->
+<!--   File "<stdin>", line 1, in <module> -->
+<!-- NameError: name 'e' is not defined -->
+<!-- >>> math.log(math.e) -->
+<!-- 1.0 -->
+<!-- >>> 0.5 * (-math.log(0.99)) + 0.5 * (-math.log(0.01)) -->
+<!-- 2.307610260920796 -->
+<!-- >>> -->
+
+
+<!-- expected value formula -->
+Entropy is simply the **expected value of surprisal**.
+
 We only need to consider discrete random variables for entropy for our cases, but entropy also generalizes for the continuous case.
 Entropy is given by^[You may ask yourself: Why is $H$ the formula symbol for a metric called entropy? That's because Shannon entropy is based on Boltzmann's H-theorem in statistical thermodynamics. It is contested why Boltzmann called entropy $H$, but the common conjecture is that he actually meant the greek letter Eta ($H$) which would make a lot more sense.
 There have actually been typographical analyses of his handwriting to determine whether he meant Eta, not the letter $H$!]:
@@ -144,3 +173,8 @@ Entropy gives us a way to quantify how surprised we **expect** to be about the o
 - [StatQuest on surprisal and entropy (video)](https://www.youtube.com/watch?v=YtebGVx-Fxw)
 - [Intuitively understanding the Shannon Entropy (video)](https://www.youtube.com/watch?v=YtebGVx-Fxw)
 - [Wikipedia on information content](https://en.wikipedia.org/wiki/Information_content)
+
+
+<!-- remove fluff and weasel words -->
+<!-- "easily" etc -->
+
