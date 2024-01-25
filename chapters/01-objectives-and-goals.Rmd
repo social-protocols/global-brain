@@ -1,9 +1,22 @@
-# Objectives and Goals
+# Objectives and Rationale
 
-Before we go into the details of how the Global Brain algorithm evaluates and curates information, let's look at how users can contribute information and interact with the system.
-There are three fundamental elements:
+Humans lie and humans pass on misinformation, whether inadvertantly or with the goal to manipulate others. No algorithm will ever change this. However, misinformation is harmful in social networks only when it is **unchecked**. Lies are only harmful if people don't see the refutations. In fact, given that lies and misinformation will always be part of any online information eco-system, seeing lies along with rebuttals might actually be *useful* because people would have seen them anyways and thus become aware of the lies currently in circulation.
 
-- **Posts**: A piece of media submitted to the platform by a user, just like posts on any other social media platforms. Posts can either be **top-level posts** or **replies** to other posts, thus forming conversation threads.
+The engagement-based algorithms in today's social networks encourage the unchecked spread of rumors, regardless of how well they are supported, whereas the Global Brain algorithm discourages the spread of information that people are unlikely to upvote if they were fully informed, and encourages the spread of information that might check the spread of a false information that is already spreading.
+
+**And yet the purpose of the Global Brain algorithm is NOT to tell people what is true. It is simply to direct people's attention to information that may change their votes.**
+
+But why do we want to *change* votes? An algorithm that tries to change minds sounds sinister. Propaganda changes how people vote. But propaganda works by selectively exposing users to information with the goal of changing opinions about specific things, all the while actively omitting contrary information. It is one sided and dishonest. The Global Brain, on the other hand, has no agenda other than driving productive conversation by **maximizing the informedness users base their voting decisions on**.
+
+The Global Brain algorithm drives a fair, unbiased process of weighing all the arguments that anyone cares to make. As long as there is sufficient intellectual diversity among recipients, the result is an adversarial process, where all the relevant information is exposed and processed.
+
+
+## Problem Statement
+
+The Global Brain algorithm is a social protocol that evaluates and curates information for an online discussion platform.
+It requires the platform to provide three fundamental elements:
+
+- **Posts**: A piece of media submitted to the platform by a user, just like posts on any other social media platform. Posts can either be **top-level posts** or **replies** to other posts, thus forming conversation threads.
 - **Notes**: A post's note is a reply that is shown alongside it to provide helpful context.
 - **Votes**: Users evaluate content through upvotes and downvotes.
 
@@ -21,18 +34,9 @@ knitr::include_graphics("images/top-note-promotion.png")
 
 ```
 
+The result is a system of tree-style discussions where you can **follow the most informative conversation** in any thread by following the best replies on any post.
 
-## Rationale
-
-Humans lie and humans pass on misinformation, whether inadvertantly or with the goal to manipulate others. No algorithm will ever change this. However, misinformation is harmful in social networks only when it is **unchecked**. Lies are only harmful if people don't see the refutations. In fact, given that lies and misinformation will always be part of any online information eco-system, seeing lies along with rebuttals might actually be *useful* because people would have seen them anyways and thus become aware of the lies currently in circulation.
-
-The engagement-based algorithms in today's social networks encourage the unchecked spread of rumors^[with the exception, perhaps, of X's Community Notes], regardless of how well they are supported, whereas the Global Brain algorithm discourages the spread of information that people are unlikely to upvote if they were fully informed, and encourages the spread of information that might check the spread of a false information that is already spreading.
-
-And yet the purpose of the Global Brain algorithm is NOT to tell people what is true. It is simply to direct people's attention to information that may change their votes.
-
-But why do we want to *change* votes? An algorithm that tries to change minds sounds sinister. Propaganda changes how people vote. But propaganda works by selectively exposing users to information with the goal of changing opinions about specific things, all the while actively omitting contrary information. It is one sided and dishonest. The Global Brain, on the other hand, has no agenda other than driving productive conversation and reducing cognitive dissonance.
-
-The Global Brain algorithm drives a fair, unbiased process of weighing all the arguments that anyone cares to make. As long as there is sufficient intellectual diversity among recipients, the result is an adversarial process, where all the relevant information (the posts that change minds in either direction) is exposed and processed (the marketplace of ideas).
+<!-- [TODO: GRAPHIC] -->
 
 
 ## An Informal Argument Model
@@ -43,16 +47,15 @@ But "best" is a tricky term in the realm of arguments and ideas.
 What makes an argument "best"?
 And how do we even know what an *argument* is if everything is just a post?
 
-<!-- [TODO: ADD LINKS] -->
-Many attempts have been made to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate.
+[Many attempts have been made](https://en.wikipedia.org/wiki/Argument_map) to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate.
 We deviate from this approach and propose an **informal argument model**.
 
 **The Global Brain does not require a formal model of belief. It doesn't need posts to be structured as formal propositions or claims. It doesn't need to know if users agree or disagree with posts.**
 
 The only assumptions are:
 
-1. A vote reflects a users intent to give a post more/less attention (see [The Law of Attention](https://jonathanwarden.com/the-law-of-attention)).
-2. This intent is caused by underlying beliefs that we cannot observe (latent variables -- see section below).
+1. Upvotes and downvotes define a **single dimension** across which content is evaluated and there is a **common understanding** among users about what upvotes and downvotes mean.
+2. The direction of Users' votes is **causally related** to their **underlying beliefs** about the topic of the post that we cannot observe (latent variables).
 
 By making these assumptions about the causal relationship between beliefs and votes and then watching how exposure to notes causes changes to votes, we can model underlying beliefs and predict how exposure to a note will cause changes to these beliefs, which will cause changes to other beliefs, and so on.
 
