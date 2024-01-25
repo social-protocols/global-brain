@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Estimating Upvote Rates | The Global Brain Algorithm</title>
+  <title>1 Objectives and Rationale | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Estimating Upvote Rates | The Global Brain Algorithm" />
+  <meta property="og:title" content="1 Objectives and Rationale | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Estimating Upvote Rates | The Global Brain Algorithm" />
+  <meta name="twitter:title" content="1 Objectives and Rationale | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -34,8 +34,8 @@ algorithms as a whole.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="key-concepts-and-assumptions.html"/>
-<link rel="next" href="cognitive-dissonance.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="key-concepts-and-assumptions.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -174,143 +174,54 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="estimating-upvote-rates" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Estimating Upvote Rates<a href="estimating-upvote-rates.html#estimating-upvote-rates" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Users on the platform can rate content by adding an <strong>upvote</strong> or a <strong>downvote</strong>.
-There are two essential forms of content users can rate:
-posts and posts with a note.
-For all posts and post/note combinations, we keep a tally of upvotes and downvotes.</p>
-<p><img src="images/voting-tallies.png" /><!-- --></p>
-<div id="the-upvote-rate" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> The Upvote Rate<a href="estimating-upvote-rates.html#the-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The simplest way of using upvotes and downotes for rating a post is to simply
-calculate the ratio between them: <span class="math inline">\(upvotes:downvotes\)</span>.
-Or expressed as the fraction of upvotes over all votes:</p>
-<p><span class="math display">\[
-\frac{upvotes}{upvotes + downvotes}
-\]</span></p>
-<p>We call this the <strong>upvote rate</strong>.</p>
-<p>You can also think about the upvote rate as an <strong>average vote</strong>.
-If we model the upvote rate as a random variable, we might encode upvotes with a
-value of <span class="math inline">\(1\)</span> and downvotes with a value of <span class="math inline">\(0\)</span>.
-A sample post’s gathered votes at a certain point in time <span class="math inline">\(t\)</span> might look like
-this:</p>
-<p><span class="math display">\[
-(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
-\]</span></p>
-<p>The post has gathered a total of 12 votes of which 3 are upvotes and 9 are
-downvotes.
-The upvote rate (i.e., the “average” vote) for this sample is:</p>
-<p><span class="math display">\[
-\rho = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
-\]</span></p>
-<div id="modeling-belief-about-the-true-upvote-rate" class="section level3 unnumbered hasAnchor">
-<h3>Modeling Belief about the “True” Upvote Rate<a href="estimating-upvote-rates.html#modeling-belief-about-the-true-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We assume that each post has a “true” upvote rate that we can only estimate by
-collecting data on it (i.e., collecting votes on a post).
-We think about the upvote rate as the <strong>probability of a vote being an upvote</strong>.
-A suitable model for proportions or probabilities is given by the Beta distribution, thus we model the true upvote rate as a random variable that follows a Beta
-distribution:</p>
-<p><span class="math display">\[
-upvoteRate \sim \beta(upvotes, downvotes)
-\]</span></p>
-<p>The Beta distribution has two shape parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> which in our
-case are given by our upvote and downvote counts.
-To provide a more intuitive understanding of how this distribution models our
-upvote rate, here is an example of how it develops for an example post.
-We initialize the distribution with a prior of 1 upvote and 1 downvote.
-This is equivalent to a uniform distribution:
-We assign equal probability to any outcome, i.e., to any upvote rate.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="768" /></p>
-<p>Now let’s use the previous example vote sample from above:</p>
-<p><span class="math display">\[
-(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
-\]</span></p>
-<p>Using the example above, we get the following distributions at different points
-in time:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="768" /></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-25-1.png" width="768" /></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="768" /></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="768" /></p>
-<p>The distribution updates and the probability mass becomes more
-concentrated around a smaller range of values which means we become more and
-more certain about our beliefs about the true upvote rate.
-If the post above would develop further with a similar trajectory, the following
-could be the outcome after 500 votes:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="768" /></p>
-<p>We are now relatively certain that the true upvote rate is somewhere between 0.2 and 0.3.</p>
+<div id="objectives-and-rationale" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Objectives and Rationale<a href="objectives-and-rationale.html#objectives-and-rationale" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Humans lie and humans pass on misinformation, whether inadvertantly or with the goal to manipulate others. No algorithm will ever change this. However, misinformation is harmful in social networks only when it is <strong>unchecked</strong>. Lies are only harmful if people don’t see the refutations. In fact, given that lies and misinformation will always be part of any online information eco-system, seeing lies along with rebuttals might actually be <em>useful</em> because people would have seen them anyways and thus become aware of the lies currently in circulation.</p>
+<p>The engagement-based algorithms in today’s social networks encourage the unchecked spread of rumors, regardless of how well they are supported, whereas the Global Brain algorithm discourages the spread of information that people are unlikely to upvote if they were fully informed, and encourages the spread of information that might check the spread of a false information that is already spreading.</p>
+<p><strong>And yet the purpose of the Global Brain algorithm is NOT to tell people what is true. It is simply to direct people’s attention to information that may change their votes.</strong></p>
+<p>But why do we want to <em>change</em> votes? An algorithm that tries to change minds sounds sinister. Propaganda changes how people vote. But propaganda works by selectively exposing users to information with the goal of changing opinions about specific things, all the while actively omitting contrary information. It is one sided and dishonest. The Global Brain, on the other hand, has no agenda other than driving productive conversation by <strong>maximizing the informedness users base their voting decisions on</strong>.</p>
+<p>The Global Brain algorithm drives a fair, unbiased process of weighing all the arguments that anyone cares to make. As long as there is sufficient intellectual diversity among recipients, the result is an adversarial process, where all the relevant information is exposed and processed.</p>
+<div id="problem-statement" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Problem Statement<a href="objectives-and-rationale.html#problem-statement" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Global Brain algorithm is a social protocol that evaluates and curates information for an online discussion platform.
+It requires the platform to provide three fundamental elements:</p>
+<ul>
+<li><strong>Posts</strong>: A piece of media submitted to the platform by a user, just like posts on any other social media platform. Posts can either be <strong>top-level posts</strong> or <strong>replies</strong> to other posts, thus forming conversation threads.</li>
+<li><strong>Notes</strong>: A post’s note is a reply that is shown alongside it to provide helpful context.</li>
+<li><strong>Votes</strong>: Users evaluate content through upvotes and downvotes.</li>
+</ul>
+<p><img src="images/visual-primitives.png" style="display: block; margin: auto;" /></p>
+<p><strong>The Global Brain algorithm’s core objective is to maximize the impact of the best ideas and arguments by finding the best reply for any post and promoting it to be its note.</strong></p>
+<p>We do this by identifying the reply for any post that <strong>most likely changes the voting behavior</strong> on that post.</p>
+<p><img src="images/top-note-promotion.png" style="display: block; margin: auto;" /></p>
+<p>The result is a system of tree-style discussions where you can <strong>follow the most informative conversation</strong> in any thread by following the best replies on any post.</p>
+<!-- [TODO: GRAPHIC] -->
 </div>
-</div>
-<div id="estimating-upvote-rates-naive-approach" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Estimating Upvote Rates: Naive Approach<a href="estimating-upvote-rates.html#estimating-upvote-rates-naive-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now that we can express our beliefs about the true upvote rate, how do we make a
-“best guess” at any given point in time?
-A naive solution would be to just take the sample upvote rate or <strong>the plain average vote</strong> as introduced
-above at any point in time <span class="math inline">\(t\)</span>:</p>
-<p><span class="math display">\[
-P_t(upvote) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
-\]</span></p>
-<p>This solution is naive because it ignores an important fact:
-In the beginning, we have no information about the upvote rate of the post.
-Thus, each new arriving vote has an outsized effect on our estimate that just
-gets increasingly small over time.
-This would result in very erratic estimates in the beginning which would only
-smooth out over time.
-Here is how the cumulative mean develops for a random vote history with a true
-upvote rate of 0.6:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="768" /></p>
-<p>If we were to use this metric to compare posts, getting a very high upvote rate
-estimate in the early stages of a post would essentially come down to luck.
-It might then temporarily fare overly well (or overly poorly) compared to other
-posts.
-We have to take into account <strong>prior information</strong> to avoid this.</p>
-</div>
-<div id="the-bayesian-average" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> The Bayesian Average<a href="estimating-upvote-rates.html#the-bayesian-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Bayesian Average uses a <strong>weighted prior estimate of the average</strong> to avoid the
-erratic shifts in the estimate when there is not a lot of data.
-It is calculated as</p>
-<p><span class="math display">\[
-\frac{\color{blue}{C \cdot m} + \sum_{i=1}^n x_i}{\color{blue}{C} + n}
-\]</span></p>
-<p>where <span class="math inline">\(C\)</span> is a weight constant and <span class="math inline">\(m\)</span> is our prior belief about the average.
-If you compare it to the plain average, <span style="color: blue">we simply add <span class="math inline">\(C \cdot m\)</span> to the nominator and <span class="math inline">\(C\)</span> to the denominator</span>.</p>
-<p><strong>But what does this achieve in concrete terms?</strong></p>
-<p>Let’s build up to this formula step by step for estimating the
-true upvote rate of a post.
-First, remember that the sample upvote rate can be thought of as the “plain” average vote.
-Let’s say our dataset <span class="math inline">\(X\)</span> consists of <span class="math inline">\(1\)</span>s and <span class="math inline">\(0\)</span>s, where <span class="math inline">\(1\)</span> denotes an upvote and <span class="math inline">\(0\)</span> denotes a downvote.
-Then <span class="math inline">\(\sum_{i=1}^n{x_i}\)</span> is the <em>number of upvotes</em> (because downvotes are
-encoded as <span class="math inline">\(0\)</span>s) and <span class="math inline">\(n\)</span> is <span class="math inline">\(upvotes + downvotes\)</span>, the <em>total number of votes</em>.
-Substituting the values in the Bayesian average formula gives us:</p>
-<p><span class="math display">\[
-\frac{C \cdot m + \sum_{i=1}^n x_i}{C + n} = \frac{C \cdot m + upvotes}{C + upvotes + downvotes}
-\]</span></p>
-<p><strong>Practically, adding these terms to our formula means that we calculate the
-cumulative average as if we had collected <span class="math inline">\(C\)</span> votes with an upvote rate of <span class="math inline">\(m\)</span>
-before we collected the first vote on our post.</strong></p>
-<p>If our prior belief about the average is 0.68 and we chose a weighting factor of
-100, this would mean that we calculate the average as if we had previously
-collected 100 data points which amounted to an upvote rate of exactly 0.68.</p>
-<p>Plugging in the values makes this apparent:</p>
-<p><span class="math display">\[
-\frac{100 \cdot 0.68 + upvotes}{100 + upvotes + downvotes} = \frac{68 + upvotes}{100 + upvotes + downvotes}
-\]</span></p>
-<p>Graphically, it looks like this (the light grey line is the plain average for
-comparison):</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="768" /></p>
-<p>The cumulative Bayesian average is much less erratic when little data is available.
-However, there is an important question left:
-How do we chose a good prior and a good weight?</p>
-<p>Here is how the Bayesian average develops for different prior beliefs about the
-average.
-Bayesian averages over time are indicated by light grey lines, the priors chosen
-here are 0.1 through 0.9 and the weight is kept constant at 20.
-The plain average is overlayed in darker grey for reference.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="768" /></p>
-<p>And here is that same plot with the same priors, but with a weight of 100.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-32-1.png" width="768" /></p>
-<!--- TODO: write a section about how to chose a prior --->
+<div id="an-informal-argument-model" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> An Informal Argument Model<a href="objectives-and-rationale.html#an-informal-argument-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You may have noticed that we have used the term “best” above without qualifying it.
+We want to find the “best” reply to any post to make it its note – the most helpful context shown alongside it.
+But “best” is a tricky term in the realm of arguments and ideas.
+What makes an argument “best”?
+And how do we even know what an <em>argument</em> is if everything is just a post?</p>
+<p><a href="https://en.wikipedia.org/wiki/Argument_map">Many attempts have been made</a> to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate.
+We deviate from this approach and propose an <strong>informal argument model</strong>.</p>
+<p><strong>The Global Brain does not require a formal model of belief. It doesn’t need posts to be structured as formal propositions or claims. It doesn’t need to know if users agree or disagree with posts.</strong></p>
+<p>The only assumptions are:</p>
+<ol style="list-style-type: decimal">
+<li>Upvotes and downvotes define a <strong>single dimension</strong> across which content is evaluated and there is a <strong>common understanding</strong> among users about what upvotes and downvotes mean.</li>
+<li>The direction of Users’ votes is <strong>causally related</strong> to their <strong>underlying beliefs</strong> about the topic of the post that we cannot observe (latent variables).</li>
+</ol>
+<p>By making these assumptions about the causal relationship between beliefs and votes and then watching how exposure to notes causes changes to votes, we can model underlying beliefs and predict how exposure to a note will cause changes to these beliefs, which will cause changes to other beliefs, and so on.</p>
+<!-- NOTES: -->
+<!-- Chat Felix/Johannes -->
+<!-- also hier geht es ja, darum, dass sich die besten Ideen und Argumente verbreiten und bei den Richtigen Leuten ankommen -->
+<!-- Ein großer Teil davon ist überhaupt ein gemeinsames Verständnis davon zu haben, was überhaupt fakten sind -->
+<!-- Es geht darum information zu identifizieren, die etwas bewirkt. Bzw zu identifizieren wo es etwas bewirken kann. -->
+<!-- It is about identifying information that has an effect. Or rather, identifying where it can have an effect. -->
+<!-- --- -->
+<!-- exploration/exploitation trade-off -->
+<!-- Thompson Sampling -->
 </div>
 </div>
             </section>
@@ -318,8 +229,8 @@ The plain average is overlayed in darker grey for reference.</p>
           </div>
         </div>
       </div>
-<a href="key-concepts-and-assumptions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cognitive-dissonance.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="key-concepts-and-assumptions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

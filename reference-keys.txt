@@ -1,5 +1,5 @@
-objectives-and-goals
-rationale
+objectives-and-rationale
+problem-statement
 an-informal-argument-model
 key-concepts-and-assumptions
 establishing-causality
@@ -31,3 +31,13 @@ example-2-a-typhoon-in-oslo
 desired-properties-of-information-value-formula
 upvote-only-relative-entropy
 example-charts
+informtaion-theory-primer-1
+intuitions-about-key-concepts
+a-primer-on-information-theory-ii
+surprisal
+what-about-the-base-of-the-logarithm
+entropy
+surprisal-entropy-relation
+a-primer-on-information-theory-iii
+cross-entropy
+kl-divergence

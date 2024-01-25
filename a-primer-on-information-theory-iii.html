@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Estimating Upvote Rates | The Global Brain Algorithm</title>
+  <title>C A Primer on Information Theory III | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Estimating Upvote Rates | The Global Brain Algorithm" />
+  <meta property="og:title" content="C A Primer on Information Theory III | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Estimating Upvote Rates | The Global Brain Algorithm" />
+  <meta name="twitter:title" content="C A Primer on Information Theory III | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -34,8 +34,8 @@ algorithms as a whole.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="key-concepts-and-assumptions.html"/>
-<link rel="next" href="cognitive-dissonance.html"/>
+<link rel="prev" href="a-primer-on-information-theory-ii.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -174,143 +174,48 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="estimating-upvote-rates" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Estimating Upvote Rates<a href="estimating-upvote-rates.html#estimating-upvote-rates" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Users on the platform can rate content by adding an <strong>upvote</strong> or a <strong>downvote</strong>.
-There are two essential forms of content users can rate:
-posts and posts with a note.
-For all posts and post/note combinations, we keep a tally of upvotes and downvotes.</p>
-<p><img src="images/voting-tallies.png" /><!-- --></p>
-<div id="the-upvote-rate" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> The Upvote Rate<a href="estimating-upvote-rates.html#the-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The simplest way of using upvotes and downotes for rating a post is to simply
-calculate the ratio between them: <span class="math inline">\(upvotes:downvotes\)</span>.
-Or expressed as the fraction of upvotes over all votes:</p>
+<div id="a-primer-on-information-theory-iii" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">C</span> A Primer on Information Theory III<a href="a-primer-on-information-theory-iii.html#a-primer-on-information-theory-iii" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In machine learning, cross-entropy loss is common not because it is in any way different from KL divergence loss, but simply because it has a simpler formula.
+The two losses are actually equivalent.</p>
+<div id="cross-entropy" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">C.1</span> Cross-Entropy<a href="a-primer-on-information-theory-iii.html#cross-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>“How surprised I expect Bob to be” (Jonathan)</p>
+<p>Wikipedia:
+“In information theory, the cross-entropy between two probability distributions <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> over the same underlying set of events measures the average number of bits needed to identify an event drawn from the set if a coding scheme used for the set is optimized for an estimated probability distribution <span class="math inline">\(q\)</span>, rather than the true distribution <span class="math inline">\(p\)</span>.”</p>
 <p><span class="math display">\[
-\frac{upvotes}{upvotes + downvotes}
+H(p, q) = -\sum_{x \in X}p(x)log(q(x))
 \]</span></p>
-<p>We call this the <strong>upvote rate</strong>.</p>
-<p>You can also think about the upvote rate as an <strong>average vote</strong>.
-If we model the upvote rate as a random variable, we might encode upvotes with a
-value of <span class="math inline">\(1\)</span> and downvotes with a value of <span class="math inline">\(0\)</span>.
-A sample post’s gathered votes at a certain point in time <span class="math inline">\(t\)</span> might look like
-this:</p>
-<p><span class="math display">\[
-(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
-\]</span></p>
-<p>The post has gathered a total of 12 votes of which 3 are upvotes and 9 are
-downvotes.
-The upvote rate (i.e., the “average” vote) for this sample is:</p>
-<p><span class="math display">\[
-\rho = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
-\]</span></p>
-<div id="modeling-belief-about-the-true-upvote-rate" class="section level3 unnumbered hasAnchor">
-<h3>Modeling Belief about the “True” Upvote Rate<a href="estimating-upvote-rates.html#modeling-belief-about-the-true-upvote-rate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We assume that each post has a “true” upvote rate that we can only estimate by
-collecting data on it (i.e., collecting votes on a post).
-We think about the upvote rate as the <strong>probability of a vote being an upvote</strong>.
-A suitable model for proportions or probabilities is given by the Beta distribution, thus we model the true upvote rate as a random variable that follows a Beta
-distribution:</p>
-<p><span class="math display">\[
-upvoteRate \sim \beta(upvotes, downvotes)
-\]</span></p>
-<p>The Beta distribution has two shape parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> which in our
-case are given by our upvote and downvote counts.
-To provide a more intuitive understanding of how this distribution models our
-upvote rate, here is an example of how it develops for an example post.
-We initialize the distribution with a prior of 1 upvote and 1 downvote.
-This is equivalent to a uniform distribution:
-We assign equal probability to any outcome, i.e., to any upvote rate.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-23-1.png" width="768" /></p>
-<p>Now let’s use the previous example vote sample from above:</p>
-<p><span class="math display">\[
-(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
-\]</span></p>
-<p>Using the example above, we get the following distributions at different points
-in time:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-24-1.png" width="768" /></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-25-1.png" width="768" /></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-26-1.png" width="768" /></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-27-1.png" width="768" /></p>
-<p>The distribution updates and the probability mass becomes more
-concentrated around a smaller range of values which means we become more and
-more certain about our beliefs about the true upvote rate.
-If the post above would develop further with a similar trajectory, the following
-could be the outcome after 500 votes:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-28-1.png" width="768" /></p>
-<p>We are now relatively certain that the true upvote rate is somewhere between 0.2 and 0.3.</p>
 </div>
-</div>
-<div id="estimating-upvote-rates-naive-approach" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Estimating Upvote Rates: Naive Approach<a href="estimating-upvote-rates.html#estimating-upvote-rates-naive-approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now that we can express our beliefs about the true upvote rate, how do we make a
-“best guess” at any given point in time?
-A naive solution would be to just take the sample upvote rate or <strong>the plain average vote</strong> as introduced
-above at any point in time <span class="math inline">\(t\)</span>:</p>
+<div id="kl-divergence" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">C.2</span> KL Divergence<a href="a-primer-on-information-theory-iii.html#kl-divergence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>KL divergence is a measure of distance between two probability distributions.</p>
+<p>RATIONALE TAKEN FROM: <a href="https://www.youtube.com/watch?v=SxGYPqCgJWM" class="uri">https://www.youtube.com/watch?v=SxGYPqCgJWM</a></p>
+<p>Main question:
+Do two probability distributions assign similar probability to a sequence of events?</p>
+<!-- make example more explicit -->
+<p>Let’s say we have two distributions, P and Q.
+For a coin toss, we can calculate the probability of a sequence of tosses for each distribution.</p>
 <p><span class="math display">\[
-P_t(upvote) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
+P(x) = p_1^{N_H}p_2^{N_T} \\
+Q(x) = q_1^{N_H}q_2^{N_T}
 \]</span></p>
-<p>This solution is naive because it ignores an important fact:
-In the beginning, we have no information about the upvote rate of the post.
-Thus, each new arriving vote has an outsized effect on our estimate that just
-gets increasingly small over time.
-This would result in very erratic estimates in the beginning which would only
-smooth out over time.
-Here is how the cumulative mean develops for a random vote history with a true
-upvote rate of 0.6:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-29-1.png" width="768" /></p>
-<p>If we were to use this metric to compare posts, getting a very high upvote rate
-estimate in the early stages of a post would essentially come down to luck.
-It might then temporarily fare overly well (or overly poorly) compared to other
-posts.
-We have to take into account <strong>prior information</strong> to avoid this.</p>
-</div>
-<div id="the-bayesian-average" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> The Bayesian Average<a href="estimating-upvote-rates.html#the-bayesian-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Bayesian Average uses a <strong>weighted prior estimate of the average</strong> to avoid the
-erratic shifts in the estimate when there is not a lot of data.
-It is calculated as</p>
+<p>Then, we take the ratio between the two probabilities:</p>
 <p><span class="math display">\[
-\frac{\color{blue}{C \cdot m} + \sum_{i=1}^n x_i}{\color{blue}{C} + n}
+\frac{P(x)}{Q(x)} = \frac{p_1^{N_H}p_2^{N_T}}{q_1^{N_H}q_2^{N_T}}
 \]</span></p>
-<p>where <span class="math inline">\(C\)</span> is a weight constant and <span class="math inline">\(m\)</span> is our prior belief about the average.
-If you compare it to the plain average, <span style="color: blue">we simply add <span class="math inline">\(C \cdot m\)</span> to the nominator and <span class="math inline">\(C\)</span> to the denominator</span>.</p>
-<p><strong>But what does this achieve in concrete terms?</strong></p>
-<p>Let’s build up to this formula step by step for estimating the
-true upvote rate of a post.
-First, remember that the sample upvote rate can be thought of as the “plain” average vote.
-Let’s say our dataset <span class="math inline">\(X\)</span> consists of <span class="math inline">\(1\)</span>s and <span class="math inline">\(0\)</span>s, where <span class="math inline">\(1\)</span> denotes an upvote and <span class="math inline">\(0\)</span> denotes a downvote.
-Then <span class="math inline">\(\sum_{i=1}^n{x_i}\)</span> is the <em>number of upvotes</em> (because downvotes are
-encoded as <span class="math inline">\(0\)</span>s) and <span class="math inline">\(n\)</span> is <span class="math inline">\(upvotes + downvotes\)</span>, the <em>total number of votes</em>.
-Substituting the values in the Bayesian average formula gives us:</p>
+<p>Even though this is not the final formula for the KL divergence, it <em>does</em> calculate something along those lines: the ratio between the probabilities.</p>
+<p>We then <span style="color: blue">normalize this measure by the sample size</span> and <span style="color: firebrick">take the logarithm</span>:</p>
 <p><span class="math display">\[
-\frac{C \cdot m + \sum_{i=1}^n x_i}{C + n} = \frac{C \cdot m + upvotes}{C + upvotes + downvotes}
+\color{firebrick}{log} (\frac{p_1^{N_H}p_2^{N_T}}{q_1^{N_H}q_2^{N_T}})^\color{blue}{\frac{1}{N}}
 \]</span></p>
-<p><strong>Practically, adding these terms to our formula means that we calculate the
-cumulative average as if we had collected <span class="math inline">\(C\)</span> votes with an upvote rate of <span class="math inline">\(m\)</span>
-before we collected the first vote on our post.</strong></p>
-<p>If our prior belief about the average is 0.68 and we chose a weighting factor of
-100, this would mean that we calculate the average as if we had previously
-collected 100 data points which amounted to an upvote rate of exactly 0.68.</p>
-<p>Plugging in the values makes this apparent:</p>
-<p><span class="math display">\[
-\frac{100 \cdot 0.68 + upvotes}{100 + upvotes + downvotes} = \frac{68 + upvotes}{100 + upvotes + downvotes}
-\]</span></p>
-<p>Graphically, it looks like this (the light grey line is the plain average for
-comparison):</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="768" /></p>
-<p>The cumulative Bayesian average is much less erratic when little data is available.
-However, there is an important question left:
-How do we chose a good prior and a good weight?</p>
-<p>Here is how the Bayesian average develops for different prior beliefs about the
-average.
-Bayesian averages over time are indicated by light grey lines, the priors chosen
-here are 0.1 through 0.9 and the weight is kept constant at 20.
-The plain average is overlayed in darker grey for reference.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="768" /></p>
-<p>And here is that same plot with the same priors, but with a weight of 100.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-32-1.png" width="768" /></p>
-<!--- TODO: write a section about how to chose a prior --->
+<p>From video (see above):
+“How likely would the second distribution be to generate samples from the first?”</p>
+<!-- Overall for global brain algorithm: formal definition of "agent"? -->
+<!-- agent: receives information and changes beliefs and then behavior because of it -->
+<!-- Core Algorithm description: -->
+<!-- Wenn du Agenten von Form X hast und deine Diskussion so (Y) strukturiert ist, dann errechnet unser Algorithmus den Information Value vom Root Node. -->
+
 </div>
 </div>
             </section>
@@ -318,8 +223,8 @@ The plain average is overlayed in darker grey for reference.</p>
           </div>
         </div>
       </div>
-<a href="key-concepts-and-assumptions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cognitive-dissonance.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="a-primer-on-information-theory-ii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
