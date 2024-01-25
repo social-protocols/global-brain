@@ -38,6 +38,3 @@ surprisal
 what-about-the-base-of-the-logarithm
 entropy
 surprisal-entropy-relation
-a-primer-on-information-theory-iii
-cross-entropy
-kl-divergence
