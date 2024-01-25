@@ -27,6 +27,30 @@ just render
 
 Then open `./_book/index.html` in your browser to view the book.
 
+### Adding New Chapters
+
+There are two folders in which you can put new writeups: `chapters` and `writeups`.
+Chapters are explanations that went through many iterations and give explanations on the algorithm.
+Writeups are on the "cutting edge".
+New insights and first explanations of new ideas and concepts.
+
+You can include a chapter or writeup in the docs like this in `index.Rmd`:
+
+```
+...
+
+\`\`\`{r, child='./chapters/XX-your-chapter-title.Rmd'}
+# for chapters
+\`\`\`
+
+\`\`\`{r, child='./writeups/XX-your-writeup-title.Rmd'}
+# for writeups
+\`\`\`
+
+...
+```
+
+
 ## Deployment
 
 The site is automatically built and deployed on push to `main`. It is available
