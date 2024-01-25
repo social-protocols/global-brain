@@ -1,5 +1,3 @@
-# (PART) Concepts {-}
-
 # Estimating Upvote Rates {#estimating-upvote-rates}
 
 ```{r, include=FALSE}
