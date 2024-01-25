@@ -119,7 +119,8 @@ algorithms as a whole.</p>" />
 <li class="chapter" data-level="4.6" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#discussion"><i class="fa fa-check"></i><b>4.6</b> Discussion</a>
 <ul>
 <li class="chapter" data-level="4.6.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>4.6.1</b> Parallel to Machine Learning</a></li>
-<li class="chapter" data-level="4.6.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#a-subtle-point"><i class="fa fa-check"></i><b>4.6.2</b> A Subtle Point</a></li>
+<li class="chapter" data-level="4.6.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-1"><i class="fa fa-check"></i><b>4.6.2</b> Subtle Point 1</a></li>
+<li class="chapter" data-level="4.6.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-1-1"><i class="fa fa-check"></i><b>4.6.3</b> Subtle Point 1</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="information-value.html"><a href="information-value.html"><i class="fa fa-check"></i><b>5</b> Information Value</a>
@@ -173,7 +174,7 @@ algorithms as a whole.</p>" />
 <h1><span class="header-section-number">5</span> Information Value<a href="information-value.html#information-value" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The goal of the global brain algorithm is to focus users’ attention on posts that reduce <strong>cognitive dissonance</strong>. Our formula for measuring cognitive dissonance is described <a href="cognitive-dissonance.html">here</a>.</p>
 <p>In information theory, information is the reduction of entropy. Since we define cognitive dissonance as entropy, reducing cognitive dissonance can also be seen as gaining information. Thus the goal of the global brain algorithm is to directs attention to notes with the greatest potential information gain.</p>
-<p>In <a href="cognitive-dissonance.html#cognitive-dissonance">cognitive dissonance</a>, we explain how relative entropy is reduced as users change their votes, which means that information is gained when users change beliefs. But how much information is gained when users upvote or downvote a new post they have not previously voted on? We don’t know how much that post changed users beliefs, because we don’t know what their beliefs were before they saw the post. Without two probability distributions to compare, we can’t calculate information value in terms of reduction of entropy. Yet obviously new posts do convey information – something users didn’t know or hadn’t seen before, or they wouldn’t upvote the post.</p>
+<p>In the section on <a href="cognitive-dissonance.html#cognitive-dissonance">cognitive dissonance</a>, we explain how relative entropy is reduced as users change their votes, which means that information is gained when users change beliefs. But how much information is gained when users upvote or downvote a new post they have not previously voted on? We don’t know how much that post changed users beliefs, because we don’t know what their beliefs were before they saw the post. Without two probability distributions to compare, we can’t calculate information value in terms of reduction of entropy. Yet obviously new posts do convey information – something users didn’t know or hadn’t seen before, or they wouldn’t upvote the post.</p>
 <p>By making some conservative estimates about users’ prior beliefs, we can quantify the information gain for new posts and derive a single metric for estimating the information value of a vote, whether that vote is a <em>new</em> upvote (new information learned by users), or a <em>changed</em> vote (decrease in cognitive dissonance). In this article we will introduce the formula and the reasoning behind it.</p>
 <div id="the-information-value-of-a-vote" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> The Information Value of a Vote<a href="information-value.html#the-information-value-of-a-vote" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -202,7 +203,7 @@ algorithms as a whole.</p>" />
 <div id="information-value-of-changed-votes" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Information Value of Changed Votes<a href="information-value.html#information-value-of-changed-votes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Whenever the global brain learns that a note has change the probability of an upvote on a post, <span class="math inline">\(p\)</span> becomes different from <span class="math inline">\(q\)</span> and therefore cognitive dissonance is created. But as users are shown the note and change their votes so that <span class="math inline">\(q\)</span> once again approaches <span class="math inline">\(p\)</span>, cognitive dissonance is reduced.</p>
-<p>The information value from moving from <span class="math inline">\(q\)</span> to <span class="math inline">\(q_1\)</span> is just the reduction in in cognitive dissonance, or reduction in total relative entropy.</p>
+<p>The information value from moving from <span class="math inline">\(q\)</span> to <span class="math inline">\(q_1\)</span> is just the reduction in cognitive dissonance, or reduction in total relative entropy.</p>
 <p><span class="math display">\[
 \begin{aligned}
     votesTotal × D_{KL}(p || q) - votesTotal × D_{KL}(p || q_1)
@@ -221,8 +222,7 @@ algorithms as a whole.</p>" />
 <div id="information-value-of-new-votes" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Information Value of New Votes<a href="information-value.html#information-value-of-new-votes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the case of new votes, measuring the change in entropy is harder because we don’t know what users’ beliefs were <strong>before</strong> they voted. Yet clearly new posts provide information, otherwise users would not upvote them. The upvotes tell us that the post has <strong>changed</strong> beliefs in some way. They caused users to believe things they didn’t believe before.</p>
-<p>We don’t know what those beliefs were, but we can make a <em>conservative</em> estimates about those prior beliefs using the maximum entropy principle. The probability with maximum entropy (for binary outcomes such as upvote/downvote) is <span class="math inline">\(q=0.5\)</span>: which has an entropy of 1 bit.</p>
-<p>However, if we just plug <span class="math inline">\(q=0.5\)</span> into the information value formula, the results don’t make sense. First, information value is always positive: moving from <span class="math inline">\(q\)</span> to <span class="math inline">\(p\)</span> always reduces relative entropy, no matter what <span class="math inline">\(q\)</span> and <span class="math inline">\(p\)</span> are. What’s more, a new post with a very small <span class="math inline">\(p\)</span> will have high relative entropy – the smaller the <span class="math inline">\(p\)</span> the higher – yet shouldn’t posts with small <span class="math inline">\(p\)</span> have less information value?</p>
+<p>TODO fix here:</p>
 <p>To create an information value formula that makes sense for new upvotes, we need recognize that new upvotes mean something different from changed upvotes.</p>
 </div>
 <div id="what-does-a-vote-mean" class="section level2 hasAnchor" number="5.4">
@@ -263,11 +263,23 @@ algorithms as a whole.</p>" />
 </div>
 <div id="upvote-only-relative-entropy" class="section level2 hasAnchor" number="5.8">
 <h2><span class="header-section-number">5.8</span> Upvote-Only Relative Entropy<a href="information-value.html#upvote-only-relative-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>These properties are all met by a formula that assumes a prior belief <span class="math inline">\(q=0.5\)</span> and then only counts the information value of <em>upvotes</em>. Going back to the fundamental concept of surprisal from information theory, which we introduced when developing the formula for <a href="cognitive-dissonance.html">cognitive dissonance</a>, we can calculate the total suprisal of upvotes is</p>
+<p>These properties are all met by the formula:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    upvotes × (1 + {\lg p})
+\end{aligned}
+\]</span></p>
+<p>This formula is based on two assumptions:</p>
+<ol style="list-style-type: decimal">
+<li>The average users prior beliefs before upvoting is <span class="math inline">\(q=0.5\)</span></li>
+<li>We only count the information value of upvotes</li>
+</ol>
+<p>We don’t know what users beliefs were before they voted, but we can make a <em>conservative</em> estimates about those prior beliefs using the maximum entropy principle. The probability with maximum entropy (for binary outcomes such as upvote/downvote) is <span class="math inline">\(q=0.5\)</span>: which has an entropy of 1 bit.</p>
+<p>Next, going back to the fundamental concept of surprisal from information theory, which we introduced when developing the formula for <a href="cognitive-dissonance.html">cognitive dissonance</a>, we can calculate the total suprisal of upvotes as</p>
 <p><span class="math display">\[
     upvotes × -{\lg p}
 \]</span></p>
-<p>Assuming <span class="math inline">\(q=0.5\)</span>, the most conservative estimate of the total surprisal before users saw the post is</p>
+<p>And our most conservative estimate of the total surprisal before users saw the post is</p>
 <p><span class="math display">\[
     upvotes × -{\lg 0.5}
 \]</span></p>
@@ -285,7 +297,7 @@ algorithms as a whole.</p>" />
     upvotes × (1 + {\lg p})
 \end{aligned}
 \]</span></p>
-<p>One way of looking at this formula is to think of each upvote as representing 1 potentially-uncertain bit of information. If <span class="math inline">\(p\)</span> is 100%, then there is no uncertainty, and each upvote is worth 1 bit of information. But if <span class="math inline">\(q\)</span> is, say, .25, then there are <span class="math inline">\(-{\lg .25} = 2\)</span> bits of uncertainty about the information. For each user who accepted the information, uncertainty was reduced by 1 bit, but another <span class="math inline">\(-{\lg .25} = 2\)</span> bits of uncertainty about the accuracy of the information was created, for a net loss of 1 bit.</p>
+<p>One way of looking at this formula is to think of each upvote as representing 1 potentially-uncertain bit of information. If <span class="math inline">\(p\)</span> is 100%, then there is no uncertainty, and each upvote is worth 1 bit of information. But if <span class="math inline">\(p\)</span> is, say, .25, then there are <span class="math inline">\(-{\lg .25} = 2\)</span> bits of uncertainty about the information. For each user who accepted the information, uncertainty was reduced by 1 bit, but another <span class="math inline">\(-{\lg .25} = 2\)</span> bits of uncertainty about the accuracy of the information was created, for a net loss of 1 bit.</p>
 </div>
 <div id="example-charts" class="section level2 hasAnchor" number="5.9">
 <h2><span class="header-section-number">5.9</span> Example Charts<a href="information-value.html#example-charts" class="anchor-section" aria-label="Anchor link to header"></a></h2>

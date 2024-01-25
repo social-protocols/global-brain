@@ -20,7 +20,8 @@ total-relative-entropy-cognitive-dissonance
 detailed-example
 discussion
 parallel-to-machine-learning
-a-subtle-point
+subtle-point-1
+subtle-point-1-1
 information-value
 the-information-value-of-a-vote
 information-value-of-changed-votes
