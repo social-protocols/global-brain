@@ -36,19 +36,19 @@ New insights and first explanations of new ideas and concepts.
 
 You can include a chapter or writeup in the docs like this in `index.Rmd`:
 
-```
+````
 ...
 
-\`\`\`{r, child='./chapters/XX-your-chapter-title.Rmd'}
+```{r, child='./chapters/XX-your-chapter-title.Rmd'}
 # for chapters
-\`\`\`
+```
 
-\`\`\`{r, child='./writeups/XX-your-writeup-title.Rmd'}
+```{r, child='./writeups/XX-your-writeup-title.Rmd'}
 # for writeups
-\`\`\`
+```
 
 ...
-```
+````
 
 
 ## Deployment
