@@ -1,25 +1,9 @@
-# Estimating Upvote Rates {#estimating-upvote-rates}
+# Vote Rates and Probabilities {#vote-rates}
 
 ```{r, include=FALSE}
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
 beta_data <- function(alpha, beta, samples) {
   data.frame(x = seq(0, 1, len = samples)) %>%
     mutate(y = dbeta(x, alpha, beta))
-}
-
-theme_sp <- function() {
-  theme(
-    panel.background = element_rect(
-      fill = "grey90",
-      color = "black",
-      linewidth = 1
-    ),
-    panel.grid.major = element_line(color = "grey70"),
-    panel.grid.minor = element_line(color = "grey80"),
-  )
 }
 
 ```
