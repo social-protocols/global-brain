@@ -1,34 +1,36 @@
-# Vote Rates and Probabilities {#vote-rates}
+# Vote Rate and Upvote Probability {#vote-rate-upvote-probability}
 
-```{r, include=FALSE}
-beta_data <- function(alpha, beta, samples) {
-  data.frame(x = seq(0, 1, len = samples)) %>%
-    mutate(y = dbeta(x, alpha, beta))
-}
+Users can add **upvotes** and **downvotes** to posts on the platform.
+We denote the event of a user adding either an upvote or a downvote to a post simply as a **vote**.
+For any given post, we can represent the stream of incoming votes as a Poisson process.
 
-```
+$$
+\text{voteRate} \sim \text{Pois}(\lambda_V)
+$$
 
-Users on the platform can rate content by adding an **upvote** or a **downvote**.
-There are two essential forms of content users can rate:
-posts and posts with a note.
-For all posts and post/note combinations, we keep a tally of upvotes and downvotes.
+$\lambda_V$ is the rate parameter of the Poisson process.
+We call this rate the **vote rate** of the post.
+Posts with a high vote rate receive many votes per unit of time, posts with a low vote rate receive few.
 
-```{r}
-knitr::include_graphics("images/voting-tallies.png")
+We can represent the stream of incoming *upvotes* as a Poisson process as well:
 
-```
+$$
+\text{upvoteRate} \sim \text{Pois}(\lambda_U)
+$$
 
-## The Upvote Rate
+We call $\lambda_U$ the **upvote rate**.
+The **downvote rate** is defined analogously, but we will mostly ignore it because it can be inferred from the upvote rate and the vote rate and is thus mostly redundant.
 
-The simplest way of using upvotes and downotes for rating a post is to simply
-calculate the ratio between them: $upvotes:downvotes$.
-Or expressed as the fraction of upvotes over all votes:
+<!--- [TODO: graphics exemplifying vote rates] --->
+
+
+Another important metric is the **upvote ratio**.
+Given a tally of votes at a certain point in time, we can calculate the upvote ratio at that time $t$ which is given by $upvotes:downvotes$.
+We can also express it as the fraction of upvotes over all votes:
 
 $$
 \frac{upvotes}{upvotes + downvotes}
 $$
-
-We call this the **upvote rate**.
 
 You can also think about the upvote rate as an **average vote**.
 If we model the upvote rate as a random variable, we might encode upvotes with a
@@ -49,31 +51,38 @@ $$
 $$
 
 
-### Modeling Belief about the "True" Upvote Rate {-}
+## Modeling Upvote Probabilities {#modeling-belief-upvote-probability}
 
-We assume that each post has a "true" upvote rate that we can only estimate by
-collecting data on it (i.e., collecting votes on a post).
-We think about the upvote rate as the **probability of a vote being an upvote**.
-A suitable model for proportions or probabilities is given by the Beta distribution, thus we model the true upvote rate as a random variable that follows a Beta
-distribution:
+We assume that each post has a "true" upvote ratio that we can only estimate by collecting votes.
+We model the upvote ratio as **probability of a vote being an upvote** (we will mostly call it the **upvote probability**).
+The Beta distribution is a suitable model for proportions or probabilities, so we use it to express the upvote probability:
 
 $$
-upvoteRate \sim \beta(upvotes, downvotes)
+\text{upvoteProbability} \sim \beta(upvotes, downvotes)
 $$
 
-The Beta distribution has two shape parameters $\alpha$ and $\beta$ which in our
-case are given by our upvote and downvote counts.
-To provide a more intuitive understanding of how this distribution models our
-upvote rate, here is an example of how it develops for an example post.
+```{r, include=FALSE}
+beta_data <- function(alpha, beta, samples) {
+  data.frame(x = seq(0, 1, len = samples)) %>%
+    mutate(y = dbeta(x, alpha, beta))
+}
+
+```
+
+The Beta distribution has two shape parameters $\alpha$ and $\beta$ which in our case are given by our upvote and downvote counts.
+To provide a more intuitive understanding of how this distribution models our upvote probability, here is an example of how it develops for an example post.
+
+Let's say we have a post with a true upvote probability of 0.24.
 We initialize the distribution with a prior of 1 upvote and 1 downvote.
 This is equivalent to a uniform distribution:
-We assign equal probability to any outcome, i.e., to any upvote rate.
+We assign equal probability to any outcome, i.e., to any upvote probability.
 
 ```{r, fig.width=8, fig.height=3}
 beta_data(1, 1, 1000) %>%  
   data.frame() %>% 
   ggplot() +
-  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  geom_line(aes(x = x, y = y), color = "black", linewidth = 1) +
+  geom_vline(xintercept = 0.24, color = "red", linetype = "dashed") +
   scale_y_continuous(limits = c(0, 4)) +
   labs(
     title = "After 0 votes",
@@ -84,20 +93,20 @@ beta_data(1, 1, 1000) %>%
 
 ```
 
-Now let's use the previous example vote sample from above:
+Now, we observe some votes coming in.
+We encode upvotes with $1$ and downvotes with $0$.
 
+<!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 $$
-(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
+(\color{limegreen}{1, 0, 0})
 $$
-
-Using the example above, we get the following distributions at different points
-in time:
 
 ```{r, fig.width=8, fig.height=3}
 beta_data(2, 3, 1000) %>%  
   data.frame() %>% 
   ggplot() +
-  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  geom_line(aes(x = x, y = y), color = "black", linewidth = 1) +
+  geom_vline(xintercept = 0.24, color = "red", linetype = "dashed") +
   scale_y_continuous(limits = c(0, 4)) +
   labs(
     title = "After 3 votes: 1 up, 2 down",
@@ -108,11 +117,17 @@ beta_data(2, 3, 1000) %>%
 
 ```
 
+<!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
+$$
+(\color{grey}{1, 0, 0,} \color{limegreen}{0, 1, 0})
+$$
+
 ```{r, fig.width=8, fig.height=3}
 beta_data(3, 5, 1000) %>%  
   data.frame() %>% 
   ggplot() +
-  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  geom_line(aes(x = x, y = y), color = "black", linewidth = 1) +
+  geom_vline(xintercept = 0.24, color = "red", linetype = "dashed") +
   scale_y_continuous(limits = c(0, 4)) +
   labs(
     title = "After 6 votes: 2 up, 4 down",
@@ -123,11 +138,17 @@ beta_data(3, 5, 1000) %>%
 
 ```
 
+<!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
+$$
+(\color{grey}{1, 0, 0, 0, 1, 0,} \color{limegreen}{0, 0, 0})
+$$
+
 ```{r, fig.width=8, fig.height=3}
 beta_data(3, 8, 1000) %>%  
   data.frame() %>% 
   ggplot() +
-  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  geom_line(aes(x = x, y = y), color = "black", linewidth = 1) +
+  geom_vline(xintercept = 0.24, color = "red", linetype = "dashed") +
   scale_y_continuous(limits = c(0, 4)) +
   labs(
     title = "After 9 votes: 2 up, 7 down",
@@ -138,11 +159,17 @@ beta_data(3, 8, 1000) %>%
 
 ```
 
+<!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
+$$
+(\color{grey}{1, 0, 0, 0, 1, 0, 0, 0, 0,} \color{limegreen}{1, 0, 0})
+$$
+
 ```{r, fig.width=8, fig.height=3}
 beta_data(4, 10, 1000) %>%  
   data.frame() %>% 
   ggplot() +
-  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  geom_line(aes(x = x, y = y), color = "black", linewidth = 1) +
+  geom_vline(xintercept = 0.24, color = "red", linetype = "dashed") +
   scale_y_continuous(limits = c(0, 4)) +
   labs(
     title = "After 12 votes: 3 up, 9 down",
@@ -153,19 +180,18 @@ beta_data(4, 10, 1000) %>%
 
 ```
 
-The distribution updates and the probability mass becomes more
-concentrated around a smaller range of values which means we become more and
-more certain about our beliefs about the true upvote rate.
-If the post above would develop further with a similar trajectory, the following
+The distribution updates and the probability mass becomes more concentrated which means we become more and more certain about our beliefs about the true upvote probability.
+If the post would develop further with a similar trajectory, the following
 could be the outcome after 500 votes:
 
 ```{r, fig.width=8, fig.height=3}
-beta_data(137, 363, 1000) %>%  
+beta_data(120, 380, 1000) %>%  
   data.frame() %>% 
   ggplot() +
-  geom_line(aes(x = x, y = y), color = "firebrick", linewidth = 1) +
+  geom_line(aes(x = x, y = y), color = "black", linewidth = 1) +
+  geom_vline(xintercept = 0.24, color = "red", linetype = "dashed") +
   labs(
-    title = "After 500 votes: 137 up, 363 down",
+    title = "After 500 votes: 120 up, 380 down",
     x = "p",
     y = "Density",
   ) +
@@ -173,22 +199,32 @@ beta_data(137, 363, 1000) %>%
 
 ```
 
-We are now relatively certain that the true upvote rate is somewhere between 0.2 and 0.3.
+Our probability mass is now pretty concentrated around what (in this case) we know is the true upvote probability.
 
 
-## Estimating Upvote Rates: Naive Approach
+## Tallies
 
-Now that we can express our beliefs about the true upvote rate, how do we make a
-"best guess" at any given point in time?
-A naive solution would be to just take the sample upvote rate or **the plain average vote** as introduced
-above at any point in time $t$:
+There are two essential forms of content users can assign votes to:
+posts and posts with a note.
+For all posts and post/note combinations, we keep a tally of upvotes and downvotes.
+
+```{r}
+knitr::include_graphics("images/voting-tallies.png")
+
+```
+
+## The Upvote Probability
+
+We assume that each post has a "true" upvote probability: a parameter $p$ which quantifies how likely users are to give the post an upvote if they vote.
+Now that we can express our beliefs about the upvote probability, how do we make a "best guess" at any given point in time?
+A naive way of estimating the upvote probability is to take the actual current ratio $upvotes:downvotes$, or rather the fraction, which is equivalent to the **plain sample average vote**:
 
 $$
 P_t(upvote) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
 $$
 
 This solution is naive because it ignores an important fact:
-In the beginning, we have no information about the upvote rate of the post.
+In the beginning, we have no information about the upvote probability of the post.
 Thus, each new arriving vote has an outsized effect on our estimate that just
 gets increasingly small over time.
 This would result in very erratic estimates in the beginning which would only
