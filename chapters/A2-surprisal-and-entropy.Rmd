@@ -171,7 +171,7 @@ Entropy gives us a way to quantify how surprised we **expect** to be about the o
 **Useful resources on surprisal and entropy**
 
 - [StatQuest on surprisal and entropy (video)](https://www.youtube.com/watch?v=YtebGVx-Fxw)
-- [Intuitively understanding the Shannon Entropy (video)](https://www.youtube.com/watch?v=YtebGVx-Fxw)
+- [Intuitively understanding the Shannon Entropy (video)](https://www.youtube.com/watch?v=0GCGaw0QOhA)
 - [Wikipedia on information content](https://en.wikipedia.org/wiki/Information_content)
 
 
