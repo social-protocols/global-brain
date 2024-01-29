@@ -209,7 +209,7 @@ posts and posts with a note.
 For all posts and post/note combinations, we keep a tally of upvotes and downvotes.
 
 ```{r}
-knitr::include_graphics("images/voting-tallies.png")
+knitr::include_graphics("images/tallies.png")
 
 ```
 
