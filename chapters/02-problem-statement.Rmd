@@ -11,6 +11,27 @@ knitr::include_graphics("images/top-note-promotion.png")
 
 The result is a system of tree-style discussions where you can **follow the most informative conversation** in any thread by following the best replies on any post.
 
+```{r, fig.align='center', out.width = '100%'}
+knitr::include_graphics("images/top-note-algorithm/following-top-note-thread.png")
+
+```
+
+Of course, users don't have to follow the top thread.
+At any point, they might decide that another answer is more interesting or helpful and follow that one instead.
+
+```{r, caption="Users don't have to follow the top thread.", fig.align='center', out.width = '100%'}
+knitr::include_graphics("images/top-note-algorithm/following-alternative-thread.png")
+
+```
+
+Nonetheless, we want to direct the most attention to the most helpful context for any post by promoting that particular reply to be the post's note.
+The key objective of the top note algorithm is thus to **identify the best reply for any post taking into consideration all the information below it in the tree**.
+
+```{r, fig.align='center', out.width = '100%'}
+knitr::include_graphics("images/top-note-algorithm/identifying-top-reply.png")
+
+```
+
 
 ## An Informal Argument Model {#informal-argument-model}
 
