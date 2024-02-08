@@ -32,9 +32,9 @@ $$
 \frac{upvotes}{upvotes + downvotes}
 $$
 
-You can also think about the upvote rate as an **average vote**.
-If we model the upvote rate as a random variable, we might encode upvotes with a
-value of $1$ and downvotes with a value of $0$.
+You can think about the upvote fraction as an **average vote** or as the **probability of a vote being an upvote** (we will mostly call this the **upvote probability**).
+We can model votes as a Bernoulli distributed random variable with successes given by upvotes and failures given by downvotes.
+We can encode upvotes with a value of $1$ and downvotes with a value of $0$.
 A sample post's gathered votes at a certain point in time $t$ might look like
 this:
 
@@ -44,7 +44,7 @@ $$
 
 The post has gathered a total of 12 votes of which 3 are upvotes and 9 are
 downvotes.
-The upvote rate (i.e., the "average" vote) for this sample is:
+The upvote fraction or the average vote for this sample is:
 
 $$
 \rho = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
@@ -53,12 +53,12 @@ $$
 
 ## Modeling Upvote Probabilities {#modeling-belief-upvote-probability}
 
-We assume that each post has a "true" upvote ratio that we can only estimate by collecting votes.
-We model the upvote ratio as **probability of a vote being an upvote** (we will mostly call it the **upvote probability**).
-The Beta distribution is a suitable model for proportions or probabilities, so we use it to express the upvote probability:
+We assume that each post has a "true" upvote probability that we can only estimate by collecting votes.
+As we model votes as a Bernoulli random variable, we have to model its parameter $p$ (which *is* our upvote probability) as well.
+The Beta distribution is a suitable model for proportions or probabilities:
 
 $$
-\text{upvoteProbability} \sim \beta(upvotes, downvotes)
+p \sim \beta(upvotes, downvotes)
 $$
 
 ```{r, include=FALSE}
@@ -70,9 +70,9 @@ beta_data <- function(alpha, beta, samples) {
 ```
 
 The Beta distribution has two shape parameters $\alpha$ and $\beta$ which in our case are given by our upvote and downvote counts.
-To provide a more intuitive understanding of how this distribution models our upvote probability, here is an example of how it develops for an example post.
+To provide a more intuitive understanding of how this distribution models our upvote probability, here is how our beliefs about the true upvote probability develop for an example post.
 
-Let's say we have a post with a true upvote probability of 0.24.
+Let's say we have a post with a true upvote probability of $0.24$.
 We initialize the distribution with a prior of 1 upvote and 1 downvote.
 This is equivalent to a uniform distribution:
 We assign equal probability to any outcome, i.e., to any upvote probability.
@@ -181,8 +181,7 @@ beta_data(4, 10, 1000) %>%
 ```
 
 The distribution updates and the probability mass becomes more concentrated which means we become more and more certain about our beliefs about the true upvote probability.
-If the post would develop further with a similar trajectory, the following
-could be the outcome after 500 votes:
+If the post would develop further with a similar trajectory, the following could be the outcome after 500 votes:
 
 ```{r, fig.width=8, fig.height=3}
 beta_data(120, 380, 1000) %>%  
@@ -202,20 +201,22 @@ beta_data(120, 380, 1000) %>%
 Our probability mass is now pretty concentrated around what (in this case) we know is the true upvote probability.
 
 
-## Tallies
+<!-- TODO: move to a new chapter (the top note algorithm explanation) -->
 
-There are two essential forms of content users can assign votes to:
-posts and posts with a note.
-For all posts and post/note combinations, we keep a tally of upvotes and downvotes.
+<!-- ## Tallies -->
 
-```{r}
-knitr::include_graphics("images/tallies.png")
+<!-- There are two essential forms of content users can assign votes to: -->
+<!-- posts and posts with a note. -->
+<!-- For all posts and post/note combinations, we keep a tally of upvotes and downvotes. -->
 
-```
+<!-- ```{r} -->
+<!-- knitr::include_graphics("images/tallies.png") -->
 
-## The Upvote Probability
+<!-- ``` -->
 
-We assume that each post has a "true" upvote probability: a parameter $p$ which quantifies how likely users are to give the post an upvote if they vote.
+
+## Estimating the Upvote Probability: Naive Approach
+
 Now that we can express our beliefs about the upvote probability, how do we make a "best guess" at any given point in time?
 A naive way of estimating the upvote probability is to take the actual current ratio $upvotes:downvotes$, or rather the fraction, which is equivalent to the **plain sample average vote**:
 
@@ -224,13 +225,13 @@ P_t(upvote) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
 $$
 
 This solution is naive because it ignores an important fact:
-In the beginning, we have no information about the upvote probability of the post.
+In the beginning, we have **no information** about the upvote probability of the post.
 Thus, each new arriving vote has an outsized effect on our estimate that just
 gets increasingly small over time.
-This would result in very erratic estimates in the beginning which would only
+This would result in **erratic estimates** in the beginning which would only
 smooth out over time.
 Here is how the cumulative mean develops for a random vote history with a true
-upvote rate of 0.6:
+upvote rate of $0.6$:
 
 ```{r, fig.width=8, fig.height=5}
 set.seed(5)
@@ -255,7 +256,7 @@ data %>%
 
 ```
 
-If we were to use this metric to compare posts, getting a very high upvote rate
+If we were to use this metric to compare posts, getting a high upvote probability
 estimate in the early stages of a post would essentially come down to luck.
 It might then temporarily fare overly well (or overly poorly) compared to other
 posts.
@@ -266,20 +267,20 @@ We have to take into account **prior information** to avoid this.
 
 The Bayesian Average uses a **weighted prior estimate of the average** to avoid the
 erratic shifts in the estimate when there is not a lot of data.
-It is calculated as
+It is calculated as...
 
 $$
 \frac{\color{blue}{C \cdot m} + \sum_{i=1}^n x_i}{\color{blue}{C} + n}
 $$
 
-where $C$ is a weight constant and $m$ is our prior belief about the average.
+... where $C$ is a weight constant and $m$ is our prior belief about the average.
 If you compare it to the plain average, <span style="color: blue">we simply add $C \cdot m$ to the nominator and $C$ to the denominator</span>.
 
 **But what does this achieve in concrete terms?**
 
 Let's build up to this formula step by step for estimating the
-true upvote rate of a post.
-First, remember that the sample upvote rate can be thought of as the "plain" average vote.
+true upvote probability of a post.
+First, remember that the sample upvote fraction can be thought of as the "plain" average vote.
 Let's say our dataset $X$ consists of $1$s and $0$s, where $1$ denotes an upvote and $0$ denotes a downvote.
 Then $\sum_{i=1}^n{x_i}$ is the *number of upvotes* (because downvotes are
 encoded as $0$s) and $n$ is $upvotes + downvotes$, the *total number of votes*.
@@ -293,9 +294,9 @@ $$
 cumulative average as if we had collected $C$ votes with an upvote rate of $m$
 before we collected the first vote on our post.**
 
-If our prior belief about the average is 0.68 and we chose a weighting factor of
-100, this would mean that we calculate the average as if we had previously
-collected 100 data points which amounted to an upvote rate of exactly 0.68.
+If our prior belief about the average is $0.68$ and we chose a weighting factor of
+$100$, this would mean that we calculate the average as if we had previously
+collected $100$ data points which amounted to an upvote fraction of exactly $0.68$.
 
 Plugging in the values makes this apparent:
 
@@ -381,7 +382,7 @@ How do we chose a good prior and a good weight?
 Here is how the Bayesian average develops for different prior beliefs about the
 average.
 Bayesian averages over time are indicated by light grey lines, the priors chosen
-here are 0.1 through 0.9 and the weight is kept constant at 20.
+here are $0.1$ through $0.9$ and the weight is kept constant at $20$.
 The plain average is overlayed in darker grey for reference.
 
 ```{r, fig.width=8, fig.height=5}
@@ -456,7 +457,7 @@ data_bayes %>%
 
 ```
 
-And here is that same plot with the same priors, but with a weight of 100.
+And here is that same plot with the same priors, but with a weight of $100$.
 
 ```{r, fig.width=8, fig.height=5}
 C <- 100
