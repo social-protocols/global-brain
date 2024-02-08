@@ -72,7 +72,13 @@ We are grateful for feedback. Do not hesitate to send an
 
 # (PART) Introduction {-}
 
-```{r, child='chapters/01-objectives-and-goals.Rmd'}
+```{r, child='chapters/01-rationale.Rmd'}
+```
+
+```{r, child='chapters/02-problem-with-discussion-threads.Rmd'}
+```
+
+```{r, child='chapters/02-problem-statement.Rmd'}
 ```
 
 ```{r, child='chapters/02-key-concepts-and-assumptions.Rmd'}
