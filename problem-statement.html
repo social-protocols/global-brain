@@ -177,6 +177,13 @@ algorithms as a whole.</p>" />
 <p>We do this by identifying the reply for any post that <strong>most likely changes the voting behavior</strong> on that post.</p>
 <p><img src="images/top-note-promotion.png" style="display: block; margin: auto;" /></p>
 <p>The result is a system of tree-style discussions where you can <strong>follow the most informative conversation</strong> in any thread by following the best replies on any post.</p>
+<p><img src="images/top-note-algorithm/following-top-note-thread.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Of course, users don’t have to follow the top thread.
+At any point, they might decide that another answer is more interesting or helpful and follow that one instead.</p>
+<p><img src="images/top-note-algorithm/following-alternative-thread.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Nonetheless, we want to direct the most attention to the most helpful context for any post by promoting that particular reply to be the post’s note.
+The key objective of the top note algorithm is thus to <strong>identify the best reply for any post taking into consideration all the information below it in the tree</strong>.</p>
+<p><img src="images/top-note-algorithm/identifying-top-reply.png" width="100%" style="display: block; margin: auto;" /></p>
 <div id="informal-argument-model" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> An Informal Argument Model<a href="problem-statement.html#informal-argument-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You may have noticed that we have used the term “best” above without qualifying it.

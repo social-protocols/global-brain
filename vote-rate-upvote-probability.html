@@ -223,32 +223,32 @@ To provide a more intuitive understanding of how this distribution models our up
 We initialize the distribution with a prior of 1 upvote and 1 downvote.
 This is equivalent to a uniform distribution:
 We assign equal probability to any outcome, i.e., to any upvote probability.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="768" /></p>
 <p>Now, we observe some votes coming in.
 We encode upvotes with <span class="math inline">\(1\)</span> and downvotes with <span class="math inline">\(0\)</span>.</p>
 <!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 <p><span class="math display">\[
 (\color{limegreen}{1, 0, 0})
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="768" /></p>
 <!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 <p><span class="math display">\[
 (\color{grey}{1, 0, 0,} \color{limegreen}{0, 1, 0})
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="768" /></p>
 <!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 <p><span class="math display">\[
 (\color{grey}{1, 0, 0, 0, 1, 0,} \color{limegreen}{0, 0, 0})
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="768" /></p>
 <!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 <p><span class="math display">\[
 (\color{grey}{1, 0, 0, 0, 1, 0, 0, 0, 0,} \color{limegreen}{1, 0, 0})
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="768" /></p>
 <p>The distribution updates and the probability mass becomes more concentrated which means we become more and more certain about our beliefs about the true upvote probability.
 If the post would develop further with a similar trajectory, the following could be the outcome after 500 votes:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="768" /></p>
 <p>Our probability mass is now pretty concentrated around what (in this case) we know is the true upvote probability.</p>
 <!-- TODO: move to a new chapter (the top note algorithm explanation) -->
 <!-- ## Tallies -->
@@ -274,7 +274,7 @@ This would result in <strong>erratic estimates</strong> in the beginning which w
 smooth out over time.
 Here is how the cumulative mean develops for a random vote history with a true
 upvote rate of <span class="math inline">\(0.6\)</span>:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="768" /></p>
 <p>If we were to use this metric to compare posts, getting a high upvote probability
 estimate in the early stages of a post would essentially come down to luck.
 It might then temporarily fare overly well (or overly poorly) compared to other
@@ -314,7 +314,7 @@ collected <span class="math inline">\(100\)</span> data points which amounted to
 \]</span></p>
 <p>Graphically, it looks like this (the light grey line is the plain average for
 comparison):</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="768" /></p>
 <p>The cumulative Bayesian average is much less erratic when little data is available.
 However, there is an important question left:
 How do we chose a good prior and a good weight?</p>
@@ -323,9 +323,9 @@ average.
 Bayesian averages over time are indicated by light grey lines, the priors chosen
 here are <span class="math inline">\(0.1\)</span> through <span class="math inline">\(0.9\)</span> and the weight is kept constant at <span class="math inline">\(20\)</span>.
 The plain average is overlayed in darker grey for reference.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="768" /></p>
 <p>And here is that same plot with the same priors, but with a weight of <span class="math inline">\(100\)</span>.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="768" /></p>
 <!--- TODO: write a section about how to chose a prior --->
 </div>
 </div>
