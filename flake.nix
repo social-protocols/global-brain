@@ -19,6 +19,7 @@
         devShells = {
           default = with pkgs; pkgs.mkShellNoCC {
             buildInputs = [
+              entr
               just
               git
               R
