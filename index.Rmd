@@ -103,9 +103,6 @@ We are grateful for feedback. Do not hesitate to send an
 ```{r, child='chapters/A1-information-theory-refresher.Rmd'}
 ```
 
-```{r, child='chapters/A2-surprisal-and-entropy.Rmd'}
-```
-
 ```{r, child='chapters/A3-kl-divergence-and-cross-entropy.Rmd', eval=FALSE}
 ```
 
