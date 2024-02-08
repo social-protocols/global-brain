@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | The Global Brain Algorithm</title>
+  <title>3 Problem Statement | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | The Global Brain Algorithm" />
+  <meta property="og:title" content="3 Problem Statement | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | The Global Brain Algorithm" />
+  <meta name="twitter:title" content="3 Problem Statement | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -34,8 +34,8 @@ algorithms as a whole.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="problem-discussion-threads.html"/>
+<link rel="next" href="key-concepts-and-assumptions.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -171,19 +171,46 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="problem-statement" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Problem Statement<a href="problem-statement.html#problem-statement" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>The Global Brain algorithm’s core objective is to maximize the impact of the best ideas and arguments by finding the best reply for any post and promoting it to be its note.</strong></p>
+<p>We do this by identifying the reply for any post that <strong>most likely changes the voting behavior</strong> on that post.</p>
+<p><img src="images/top-note-promotion.png" style="display: block; margin: auto;" /></p>
+<p>The result is a system of tree-style discussions where you can <strong>follow the most informative conversation</strong> in any thread by following the best replies on any post.</p>
+<div id="informal-argument-model" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> An Informal Argument Model<a href="problem-statement.html#informal-argument-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You may have noticed that we have used the term “best” above without qualifying it.
+We want to find the “best” reply to any post to make it its note – the most helpful context shown alongside it.
+But “best” is a tricky term in the realm of arguments and ideas.
+What makes an argument “best”?
+And how do we even know what an <em>argument</em> is if everything is just a post?</p>
+<p><a href="https://en.wikipedia.org/wiki/Argument_map">Many attempts have been made</a> to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate.
+We deviate from this approach and propose an <strong>informal argument model</strong>.</p>
+<p><strong>The Global Brain does not require a formal model of belief. It doesn’t need posts to be structured as formal propositions or claims. It doesn’t need to know if users agree or disagree with posts.</strong></p>
+<p>The only assumptions are:</p>
+<ol style="list-style-type: decimal">
+<li>Upvotes and downvotes define a <strong>single dimension</strong> across which content is evaluated and there is a <strong>common understanding</strong> among users about what upvotes and downvotes mean.</li>
+<li>The direction of Users’ votes is <strong>causally related</strong> to their <strong>underlying beliefs</strong> about the topic of the post that we cannot observe (latent variables).</li>
+</ol>
+<p>By making these assumptions about the causal relationship between beliefs and votes and then watching how exposure to notes causes changes to votes, we can model underlying beliefs and predict how exposure to a note will cause changes to these beliefs, which will cause changes to other beliefs, and so on.</p>
+<!-- NOTES: -->
+<!-- Chat Felix/Johannes -->
+<!-- also hier geht es ja, darum, dass sich die besten Ideen und Argumente verbreiten und bei den Richtigen Leuten ankommen -->
+<!-- Ein großer Teil davon ist überhaupt ein gemeinsames Verständnis davon zu haben, was überhaupt fakten sind -->
+<!-- Es geht darum information zu identifizieren, die etwas bewirkt. Bzw zu identifizieren wo es etwas bewirken kann. -->
+<!-- It is about identifying information that has an effect. Or rather, identifying where it can have an effect. -->
+<!-- --- -->
+<!-- exploration/exploitation trade-off -->
+<!-- Thompson Sampling -->
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="problem-discussion-threads.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="key-concepts-and-assumptions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -214,7 +241,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/%s",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
 "text": "Edit"
 },
 "history": {

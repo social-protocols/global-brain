@@ -1,6 +1,8 @@
-objectives-and-rationale
+Rationale
+problem-discussion-threads
+novel-ui
 problem-statement
-an-informal-argument-model
+informal-argument-model
 key-concepts-and-assumptions
 establishing-causality
 distributed-reasoning
@@ -8,9 +10,9 @@ optimizing-for-information-value
 reducing-cognitive-dissonance
 cognitive-dissonance-as-relative-entropy
 the-causal-model
-estimating-upvote-rates
-the-upvote-rate
-estimating-upvote-rates-naive-approach
+vote-rate-upvote-probability
+modeling-belief-upvote-probability
+estimating-the-upvote-probability-naive-approach
 the-bayesian-average
 cognitive-dissonance
 key-concepts-from-information-theory
