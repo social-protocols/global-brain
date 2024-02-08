@@ -3,7 +3,7 @@
 Discussion threads are essentially **tree graphs**.
 They have a root post which can have any number of replies, each reply can have any number of replies itself, and so on.
 Discussion trees are usually projected to a linear structure, where each reply is displayed below the post it replies to.
-The next level of depth is indicated by indentation, sometimes guided by vertical rulers that help you keep track of the thread you are following.
+The next level of depth is indicated by indentation, sometimes guided by vertical rulers that provide some visual orientation.
 
 ```{r, fig.align='center'}
 knitr::include_graphics("images/discussion-trees/discussion-tree-to-comment-thread.png")
@@ -24,7 +24,7 @@ knitr::include_graphics("images/discussion-trees/discussion-tree-to-comment-thre
 
 ```
 
-In both cases, the thread is scattered over the linear space in a way that makes it hard to follow (and this is even a tame example).
+In both cases, the thread is distributed over the linear space in a way that makes it hard to follow (and this is even a tame example).
 On the other hand, elements that have no coherence among them (replies on the *same* level) are often displayed close to one another.
 
 ```{r, fig.align='center'}
@@ -34,9 +34,9 @@ knitr::include_graphics("images/discussion-trees/discussion-tree-to-comment-thre
 
 There are several fundamental problems with this approach:
 
-- **Breadth over depth**: Threads are hard to follow because the context is lost in the thread as soon as there are several replies to a post/reply. This is especially true for longer threads. There is a lot less friction scrolling through the direct replies of any particular post/reply, rather than following the discussion thread more deeply.
-- **Sensitivity to social cues**: This setup is prone to users being influenced by social cues and it creates a favorable environment for opinion being swayed by **majority sentiment** rather than **good arguments**. Phenomena such as [astroturfing](https://en.wikipedia.org/wiki/Astroturfing) and [dogpiling](https://en.wikipedia.org/wiki/Dogpiling_(Internet)) flourish in such an environment.
-- **Unchecked misinformation**: As people often gloss over threads getting a brief impression of what other people think about a certain piece of media, misinformation often remains unchecked. You can just post a piece of false information and it is likely *read* much more often than *checked*. Rebuttals cannot keep pace with misinformation.
+- **Breadth over depth**: Threads are hard to follow because the context is lost as soon as there are several replies. This is especially true for longer threads. There is a lot less friction scrolling through the *direct* replies of any particular post, rather than following the discussion thread more deeply.
+- **Sensitivity to social cues**: This setup is prone to users being influenced by *social cues* and it creates a favorable environment for opinion being swayed by *majority sentiment* rather than *good arguments*. Phenomena such as [astroturfing](https://en.wikipedia.org/wiki/Astroturfing) and [dogpiling](https://en.wikipedia.org/wiki/Dogpiling_(Internet)) flourish in such an environment.
+- **Unchecked misinformation**: As people often gloss over threads getting a brief impression of what other people think about a certain piece of media, misinformation often remains unchecked. You can just post a piece of false information and it is likely *read* much more often than it is *checked*. Rebuttals cannot keep pace with misinformation.
 
 
 ## A Novel UI to Navigate Discussion Threads {#novel-ui}
@@ -73,11 +73,18 @@ knitr::include_graphics("images/discussion-trees/novel-ui-discussion-tree-to-com
 ```
 
 The coherence in a discussion thread is preserved and following a discussion thread is almost like reading a chat log.
-
 Navigating a discussion thread looks like this:
 
 ```{r, fig.align='center'}
 knitr::include_graphics("images/discussion-trees/novel-ui-navigation.gif")
 
 ```
+
+Notice that we are *not* displaying *all* replies at once in our UI.
+This means that we distribute more attention to certain replies than others.
+Other services do this too, but usually the discussion tree is simply cut on the first level of depth, with a cue prompting users to "show replies". We do not simply cut at the first level which raises the question:
+
+**How do we decide which replies receive more attention and which replies receive less?**
+
+<!-- TODO: section on how we weigh edges in the discussion tree -->
 
