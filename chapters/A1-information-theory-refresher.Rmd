@@ -1,8 +1,9 @@
-# Primer on Information Theory I {#informtaion-theory-primer-1}
+# Primer on Information Theory I {#informtaion-theory-primer}
 
 *We will introduce some key concepts of information theory that are prerequisites for understanding the Global Brain algorithm.
 Note that for all the concepts introduced in the following chapters, we will only discuss the case of **discrete probability distributions** because that's enough for our purposes.
 All of the concepts generalize to the continuous case though and should you be inclined to study those too, this introduction will give you a good start all the same.*
+
 
 ## Intuitions about Key Concepts
 
@@ -23,4 +24,162 @@ Then from Alice's perspective, the concepts listed above mean the following:
 - **entropy**: how surprised Alice *expects* to be about the outcome of X
 - **cross-entropy**: how surprised Alice expects Bob to be (assuming that Bob believes $Q$)
 - **relative entropy** or **KL divergence**: how much *more* surprised Alice expects Bob to be than her
+
+
+## Surprisal {#surprisal}
+
+```{r, include=FALSE}
+surprisal <- function(p, b = 2) log(1/p, b)
+
+```
+
+In the Bayesian way of thinking, the concept of **probability** gives us a way to talk about **uncertainty**.
+Roughly speaking, we quantify our **beliefs** about any outcome of a random variable by assigning each outcome a **weight** (the probability we assign to that event), making sure that all weights add up to $1$.
+As the notion of probability is so fundamental to statistics and probability theory, it's easy to overlook that this is not the only way of thinking about uncertainty.
+A different approach that is fundamental to **information theory** is the notion of **surprisal**.
+
+Surprisal expresses our uncertainty about an event by **quantifying how surprised we would be, should the event occur**.
+
+The notion of surprisal is consistent with a Bayesian vocabulary because it acknowledges the **subjectivity of belief** and we can derive it from probability.
+First of all, we want surprisal and probability to be **inversely proportional** to one another:
+The **more likely** and event is to occur, the **less surprised** we will be about it.
+A naive way of expressing this would be to just take the inverse of the probability $p$:
+
+$$
+\frac{1}{p}
+$$
+
+So far so good, but this is *not* the actual formula for surprisal because this metric has an unsatisfying property:
+If something is **certain** to happen, i.e., the probability is $1$, our surprisal will be $\frac{1}{p} = \frac{1}{1} = 1$.
+But if it is certain to happen, we would expect our surprisal to be $0$.
+
+There is a function that we can use to scale the inverse probability, so that we can satisfy this requirement: **the logarithm**.
+The logarithm of $1$ for any base $b$ is $0$ which is exactly the property we require.
+Thus, if we simply take the logarithm of the inverse of probability, we can scale our formula to have the required properties.
+This is the actual formula for surprisal:
+
+$$
+I(x = X) = log_b(\frac{1}{P(x = X)}) = -log_b(p)
+$$
+
+We use the symbol $I$ to denote surprisal because it is also commonly referred to as *information content*^[Other terms for surprisal that you might come across are **self-information** and **Shannon information**.].
+
+<!-- proportionality -> omit term -->
+<!-- -> logarithmically inversely proportional -->
+
+### What about the Base of the Logarithm? {-}
+
+You may have noticed that we have left the base $b$ of the logarithm in the formula for surprisal open.
+This is because the base of the logarithm defines the **unit of information** at which we are measuring surprisal.
+The most common one (and the one we use in our approaches) is base $2$.
+With base $2$, we express information in **bits** (= "binary digits").
+If you choose base $10$, the unit is a **decimal digit** (or Hartley) and base $3$ gives you a **trit**.
+Thus, with different values for $b$, we can change the unit of information at which we are expressing our surprise.
+
+Here is what the relationship between probability and surprisal looks like graphically with different bases $b$:
+
+```{r}
+data <-
+  data.frame(x = seq(0, 1, 0.0001)) %>% 
+  mutate(
+    `2` = surprisal(x, 2),
+    `3` = surprisal(x, 3),
+    `10` = surprisal(x, 10),
+  ) %>% 
+  pivot_longer(
+    cols = c("2", "3", "10"),
+    names_to = "base",
+    values_to = "value"
+  )
+
+data$base <- factor(data$base, levels = c(2, 3, 10))
+
+data %>% 
+  ggplot(aes(x = x, y = value, color = base)) +
+  geom_line(size = 1) +
+  # scale_color_manual(values = c(`2` = "grey80", `3` = "grey60", `10` = "grey20")) +
+  scale_color_brewer(palette = "Reds") +
+  labs(x = "probability", y = "surprisal", color = "base") +
+  theme_sp()
+
+```
+
+The function is **strictly decreasing** so surprisal **inversely proportional** to probability.
+Note that surprisal is *undefined* for a probability of $0$.
+This is fine because we have no need to express our surprise about an event that will never occur.
+
+<!-- The surprisal of combined outcomes (e.g., three coin tosses) can just be calculated by inserting the probability of the outcome of three tosses into the surprisal equation. -->
+<!-- But the surprisal of three coin tosses is also just the **sum of each individual surprisal**. -->
+
+<!-- In a coin toss, the entropy is given by the expected value of the surprisal. -->
+<!-- As the expected value is just a generalization of a weighted average, this is just the probability of a surprisal happening for a heads toss plus the probability of a surprisal happening for a tails toss. -->
+
+
+
+
+## Entropy {#entropy}
+
+<!-- >>> 0.99 * (-log(0.99)) + 0.01 * (-log(0.01)) -->
+<!-- Traceback (most recent call last): -->
+<!--   File "<stdin>", line 1, in <module> -->
+<!-- NameError: name 'log' is not defined -->
+<!-- >>> import math -->
+<!-- >>> 0.99 * (-math.log(0.99)) + 0.01 * (-math.log(0.01)) -->
+<!-- 0.056001534354847345 -->
+<!-- >>> 0.5 * (-math.log(0.99)) + 0.5 * (-math.log(0.01)) -->
+<!-- 2.307610260920796 -->
+<!-- >>> 0.5 * (-math.log(0.5)) + 0.5 * (-math.log(0.5)) -->
+<!-- 0.6931471805599453 -->
+<!-- >>> 0.5 * (-math.log(0.5, 2)) + 0.5 * (-math.log(0.5, 2)) -->
+<!-- 1.0 -->
+<!-- >>> math.log(e) -->
+<!-- Traceback (most recent call last): -->
+<!--   File "<stdin>", line 1, in <module> -->
+<!-- NameError: name 'e' is not defined -->
+<!-- >>> math.log(math.e) -->
+<!-- 1.0 -->
+<!-- >>> 0.5 * (-math.log(0.99)) + 0.5 * (-math.log(0.01)) -->
+<!-- 2.307610260920796 -->
+<!-- >>> -->
+
+
+<!-- expected value formula -->
+Entropy is the **expected value of surprisal**.
+This may sound odd at first.
+A measure that quantifies how ***surprised*** I ***expect*** to be sounds like an oxymoron.
+But it *does* make sense.
+
+First of all, with probability, we encode our **uncertainty** about outcomes of a random variable.
+We are using all the information we have, but **we know that we don't have all the information**.
+Thus, we know that we will be surprised about the outcome in some way because the outcome is not *certain*.
+Entropy gives us a way to quantify how surprised we **expect** to be about the outcome.
+
+Entropy is given by^[You may ask yourself: Why is $H$ the formula symbol for a metric called entropy? That's because Shannon entropy is based on Boltzmann's H-theorem in statistical thermodynamics. It is contested why Boltzmann called entropy $H$, but the common conjecture is that he actually meant the greek letter Eta ($H$) which would make a lot more sense.
+There have actually been typographical analyses of his handwriting to determine whether he meant Eta, not the letter $H$!]:
+
+$$
+H(X) := -\sum_{x \in X}{p(x)log(p(x))}
+$$
+
+
+<!-- From youtube video: -->
+<!-- https://www.youtube.com/watch?v=0GCGaw0QOhA -->
+
+<!-- How much information, on average, would we need to encode an outcome from the distribution? -->
+
+<!-- Explain entropy as "information required to encode outcomes" -> go into different examples and generalize -->
+<!-- show probability distributions alongside them for reference -->
+
+
+---
+
+**Useful resources on surprisal and entropy**
+
+- [StatQuest on surprisal and entropy (video)](https://www.youtube.com/watch?v=YtebGVx-Fxw)
+- [Intuitively understanding the Shannon Entropy (video)](https://www.youtube.com/watch?v=0GCGaw0QOhA)
+- [Wikipedia on information content](https://en.wikipedia.org/wiki/Information_content)
+
+
+<!-- remove fluff and weasel words -->
+<!-- "easily" etc -->
 
