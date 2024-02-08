@@ -82,7 +82,9 @@ knitr::include_graphics("images/discussion-trees/novel-ui-navigation.gif")
 
 Notice that we are *not* displaying *all* replies at once in our UI.
 This means that we distribute more attention to certain replies than others.
-Other services do this too, but usually the discussion tree is simply cut on the first level of depth, with a cue prompting users to "show replies". We do not simply cut at the first level which raises the question:
+Other services focus attention on top replies, but only if users actually click “show replies”.
+This tends to cut the discussion off at the top level of the tree.
+In contrast our UI always prompts the user with a reply at the next level of depth, constantly encouraging users to go deeper in the discussion tree.
 
 **How do we decide which replies receive more attention and which replies receive less?**
 
