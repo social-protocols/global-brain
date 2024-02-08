@@ -1,0 +1,83 @@
+# The Problem with Conventional Discussion Threads {#problem-discussion-threads}
+
+Discussion threads are essentially **tree graphs**.
+They have a root post which can have any number of replies, and each reply can have any number of replies, and so on.
+Discussion trees are usually projected to a linear structure, where each reply is displayed below the post it replies to.
+The next level of depth is indicated by indentation, sometimes guided by vertical rulers that help you keep track of the thread you are following.
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/discussion-trees/discussion-tree-to-comment-thread.png")
+
+```
+
+The problem with this approach is that it heavily favors **shallow discussions**.
+It discourages following threads for longer than a few levels because coherence is lost in any thread very quickly.
+Consider the following two examples:
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/discussion-trees/discussion-tree-to-comment-thread-coherence-1.png")
+
+```
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/discussion-trees/discussion-tree-to-comment-thread-coherence-2.png")
+
+```
+
+In both cases, the thread is distributed over the linear space in a way that makes it hard to follow (and this is even a tame example).
+On the other hand, elements that have no coherence among them (replies on the *same* level) are often displayed close to one another.
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/discussion-trees/discussion-tree-to-comment-thread-coherence-3.png")
+
+```
+
+There are several fundamental problems with this approach:
+
+- **Breadth over depth**: Threads are hard to follow because coherence is lost in the thread as soon as there are several replies to a post/reply. This is especially true for longer threads. There is a lot less friction scrolling through the direct replies of any particular post/reply, rather than following the discussion thread more deeply.
+- **Sensitivity to social cues**: This setup is prone to users being influenced by social cues and creates a favorable environment for opinion being swayed by majority sentiment rather than good arguments. Phenomena such as [astroturfing](https://en.wikipedia.org/wiki/Astroturfing) and [dogpiling](https://en.wikipedia.org/wiki/Dogpiling_(Internet)) flourish in such an environment because they *work*.
+- **Unchecked misinformation**: As people often gloss over threads getting a brief impression of what other people are thinking about a certain piece of media, misinformation often remains unchecked. You can just post a piece of false information as a reply (or a post for that matter) and it is likely read much more often than checked. Rebuttals cannot keep pace with misinformation.
+
+## A Novel UI to Navigate Discussion Threads {#novel-ui}
+
+We propose a novel UI to navigate discussion threads.
+The basic elements of the UI are the following:
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/discussion-trees/novel-ui-basics.png")
+
+```
+
+- **Posts**: A piece of media submitted to the platform by a user, just like posts on any other social media platform. Posts can either be **top-level posts** or **replies** to other posts, thus forming conversation threads.
+- **Note**: A post's top reply (we also call it a post's *note*^[In reference to X's community notes which we took inspiration from.]) is a reply that is shown alongside it to provide helpful context.
+- **Votes**: Users evaluate content through upvotes and downvotes.
+
+The details page for a post looks like this:
+
+```{r, fig.align='center'}
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/discussion-trees/novel-ui-details.png")
+
+```
+
+The post's parents are displayed above the post so that the context of the conversation is not lost.
+The parent thread is displayed when the post is not a top-level post, i.e., the root of the discussion.
+Other replies are displayed below the post.
+
+This is how the mapping between the discussion tree and the UI looks like:
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/discussion-trees/novel-ui-discussion-tree-to-comment-thread.png")
+
+```
+
+The coherence in a discussion thread is preserved and following a discussion thread almost looks like reading a chat log.
+
+Navigating a discussion thread looks like this:
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/discussion-trees/novel-ui-navigation.gif")
+
+```
+

@@ -1,17 +1,5 @@
 # Problem Statement {#problem-statement}
 
-The Global Brain algorithm is a social protocol that evaluates and curates information for an online discussion platform.
-It requires the platform to provide three fundamental elements:
-
-- **Posts**: A piece of media submitted to the platform by a user, just like posts on any other social media platform. Posts can either be **top-level posts** or **replies** to other posts, thus forming conversation threads.
-- **Notes**: A post's note is a reply that is shown alongside it to provide helpful context.
-- **Votes**: Users evaluate content through upvotes and downvotes.
-
-```{r, fig.align='center'}
-knitr::include_graphics("images/visual-primitives.png")
-
-```
-
 **The Global Brain algorithm's core objective is to maximize the impact of the best ideas and arguments by finding the best reply for any post and promoting it to be its note.**
 
 We do this by identifying the reply for any post that **most likely changes the voting behavior** on that post.
