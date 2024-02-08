@@ -1,17 +1,4 @@
-# Objectives and Rationale
-
-Humans lie and humans pass on misinformation, whether inadvertantly or with the goal to manipulate others. No algorithm will ever change this. However, misinformation is harmful in social networks only when it is **unchecked**. Lies are only harmful if people don't see the refutations. In fact, given that lies and misinformation will always be part of any online information eco-system, seeing lies along with rebuttals might actually be *useful* because people would have seen them anyways and thus become aware of the lies currently in circulation.
-
-The engagement-based algorithms in today's social networks encourage the unchecked spread of rumors, regardless of how well they are supported, whereas the Global Brain algorithm discourages the spread of information that people are unlikely to upvote if they were fully informed, and encourages the spread of information that might check the spread of a false information that is already spreading.
-
-**And yet the purpose of the Global Brain algorithm is NOT to tell people what is true. It is simply to direct people's attention to information that may change their votes.**
-
-But why do we want to *change* votes? An algorithm that tries to change minds sounds sinister. Propaganda changes how people vote. But propaganda works by selectively exposing users to information with the goal of changing opinions about specific things, all the while actively omitting contrary information. It is one sided and dishonest. The Global Brain, on the other hand, has no agenda other than driving productive conversation by **maximizing the informedness users base their voting decisions on**.
-
-The Global Brain algorithm drives a fair, unbiased process of weighing all the arguments that anyone cares to make. As long as there is sufficient intellectual diversity among recipients, the result is an adversarial process, where all the relevant information is exposed and processed.
-
-
-## Problem Statement
+# Problem Statement {#problem-statement}
 
 The Global Brain algorithm is a social protocol that evaluates and curates information for an online discussion platform.
 It requires the platform to provide three fundamental elements:
@@ -36,10 +23,8 @@ knitr::include_graphics("images/top-note-promotion.png")
 
 The result is a system of tree-style discussions where you can **follow the most informative conversation** in any thread by following the best replies on any post.
 
-<!-- [TODO: GRAPHIC] -->
 
-
-## An Informal Argument Model
+## An Informal Argument Model {#informal-argument-model}
 
 You may have noticed that we have used the term "best" above without qualifying it.
 We want to find the "best" reply to any post to make it its note -- the most helpful context shown alongside it.
