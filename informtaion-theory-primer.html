@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>B A Primer on Information Theory II | The Global Brain Algorithm</title>
+  <title>A Primer on Information Theory I | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="B A Primer on Information Theory II | The Global Brain Algorithm" />
+  <meta property="og:title" content="A Primer on Information Theory I | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="B A Primer on Information Theory II | The Global Brain Algorithm" />
+  <meta name="twitter:title" content="A Primer on Information Theory I | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -34,7 +34,7 @@ algorithms as a whole.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="informtaion-theory-primer-1.html"/>
+<link rel="prev" href="information-value.html"/>
 <link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -137,18 +137,14 @@ algorithms as a whole.</p>" />
 <li class="chapter" data-level="7.9" data-path="information-value.html"><a href="information-value.html#example-charts"><i class="fa fa-check"></i><b>7.9</b> Example Charts</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="informtaion-theory-primer-1.html"><a href="informtaion-theory-primer-1.html"><i class="fa fa-check"></i><b>A</b> Primer on Information Theory I</a>
+<li class="chapter" data-level="A" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html"><i class="fa fa-check"></i><b>A</b> Primer on Information Theory I</a>
 <ul>
-<li class="chapter" data-level="A.1" data-path="informtaion-theory-primer-1.html"><a href="informtaion-theory-primer-1.html#intuitions-about-key-concepts"><i class="fa fa-check"></i><b>A.1</b> Intuitions about Key Concepts</a></li>
+<li class="chapter" data-level="A.1" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#intuitions-about-key-concepts"><i class="fa fa-check"></i><b>A.1</b> Intuitions about Key Concepts</a></li>
+<li class="chapter" data-level="A.2" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#surprisal"><i class="fa fa-check"></i><b>A.2</b> Surprisal</a>
+<ul>
+<li class="chapter" data-level="" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#what-about-the-base-of-the-logarithm"><i class="fa fa-check"></i>What about the Base of the Logarithm?</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html"><i class="fa fa-check"></i><b>B</b> A Primer on Information Theory II</a>
-<ul>
-<li class="chapter" data-level="B.1" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html#surprisal"><i class="fa fa-check"></i><b>B.1</b> Surprisal</a>
-<ul>
-<li class="chapter" data-level="B.1.1" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html#what-about-the-base-of-the-logarithm"><i class="fa fa-check"></i><b>B.1.1</b> What about the Base of the Logarithm?</a></li>
-</ul></li>
-<li class="chapter" data-level="B.2" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html#entropy"><i class="fa fa-check"></i><b>B.2</b> Entropy</a></li>
-<li class="chapter" data-level="B.3" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html#surprisal-entropy-relation"><i class="fa fa-check"></i><b>B.3</b> How do Entropy and Surprisal Relate to One Another?</a></li>
+<li class="chapter" data-level="A.3" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#entropy"><i class="fa fa-check"></i><b>A.3</b> Entropy</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -171,10 +167,31 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="a-primer-on-information-theory-ii" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">B</span> A Primer on Information Theory II<a href="a-primer-on-information-theory-ii.html#a-primer-on-information-theory-ii" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="surprisal" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">B.1</span> Surprisal<a href="a-primer-on-information-theory-ii.html#surprisal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="informtaion-theory-primer" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">A</span> Primer on Information Theory I<a href="informtaion-theory-primer.html#informtaion-theory-primer" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>We will introduce some key concepts of information theory that are prerequisites for understanding the Global Brain algorithm.
+Note that for all the concepts introduced in the following chapters, we will only discuss the case of <strong>discrete probability distributions</strong> because that’s enough for our purposes.
+All of the concepts generalize to the continuous case though and should you be inclined to study those too, this introduction will give you a good start all the same.</em></p>
+<div id="intuitions-about-key-concepts" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">A.1</span> Intuitions about Key Concepts<a href="informtaion-theory-primer.html#intuitions-about-key-concepts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are four key concepts in information theory that are important to have a good grasp on in order to understand the Global Brain algorithm:
+<strong>surprisal</strong>, <strong>entropy</strong>, <strong>cross-entropy</strong>, and <strong>KL divergence</strong> (or <strong>relative entropy</strong>).
+We will cover all of these concepts in detail in the following chapters, but for now, let’s just build an intuition about what each of those measures mean <em>semantically</em>.</p>
+<p>Consider Alice and Bob, two friends who argue about a random variable <span class="math inline">\(X\)</span>.
+Alice’s beliefs about <span class="math inline">\(X\)</span> are distributed according to <span class="math inline">\(P\)</span> and Bob’s beliefs are
+distributed according to <span class="math inline">\(Q\)</span>.
+Then from Alice’s perspective, the concepts listed above mean the following:</p>
+<!-- Maybe coin toss example here? -->
+<!-- With numbers -->
+<ul>
+<li><strong>surprisal</strong>: how surprised Alice is when she learns that the value of X is x</li>
+<li><strong>entropy</strong>: how surprised Alice <em>expects</em> to be about the outcome of X</li>
+<li><strong>cross-entropy</strong>: how surprised Alice expects Bob to be (assuming that Bob believes <span class="math inline">\(Q\)</span>)</li>
+<li><strong>relative entropy</strong> or <strong>KL divergence</strong>: how much <em>more</em> surprised Alice expects Bob to be than her</li>
+</ul>
+</div>
+<div id="surprisal" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">A.2</span> Surprisal<a href="informtaion-theory-primer.html#surprisal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the Bayesian way of thinking, the concept of <strong>probability</strong> gives us a way to talk about <strong>uncertainty</strong>.
 Roughly speaking, we quantify our <strong>beliefs</strong> about any outcome of a random variable by assigning each outcome a <strong>weight</strong> (the probability we assign to that event), making sure that all weights add up to <span class="math inline">\(1\)</span>.
 As the notion of probability is so fundamental to statistics and probability theory, it’s easy to overlook that this is not the only way of thinking about uncertainty.
@@ -188,7 +205,7 @@ A naive way of expressing this would be to just take the inverse of the probabil
 \frac{1}{p}
 \]</span></p>
 <p>So far so good, but this is <em>not</em> the actual formula for surprisal because this metric has an unsatisfying property:
-If something is <strong>certain</strong> to happen, i.e., the probability is our surprisal will be <span class="math inline">\(\frac{1}{p} = \frac{1}{1} = 1\)</span>.
+If something is <strong>certain</strong> to happen, i.e., the probability is <span class="math inline">\(1\)</span>, our surprisal will be <span class="math inline">\(\frac{1}{p} = \frac{1}{1} = 1\)</span>.
 But if it is certain to happen, we would expect our surprisal to be <span class="math inline">\(0\)</span>.</p>
 <p>There is a function that we can use to scale the inverse probability, so that we can satisfy this requirement: <strong>the logarithm</strong>.
 The logarithm of <span class="math inline">\(1\)</span> for any base <span class="math inline">\(b\)</span> is <span class="math inline">\(0\)</span> which is exactly the property we require.
@@ -200,8 +217,8 @@ I(x = X) = log_b(\frac{1}{P(x = X)}) = -log_b(p)
 <p>We use the symbol <span class="math inline">\(I\)</span> to denote surprisal because it is also commonly referred to as <em>information content</em><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
 <!-- proportionality -> omit term -->
 <!-- -> logarithmically inversely proportional -->
-<div id="what-about-the-base-of-the-logarithm" class="section level3 hasAnchor" number="9.1.1">
-<h3><span class="header-section-number">B.1.1</span> What about the Base of the Logarithm?<a href="a-primer-on-information-theory-ii.html#what-about-the-base-of-the-logarithm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="what-about-the-base-of-the-logarithm" class="section level3 unnumbered hasAnchor">
+<h3>What about the Base of the Logarithm?<a href="informtaion-theory-primer.html#what-about-the-base-of-the-logarithm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You may have noticed that we have left the base <span class="math inline">\(b\)</span> of the logarithm in the formula for surprisal open.
 This is because the base of the logarithm defines the <strong>unit of information</strong> at which we are measuring surprisal.
 The most common one (and the one we use in our approaches) is base <span class="math inline">\(2\)</span>.
@@ -209,7 +226,7 @@ With base <span class="math inline">\(2\)</span>, we express information in <str
 If you choose base <span class="math inline">\(10\)</span>, the unit is a <strong>decimal digit</strong> (or Hartley) and base <span class="math inline">\(3\)</span> gives you a <strong>trit</strong>.
 Thus, with different values for <span class="math inline">\(b\)</span>, we can change the unit of information at which we are expressing our surprise.</p>
 <p>Here is what the relationship between probability and surprisal looks like graphically with different bases <span class="math inline">\(b\)</span>:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
 <p>The function is <strong>strictly decreasing</strong> so surprisal <strong>inversely proportional</strong> to probability.
 Note that surprisal is <em>undefined</em> for a probability of <span class="math inline">\(0\)</span>.
 This is fine because we have no need to express our surprise about an event that will never occur.</p>
@@ -219,8 +236,8 @@ This is fine because we have no need to express our surprise about an event that
 <!-- As the expected value is just a generalization of a weighted average, this is just the probability of a surprisal happening for a heads toss plus the probability of a surprisal happening for a tails toss. -->
 </div>
 </div>
-<div id="entropy" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">B.2</span> Entropy<a href="a-primer-on-information-theory-ii.html#entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="entropy" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">A.3</span> Entropy<a href="informtaion-theory-primer.html#entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <!-- >>> 0.99 * (-log(0.99)) + 0.01 * (-log(0.01)) -->
 <!-- Traceback (most recent call last): -->
 <!--   File "<stdin>", line 1, in <module> -->
@@ -244,9 +261,15 @@ This is fine because we have no need to express our surprise about an event that
 <!-- 2.307610260920796 -->
 <!-- >>> -->
 <!-- expected value formula -->
-<p>Entropy is simply the <strong>expected value of surprisal</strong>.</p>
-<p>We only need to consider discrete random variables for entropy for our cases, but entropy also generalizes for the continuous case.
-Entropy is given by<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>:</p>
+<p>Entropy is the <strong>expected value of surprisal</strong>.
+This may sound odd at first.
+A measure that quantifies how <strong><em>surprised</em></strong> I <strong><em>expect</em></strong> to be sounds like an oxymoron.
+But it <em>does</em> make sense.</p>
+<p>First of all, with probability, we encode our <strong>uncertainty</strong> about outcomes of a random variable.
+We are using all the information we have, but <strong>we know that we don’t have all the information</strong>.
+Thus, we know that we will be surprised about the outcome in some way because the outcome is not <em>certain</em>.
+Entropy gives us a way to quantify how surprised we <strong>expect</strong> to be about the outcome.</p>
+<p>Entropy is given by<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>:</p>
 <p><span class="math display">\[
 H(X) := -\sum_{x \in X}{p(x)log(p(x))}
 \]</span></p>
@@ -255,17 +278,6 @@ H(X) := -\sum_{x \in X}{p(x)log(p(x))}
 <!-- How much information, on average, would we need to encode an outcome from the distribution? -->
 <!-- Explain entropy as "information required to encode outcomes" -> go into different examples and generalize -->
 <!-- show probability distributions alongside them for reference -->
-</div>
-<div id="surprisal-entropy-relation" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">B.3</span> How do Entropy and Surprisal Relate to One Another?<a href="a-primer-on-information-theory-ii.html#surprisal-entropy-relation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Entropy is the <strong>expected surprisal</strong>.
-This may sound odd at first.
-A measure that quantifies how <strong><em>surprised</em></strong> I <strong><em>expect</em></strong> to be sounds like an oxymoron.
-But it <em>does</em> make sense.</p>
-<p>First of all, with probability, we encode our <strong>uncertainty</strong> about outcomes of a random variable.
-We are using all the information we have, but <strong>we know that we don’t have all the information</strong>.
-Thus, we know that we will be surprised about the outcome in some way because the outcome is not certain.
-Entropy gives us a way to quantify how surprised we <strong>expect</strong> to be about the outcome.</p>
 <hr />
 <p><strong>Useful resources on surprisal and entropy</strong></p>
 <ul>
@@ -281,9 +293,9 @@ Entropy gives us a way to quantify how surprised we <strong>expect</strong> to b
 <div class="footnotes">
 <hr />
 <ol start="3">
-<li id="fn3"><p>Other terms for surprisal that you might come across are <strong>self-information</strong> and <strong>Shannon information</strong>.<a href="a-primer-on-information-theory-ii.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Other terms for surprisal that you might come across are <strong>self-information</strong> and <strong>Shannon information</strong>.<a href="informtaion-theory-primer.html#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>You may ask yourself: Why is <span class="math inline">\(H\)</span> the formula symbol for a metric called entropy? That’s because Shannon entropy is based on Boltzmann’s H-theorem in statistical thermodynamics. It is contested why Boltzmann called entropy <span class="math inline">\(H\)</span>, but the common conjecture is that he actually meant the greek letter Eta (<span class="math inline">\(H\)</span>) which would make a lot more sense.
-There have actually been typographical analyses of his handwriting to determine whether he meant Eta, not the letter <span class="math inline">\(H\)</span>!<a href="a-primer-on-information-theory-ii.html#fnref4" class="footnote-back">↩︎</a></p></li>
+There have actually been typographical analyses of his handwriting to determine whether he meant Eta, not the letter <span class="math inline">\(H\)</span>!<a href="informtaion-theory-primer.html#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -291,7 +303,7 @@ There have actually been typographical analyses of his handwriting to determine 
           </div>
         </div>
       </div>
-<a href="informtaion-theory-primer-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="information-value.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

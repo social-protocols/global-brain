@@ -34,10 +34,7 @@ example-2-a-typhoon-in-oslo
 desired-properties-of-information-value-formula
 upvote-only-relative-entropy
 example-charts
-informtaion-theory-primer-1
+informtaion-theory-primer
 intuitions-about-key-concepts
-a-primer-on-information-theory-ii
 surprisal
-what-about-the-base-of-the-logarithm
 entropy
-surprisal-entropy-relation

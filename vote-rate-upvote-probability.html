@@ -137,18 +137,14 @@ algorithms as a whole.</p>" />
 <li class="chapter" data-level="7.9" data-path="information-value.html"><a href="information-value.html#example-charts"><i class="fa fa-check"></i><b>7.9</b> Example Charts</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="informtaion-theory-primer-1.html"><a href="informtaion-theory-primer-1.html"><i class="fa fa-check"></i><b>A</b> Primer on Information Theory I</a>
+<li class="chapter" data-level="A" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html"><i class="fa fa-check"></i><b>A</b> Primer on Information Theory I</a>
 <ul>
-<li class="chapter" data-level="A.1" data-path="informtaion-theory-primer-1.html"><a href="informtaion-theory-primer-1.html#intuitions-about-key-concepts"><i class="fa fa-check"></i><b>A.1</b> Intuitions about Key Concepts</a></li>
+<li class="chapter" data-level="A.1" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#intuitions-about-key-concepts"><i class="fa fa-check"></i><b>A.1</b> Intuitions about Key Concepts</a></li>
+<li class="chapter" data-level="A.2" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#surprisal"><i class="fa fa-check"></i><b>A.2</b> Surprisal</a>
+<ul>
+<li class="chapter" data-level="" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#what-about-the-base-of-the-logarithm"><i class="fa fa-check"></i>What about the Base of the Logarithm?</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html"><i class="fa fa-check"></i><b>B</b> A Primer on Information Theory II</a>
-<ul>
-<li class="chapter" data-level="B.1" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html#surprisal"><i class="fa fa-check"></i><b>B.1</b> Surprisal</a>
-<ul>
-<li class="chapter" data-level="B.1.1" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html#what-about-the-base-of-the-logarithm"><i class="fa fa-check"></i><b>B.1.1</b> What about the Base of the Logarithm?</a></li>
-</ul></li>
-<li class="chapter" data-level="B.2" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html#entropy"><i class="fa fa-check"></i><b>B.2</b> Entropy</a></li>
-<li class="chapter" data-level="B.3" data-path="a-primer-on-information-theory-ii.html"><a href="a-primer-on-information-theory-ii.html#surprisal-entropy-relation"><i class="fa fa-check"></i><b>B.3</b> How do Entropy and Surprisal Relate to One Another?</a></li>
+<li class="chapter" data-level="A.3" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#entropy"><i class="fa fa-check"></i><b>A.3</b> Entropy</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -223,32 +219,32 @@ To provide a more intuitive understanding of how this distribution models our up
 We initialize the distribution with a prior of 1 upvote and 1 downvote.
 This is equivalent to a uniform distribution:
 We assign equal probability to any outcome, i.e., to any upvote probability.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="768" /></p>
 <p>Now, we observe some votes coming in.
 We encode upvotes with <span class="math inline">\(1\)</span> and downvotes with <span class="math inline">\(0\)</span>.</p>
 <!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 <p><span class="math display">\[
 (\color{limegreen}{1, 0, 0})
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="768" /></p>
 <!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 <p><span class="math display">\[
 (\color{grey}{1, 0, 0,} \color{limegreen}{0, 1, 0})
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="768" /></p>
 <!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 <p><span class="math display">\[
 (\color{grey}{1, 0, 0, 0, 1, 0,} \color{limegreen}{0, 0, 0})
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="768" /></p>
 <!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
 <p><span class="math display">\[
 (\color{grey}{1, 0, 0, 0, 1, 0, 0, 0, 0,} \color{limegreen}{1, 0, 0})
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="768" /></p>
 <p>The distribution updates and the probability mass becomes more concentrated which means we become more and more certain about our beliefs about the true upvote probability.
 If the post would develop further with a similar trajectory, the following could be the outcome after 500 votes:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="768" /></p>
 <p>Our probability mass is now pretty concentrated around what (in this case) we know is the true upvote probability.</p>
 <!-- TODO: move to a new chapter (the top note algorithm explanation) -->
 <!-- ## Tallies -->
@@ -274,7 +270,7 @@ This would result in <strong>erratic estimates</strong> in the beginning which w
 smooth out over time.
 Here is how the cumulative mean develops for a random vote history with a true
 upvote rate of <span class="math inline">\(0.6\)</span>:</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="768" /></p>
 <p>If we were to use this metric to compare posts, getting a high upvote probability
 estimate in the early stages of a post would essentially come down to luck.
 It might then temporarily fare overly well (or overly poorly) compared to other
@@ -314,7 +310,7 @@ collected <span class="math inline">\(100\)</span> data points which amounted to
 \]</span></p>
 <p>Graphically, it looks like this (the light grey line is the plain average for
 comparison):</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="768" /></p>
 <p>The cumulative Bayesian average is much less erratic when little data is available.
 However, there is an important question left:
 How do we chose a good prior and a good weight?</p>
@@ -323,9 +319,9 @@ average.
 Bayesian averages over time are indicated by light grey lines, the priors chosen
 here are <span class="math inline">\(0.1\)</span> through <span class="math inline">\(0.9\)</span> and the weight is kept constant at <span class="math inline">\(20\)</span>.
 The plain average is overlayed in darker grey for reference.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="768" /></p>
 <p>And here is that same plot with the same priors, but with a weight of <span class="math inline">\(100\)</span>.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="768" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="768" /></p>
 <!--- TODO: write a section about how to chose a prior --->
 </div>
 </div>
