@@ -86,6 +86,8 @@ Other services focus attention on top replies, but only if users actually click 
 This tends to cut the discussion off at the top level of the tree.
 In contrast our UI always prompts the user with a reply at the next level of depth, constantly encouraging users to go deeper in the discussion tree.
 
+But this raises the question:
+
 **How do we decide which replies receive more attention and which replies receive less?**
 
 <!-- TODO: section on how we weigh edges in the discussion tree -->
