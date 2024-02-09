@@ -1,0 +1,32 @@
+# Driving Informative Discussions
+
+The most important component of the Global Brain protocol on the **thread level** is the algorithm that identifies the best reply for any post and promotes it to be its note.
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/top-note-algorithm/top-reply-promotion.png")
+
+```
+
+If we do this for all posts and replies, the result is a system of tree-style discussions where users can **follow the most informative conversation** in any thread by following the best replies on any post.
+
+```{r, fig.align='center', out.width = '100%'}
+knitr::include_graphics("images/top-note-algorithm/most-informative-thread.png")
+
+```
+
+Of course, users don't *have* to follow the top thread.
+At any point, they might decide that another answer is more interesting or helpful to them and follow that thread instead.
+
+```{r, fig.align='center', out.width = '100%'}
+knitr::include_graphics("images/top-note-algorithm/alternative-thread.png")
+
+```
+
+## What is the "best" reply?
+
+The best reply in our approach is the **most convincing one**.
+We quantify the degree to which it is convincing by measuring which reply **most likely changes the voting behavior** on that post.
+
+TODO: graphic
+
+

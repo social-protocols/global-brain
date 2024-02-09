@@ -72,25 +72,36 @@ We are grateful for feedback. Do not hesitate to send an
 
 # (PART) Introduction {-}
 
-```{r, child='chapters/01-rationale.Rmd'}
+```{r, child='chapters/rationale.Rmd'}
 ```
 
-```{r, child='chapters/02-problem-with-discussion-threads.Rmd'}
+```{r, child='chapters/problem-with-discussion-threads.Rmd'}
 ```
 
-```{r, child='chapters/02-problem-statement.Rmd'}
+```{r, child='chapters/informal-argument-model.Rmd'}
 ```
 
-```{r, child='chapters/02-key-concepts-and-assumptions.Rmd'}
+```{r, child='chapters/key-concepts-and-assumptions.Rmd'}
 ```
 
-# (PART) Concepts {-}
+# (PART) Identifying Top Replies {-}
 
-```{r, child='chapters/03-modeling-upvote-rate.Rmd'}
+```{r, child='chapters/top-replies-introduction.Rmd'}
+```
+
+```{r, child='chapters/modeling-upvote-probability.Rmd'}
+```
+
+```{r, child='chapters/informed-probability.Rmd'}
+```
+
+```{r, child='chapters/identifying-best-replies.Rmd'}
 ```
 
 ```{r, child='chapters/04-reducing-cognitive-dissonance.Rmd', eval=FALSE}
 ```
+
+# (PART) Concepts {-}
 
 ```{r, child='writeups/2023-10-16-cognitive-dissonance.Rmd'}
 ```

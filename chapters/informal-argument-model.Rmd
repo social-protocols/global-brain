@@ -1,42 +1,7 @@
-# Problem Statement {#problem-statement}
+# An Informal Argument Model {#informal-argument-model}
 
-**The Global Brain algorithm's core objective is to maximize the impact of the best ideas and arguments by finding the best reply for any post and promoting it to be its note.**
-
-We do this by identifying the reply for any post that **most likely changes the voting behavior** on that post.
-
-```{r, fig.align='center'}
-knitr::include_graphics("images/top-note-promotion.png")
-
-```
-
-The result is a system of tree-style discussions where you can **follow the most informative conversation** in any thread by following the best replies on any post.
-
-```{r, fig.align='center', out.width = '100%'}
-knitr::include_graphics("images/top-note-algorithm/following-top-note-thread.png")
-
-```
-
-Of course, users don't have to follow the top thread.
-At any point, they might decide that another answer is more interesting or helpful and follow that one instead.
-
-```{r, caption="Users don't have to follow the top thread.", fig.align='center', out.width = '100%'}
-knitr::include_graphics("images/top-note-algorithm/following-alternative-thread.png")
-
-```
-
-Nonetheless, we want to direct the most attention to the most helpful context for any post by promoting that particular reply to be the post's note.
-The key objective of the top note algorithm is thus to **identify the best reply for any post taking into consideration all the information below it in the tree**.
-
-```{r, fig.align='center', out.width = '100%'}
-knitr::include_graphics("images/top-note-algorithm/identifying-top-reply.png")
-
-```
-
-
-## An Informal Argument Model {#informal-argument-model}
-
-You may have noticed that we have used the term "best" above without qualifying it.
-We want to find the "best" reply to any post to make it its note -- the most helpful context shown alongside it.
+**The Global Brain algorithm's core objective is to maximize the impact of the best ideas and arguments.**
+We do this by finding the "best" reply to any post to make it its note -- the most helpful context shown alongside it.
 But "best" is a tricky term in the realm of arguments and ideas.
 What makes an argument "best"?
 And how do we even know what an *argument* is if everything is just a post?
