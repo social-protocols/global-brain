@@ -109,6 +109,7 @@ algorithms as a whole.</p>" />
 <li class="chapter" data-level="5.1" data-path="vote-rate-upvote-probability.html"><a href="vote-rate-upvote-probability.html#modeling-belief-upvote-probability"><i class="fa fa-check"></i><b>5.1</b> Modeling Upvote Probabilities</a></li>
 <li class="chapter" data-level="5.2" data-path="vote-rate-upvote-probability.html"><a href="vote-rate-upvote-probability.html#estimating-the-upvote-probability-naive-approach"><i class="fa fa-check"></i><b>5.2</b> Estimating the Upvote Probability: Naive Approach</a></li>
 <li class="chapter" data-level="5.3" data-path="vote-rate-upvote-probability.html"><a href="vote-rate-upvote-probability.html#the-bayesian-average"><i class="fa fa-check"></i><b>5.3</b> The Bayesian Average</a></li>
+<li class="chapter" data-level="5.4" data-path="vote-rate-upvote-probability.html"><a href="vote-rate-upvote-probability.html#estimating-global-prior-using-bayesian-hierarchical-model"><i class="fa fa-check"></i><b>5.4</b> Estimating Global Prior using Bayesian Hierarchical Model</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html"><i class="fa fa-check"></i><b>6</b> Cognitive Dissonance</a>
 <ul>
@@ -121,7 +122,7 @@ algorithms as a whole.</p>" />
 <ul>
 <li class="chapter" data-level="6.6.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>6.6.1</b> Parallel to Machine Learning</a></li>
 <li class="chapter" data-level="6.6.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-1"><i class="fa fa-check"></i><b>6.6.2</b> Subtle Point 1</a></li>
-<li class="chapter" data-level="6.6.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-1-1"><i class="fa fa-check"></i><b>6.6.3</b> Subtle Point 1</a></li>
+<li class="chapter" data-level="6.6.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-2"><i class="fa fa-check"></i><b>6.6.3</b> Subtle Point 2</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="information-value.html"><a href="information-value.html"><i class="fa fa-check"></i><b>7</b> Information Value</a>
@@ -322,7 +323,48 @@ The plain average is overlayed in darker grey for reference.</p>
 <p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="768" /></p>
 <p>And here is that same plot with the same priors, but with a weight of <span class="math inline">\(100\)</span>.</p>
 <p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="768" /></p>
-<!--- TODO: write a section about how to chose a prior --->
+</div>
+<div id="estimating-global-prior-using-bayesian-hierarchical-model" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Estimating Global Prior using Bayesian Hierarchical Model<a href="vote-rate-upvote-probability.html#estimating-global-prior-using-bayesian-hierarchical-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can estimate the global priors <span class="math inline">\(C\)</span> and <span class="math inline">\(m\)</span> using a Bayesian Hierarchical model.</p>
+<p>Our beliefs about the upvote probability for each post can be modeled using a Beta distribution. Our <em>prior</em> beliefs for each post are the same: a Beta distribution with a mean <span class="math inline">\(m\)</span> and sampleSize <span class="math inline">\(C\)</span>.</p>
+<p>As we collect data for each post, we can use this not only to update our beliefs about the post, but also to update our beliefs about the global prior. After collecting a lot of data for a lot of posts, we will obviously have a good idea of what the global mean <span class="math inline">\(m\)</span> is. But how do we estimate <span class="math inline">\(C\)</span>?</p>
+<p>To be able to form and update beliefs about C using a Bayesian approach, we need to have priors beliefs about C. The same for <span class="math inline">\(m\)</span> as a matter of fact. Our priors <span class="math inline">\(m\)</span> and <span class="math inline">\(C\)</span> are our beliefs before we have any data at all.</p>
+<p>It’s reasonable for the global hyperprior for <span class="math inline">\(m\)</span> to be a uniform distribution: any upvote probability is equally likely before we have any data bout any posts.</p>
+<p>We also need a hyperprior for <span class="math inline">\(C\)</span>. This one is tricky. It’s essentially our prior beliefs about how much variation there will be in upvote probabilities for different posts. IF it is very high, then no matter what data we observe for a post, the posterior for that post will be close to the global prior <span class="math inline">\(m\)</span>.</p>
+<p>It’s hard to say much about the hyperprior for <span class="math inline">\(C\)</span> except that it should probably be a positive number and, by experience, between 2 and 10. A gamma distribution is often used for this type of model, for some reason. So we’ll choose a weak gamma prior and add 2.</p>
+<p>So we have a hierarchical model that looks like this:</p>
+<ul>
+<li><span class="math inline">\(m \sim \text{Uniform}(0, 1)\)</span></li>
+<li><span class="math inline">\(C \sim \text{Gamma}(2, 2)\)</span></li>
+<li><span class="math inline">\(m_{\text{global}} \sim \text{Beta&#39;}(m, C+2)\)</span></li>
+<li><span class="math inline">\(m_{\text{post}} \sim \text{Beta&#39;}(m_{\text{global}}, C_{\text{global}})\)</span></li>
+</ul>
+<p>We use a Beta distribution parameterized using mean and sample size instead of <span class="math inline">\(α\)</span> and <span class="math inline">\(β\)</span>.</p>
+<p><span class="math display">\[
+  \text{Beta&#39;}(m, C) = \text{Beta}(m \times C, (1 - m) \times C)
+\]</span></p>
+<p>We can easily convert between (α,β) and (mean, sampleSize) using the formulas:</p>
+<ul>
+<li><span class="math inline">\(\alpha = m \times C\)</span></li>
+<li><span class="math inline">\(\beta = (1 - m) \times C\)</span></li>
+<li><span class="math inline">\(m = \frac{\alpha}{\alpha + \beta}\)</span></li>
+<li><span class="math inline">\(C = \alpha + \beta\)</span></li>
+</ul>
+<p>Using methods such as MCMC, we can estimate the mean of the entire join probability distribution, giving us an estimated mean weight for each post, and a mean and weight for the global prior.</p>
+<p>However, we don’t need to rerun the MCMC simulation every time we collect more vote data for a post. Once we have an estimate for <span class="math inline">\(m\)</span> and <span class="math inline">\(C\)</span>, we can treat these as fixed. This let’s us chop of one level of our hierarchy. Now for each post, we have a simple Beta-Bernoulli model. For a Beta-Bernoulli model, the posterior, after observing <span class="math inline">\(Z\)</span> upvotes out of <span class="math inline">\(n\)</span> total votes, is:</p>
+<p><span class="math display">\[
+  Beta(α+Z,β+n-Z)
+\]</span></p>
+<p>The mean of this distribution is</p>
+<p><span class="math display">\[
+  \frac{α + Z}{α + β + n}
+\]</span></p>
+<p>Which we can rewrite as</p>
+<p><span class="math display">\[
+  \frac{C \cdot m + Z}{C + n}
+\]</span></p>
+<p>Which gives us the formula for the Bayesian Average.</p>
 </div>
 </div>
             </section>

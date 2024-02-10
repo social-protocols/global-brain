@@ -14,6 +14,7 @@ vote-rate-upvote-probability
 modeling-belief-upvote-probability
 estimating-the-upvote-probability-naive-approach
 the-bayesian-average
+estimating-global-prior-using-bayesian-hierarchical-model
 cognitive-dissonance
 key-concepts-from-information-theory
 surprisal-as-a-measure-of-error
@@ -23,7 +24,7 @@ detailed-example
 discussion
 parallel-to-machine-learning
 subtle-point-1
-subtle-point-1-1
+subtle-point-2
 information-value
 the-information-value-of-a-vote
 information-value-of-changed-votes

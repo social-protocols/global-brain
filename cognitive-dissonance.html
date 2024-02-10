@@ -109,6 +109,7 @@ algorithms as a whole.</p>" />
 <li class="chapter" data-level="5.1" data-path="vote-rate-upvote-probability.html"><a href="vote-rate-upvote-probability.html#modeling-belief-upvote-probability"><i class="fa fa-check"></i><b>5.1</b> Modeling Upvote Probabilities</a></li>
 <li class="chapter" data-level="5.2" data-path="vote-rate-upvote-probability.html"><a href="vote-rate-upvote-probability.html#estimating-the-upvote-probability-naive-approach"><i class="fa fa-check"></i><b>5.2</b> Estimating the Upvote Probability: Naive Approach</a></li>
 <li class="chapter" data-level="5.3" data-path="vote-rate-upvote-probability.html"><a href="vote-rate-upvote-probability.html#the-bayesian-average"><i class="fa fa-check"></i><b>5.3</b> The Bayesian Average</a></li>
+<li class="chapter" data-level="5.4" data-path="vote-rate-upvote-probability.html"><a href="vote-rate-upvote-probability.html#estimating-global-prior-using-bayesian-hierarchical-model"><i class="fa fa-check"></i><b>5.4</b> Estimating Global Prior using Bayesian Hierarchical Model</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html"><i class="fa fa-check"></i><b>6</b> Cognitive Dissonance</a>
 <ul>
@@ -121,7 +122,7 @@ algorithms as a whole.</p>" />
 <ul>
 <li class="chapter" data-level="6.6.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>6.6.1</b> Parallel to Machine Learning</a></li>
 <li class="chapter" data-level="6.6.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-1"><i class="fa fa-check"></i><b>6.6.2</b> Subtle Point 1</a></li>
-<li class="chapter" data-level="6.6.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-1-1"><i class="fa fa-check"></i><b>6.6.3</b> Subtle Point 1</a></li>
+<li class="chapter" data-level="6.6.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-2"><i class="fa fa-check"></i><b>6.6.3</b> Subtle Point 2</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="information-value.html"><a href="information-value.html"><i class="fa fa-check"></i><b>7</b> Information Value</a>
@@ -236,7 +237,7 @@ algorithms as a whole.</p>" />
     &amp; = votesTotal × H(p)
 \end{aligned}
 \]</span></p>
-<p>In other words, our error is roughly entropy times the number of votes. That’s why entropy is often described as the average surprisal, or expected value of surprisal – it is the surprisal per vote. However For our purposes, we will be defining cognitive dissonance in terms of <strong>total</strong> surprisal – specifically, as total relative entropy – which we will define below.</p>
+<p>In other words, our error is roughly entropy times the number of votes. That’s why entropy is often described as the average surprisal, or expected value of surprisal – it is the surprisal per vote. However For our purposes, we will be defining cognitive dissonance in terms of <strong>total</strong> surprisal – specifically, as total relative entropy – which we will define below. But first we need to discuss the closely concept of cross entropy.</p>
 </div>
 <div id="total-cross-entropy" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Total Cross Entropy<a href="cognitive-dissonance.html#total-cross-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -251,8 +252,7 @@ algorithms as a whole.</p>" />
 \]</span></p>
 <p><span class="math inline">\(H(p,q)\)</span> is the cross entropy between Bob and Alices’s estimates: Bob’s estimate of Alice’s average error.</p>
 <p>In our case, Alice represents the average uninformed user (users who haven’t seen the note on a post), and Bob represents the informed user. There are <span class="math inline">\(votesTotal\)</span> “Alices”, or uninformed users. Bob expects the total error of all the uninformed users to be <span class="math inline">\(votesTotal×H(p,q)\)</span>.</p>
-<p><span class="math inline">\(H(p,q)\)</span> will always be greater than <span class="math inline">\(H(p)\)</span> if <span class="math inline">\(p≠q\)</span>. That is, Bob’s measure of Alice’s error will always be greater than his measure of his own error as long as his beliefs differ from Alice’s.</p>
-<p>This is due to a very powerful property of surprisal as a measure of error: expected surprisal is minimized when the estimated probability equals the “true” probability. So over- or under- estimating the probability always results in more error in the long run. Since <span class="math inline">\(H(p,q)\)</span> tells us what Alice’s average error <em>would</em> be, in the long run, if <span class="math inline">\(p\)</span> were the true frequency, <span class="math inline">\(H(p,q)\)</span> is minimized when Alice’s estimate <span class="math inline">\(q\)</span> equals the true frequency <span class="math inline">\(p\)</span>, or when <span class="math inline">\(H(p,q)=H(p,p)=H(p)\)</span>.</p>
+<p><span class="math inline">\(H(p,q)\)</span> will always be greater than <span class="math inline">\(H(p)\)</span> if <span class="math inline">\(p≠q\)</span>. That is, Bob’s expects Alice’s error to be greater than his own error as long as his beliefs differ from Alice’s. This makes sense: Bob obviously thinks his beliefs are more accurate than Alice’s. If he didn’t he would update his beliefs to be equal to Alice’s. As more “Alice”’s are exposed to the note, and consequently the average Alice’s beliefs <span class="math inline">\(q\)</span> approach Bob’s beliefs <span class="math inline">\(p\)</span>, <span class="math inline">\(H(p,q)\)</span> will decrease, until <span class="math inline">\(H(p,q)\)</span> = <span class="math inline">\(H(p,p)\)</span> = <span class="math inline">\(H(p)\)</span>.</p>
 </div>
 <div id="total-relative-entropy-cognitive-dissonance" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> Total Relative Entropy = Cognitive Dissonance<a href="cognitive-dissonance.html#total-relative-entropy-cognitive-dissonance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -270,128 +270,25 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 <div id="detailed-example" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> Detailed Example<a href="cognitive-dissonance.html#detailed-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose a post without a note is given receives 900 upvotes and 100 downvotes. But a certain note, when shown along with the post, reduces the upvote probability to 20%.</p>
-<p>The total cognitive dissonance is</p>
+<p>The relative entropy is</p>
 <p><span class="math display">\[
 \begin{aligned}
         cognitiveDissonance    &amp;= votesTotal × D_{KL}(p || q) \\
                                &amp;= votesTotal × ( p × {\lg \frac{p}{q}} + (1-p) × {\lg \frac{1-p}{1-q}} ) \\
-                               &amp;= 1000 × ( .2 × lg~\frac{.2}{.9} + .8 × lg~\frac{.8}{.1} )  \\
-                               &amp;= 1966.01~bits
+                               &amp;= ( .2 × lg~\frac{.2}{.9} + .8 × lg~\frac{.8}{.1} )  \\
+                               &amp;= 1.966~bits
 \end{aligned}
 \]</span></p>
-<p>Suppose that, after showing the note to users that already upvoted the post, 70 users change their upvote to a downvote.</p>
-<p>The new upvote probability <span class="math inline">\(q_1\)</span> will be approximately</p>
+<p>Total cognitive dissonance is thus:</p>
 <p><span class="math display">\[
 \begin{aligned}
-    q_1  &amp;≈ \frac{upvotes - 70}{votesTotal} \\
-       &amp;= \frac{900 - 70}{1000} \\
-       &amp;= .83
+        cognitiveDissonance    &amp;= votesTotal × D_{KL}(p || q) \\
+                               &amp;= votesTotal × ( p × {\lg \frac{p}{q}} + (1-p) × {\lg \frac{1-p}{1-q}} ) \\
+                               &amp;= 1000 × 1.966 bits &amp;= 1966~bits
 \end{aligned}
 \]</span></p>
-<p>The new cognitive dissonance will therefore be</p>
-<p><span class="math display">\[
-\begin{aligned}
-    cognitiveDissonance_1 \\
-    &amp;= votesTotal × DKL(p, q_1)\\
-    &amp;= votesTotal × DKL(.2, .83 ) \\
-    &amp;= 1376.95~bits
-\end{aligned}
-\]</span></p>
-<p>So cognitive dissonance was decreased by <span class="math inline">\(1966.01-1376.95 ≈ 589\)</span> bits. Or in other words, 589 bits of information was gained.</p>
-<p>The table below shows how relative cognitive dissonance falls as users change upvotes to downvotes, reaching zero when <span class="math inline">\(p=q_t\)</span> and thus <span class="math inline">\(upvotes=p×votesTotal=200\)</span>.</p>
-<table>
-<thead>
-<tr class="header">
-<th align="right">q_t</th>
-<th align="right">upvotes</th>
-<th align="right">dkl</th>
-<th align="right">dissonance</th>
-<th align="right">informationValue</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">0.90</td>
-<td align="right">900</td>
-<td align="right">1.9660150</td>
-<td align="right">1966.01500</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="right">0.83</td>
-<td align="right">830</td>
-<td align="right">1.3769499</td>
-<td align="right">1376.94994</td>
-<td align="right">589.06506</td>
-</tr>
-<tr class="odd">
-<td align="right">0.76</td>
-<td align="right">760</td>
-<td align="right">1.0043726</td>
-<td align="right">1004.37259</td>
-<td align="right">372.57734</td>
-</tr>
-<tr class="even">
-<td align="right">0.69</td>
-<td align="right">690</td>
-<td align="right">0.7368662</td>
-<td align="right">736.86616</td>
-<td align="right">267.50644</td>
-</tr>
-<tr class="odd">
-<td align="right">0.62</td>
-<td align="right">620</td>
-<td align="right">0.5327468</td>
-<td align="right">532.74682</td>
-<td align="right">204.11933</td>
-</tr>
-<tr class="even">
-<td align="right">0.55</td>
-<td align="right">550</td>
-<td align="right">0.3721737</td>
-<td align="right">372.17368</td>
-<td align="right">160.57315</td>
-</tr>
-<tr class="odd">
-<td align="right">0.48</td>
-<td align="right">480</td>
-<td align="right">0.2445838</td>
-<td align="right">244.58382</td>
-<td align="right">127.58985</td>
-</tr>
-<tr class="even">
-<td align="right">0.41</td>
-<td align="right">410</td>
-<td align="right">0.1443033</td>
-<td align="right">144.30325</td>
-<td align="right">100.28057</td>
-</tr>
-<tr class="odd">
-<td align="right">0.34</td>
-<td align="right">340</td>
-<td align="right">0.0689202</td>
-<td align="right">68.92023</td>
-<td align="right">75.38302</td>
-</tr>
-<tr class="even">
-<td align="right">0.27</td>
-<td align="right">270</td>
-<td align="right">0.0190909</td>
-<td align="right">19.09095</td>
-<td align="right">49.82928</td>
-</tr>
-<tr class="odd">
-<td align="right">0.20</td>
-<td align="right">200</td>
-<td align="right">0.0000000</td>
-<td align="right">0.00000</td>
-<td align="right">19.09095</td>
-</tr>
-</tbody>
-</table>
-<p><img src="_main_files/figure-html/unnamed-chunk-73-1.png" width="576" /></p>
-<p>Note how the rate of reduction of cognitive dissonance falls as <span class="math inline">\(q\)</span> approaches <span class="math inline">\(p\)</span>.</p>
-<p>Focusing attention on posts and notes that maximize the rate of reduction of cognitive dissonance is the overall goal of the global brain algorithm. See the next document on <a href="information-value.html">information value</a>.</p>
+<p>We can reduce cognitive dissonance by bring the note to the attention of users who didn’t see it before they vote. Some fraction of these users will change their vote after seeing the note. But some users are unlikely to actually change their vote, even if exposed to the note many times.</p>
+<p>Thus as we expose more and more of these users to the vote, the upvoteProbability for these users will approach $$q but never reach it. We may be able to estimate some global fraction of users who change/don’t change their vote, and use this to decide on which notes to direct attention to maximize the expected rate of reduction of cognitive dissonance, which is the overall goal of the global brain algorithm. See the next document on <a href="information-value.html">information value</a>.</p>
 </div>
 <div id="discussion" class="section level2 hasAnchor" number="6.6">
 <h2><span class="header-section-number">6.6</span> Discussion<a href="cognitive-dissonance.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -417,8 +314,8 @@ cognitiveDissonance  &amp;= votesTotal × H(p,q) - votesTotal × H(p) \\
 <h3><span class="header-section-number">6.6.2</span> Subtle Point 1<a href="cognitive-dissonance.html#subtle-point-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Our measure of cognitive dissonance is relative entropy, not cross entropy. But minimizing relative entropy is the same as minimizing cross entropy, since relative entropy <span class="math inline">\(H(P,Q) - H(P)\)</span> is just cross entropy minus a constant <span class="math inline">\(H(P)\)</span> (<span class="math inline">\(H(P)\)</span> is a constant since there’s nothing we can to do change the true probability <span class="math inline">\(P\)</span>).</p>
 </div>
-<div id="subtle-point-1-1" class="section level3 hasAnchor" number="6.6.3">
-<h3><span class="header-section-number">6.6.3</span> Subtle Point 1<a href="cognitive-dissonance.html#subtle-point-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="subtle-point-2" class="section level3 hasAnchor" number="6.6.3">
+<h3><span class="header-section-number">6.6.3</span> Subtle Point 2<a href="cognitive-dissonance.html#subtle-point-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Note that cross-entropy in our case is a measure of the total surprise of uninformed users at the hypothetical future votes of informed users. That is to say, it is:</p>
 <p><span class="math display">\[
 \begin{aligned}
