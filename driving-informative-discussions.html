@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>The Global Brain Algorithm</title>
+  <title>4 Driving Informative Discussions | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The Global Brain Algorithm" />
+  <meta property="og:title" content="4 Driving Informative Discussions | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The Global Brain Algorithm" />
+  <meta name="twitter:title" content="4 Driving Informative Discussions | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -34,8 +34,8 @@ algorithms as a whole.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="Rationale.html"/>
+<link rel="prev" href="key-concepts-and-assumptions.html"/>
+<link rel="next" href="modeling-upvote-probability.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -174,43 +174,60 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">The Global Brain Algorithm</h1>
-<p class="date"><em>Last updated: 2024-02-11</em></p>
+<div id="driving-informative-discussions" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Driving Informative Discussions<a href="driving-informative-discussions.html#driving-informative-discussions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The most important component of the Global Brain protocol on the <strong>thread level</strong> is the algorithm that identifies the best reply for any post and promotes it to be its note.</p>
+<p><img src="images/top-note-algorithm/top-reply-promotion.png" style="display: block; margin: auto;" /></p>
+<p>If we do this for all posts and replies, the result is a system of tree-style discussions where users can <strong>follow the most informative conversation</strong> in any thread by following the best replies on any post.</p>
+<p><img src="images/top-note-algorithm/most-informative-thread.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Of course, users don’t <em>have</em> to follow the top thread.
+At any point, they might decide that another answer is more interesting or helpful to them and follow that thread instead.</p>
+<p><img src="images/top-note-algorithm/alternative-thread.png" width="100%" style="display: block; margin: auto;" /></p>
+<div id="informal-argument-model" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> An Informal Argument Model<a href="driving-informative-discussions.html#informal-argument-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>The Global Brain algorithm’s core objective is to maximize the impact of the best ideas and arguments.</strong>
+We do this by finding the “best” reply to any post to make it its note – the most helpful context shown alongside it.
+But “best” is a tricky term in the realm of arguments and ideas.
+What makes an argument “best”?
+And how do we even know what an <em>argument</em> is if everything is just a post?</p>
+<p><a href="https://en.wikipedia.org/wiki/Argument_map">Many attempts have been made</a> to formalize debate by creating formal models of claims, propositions, arguments, and other constituents of debate.
+We deviate from this approach and propose an <strong>informal argument model</strong>.</p>
+<p><strong>The Global Brain does not require a formal model of belief. It doesn’t need posts to be structured as formal propositions or claims. It doesn’t need to know if users agree or disagree with posts.</strong></p>
+<p>The only assumptions are:</p>
+<ol style="list-style-type: decimal">
+<li>Upvotes and downvotes define a <strong>single dimension</strong> across which content is evaluated and there is a <strong>common understanding</strong> among users about what upvotes and downvotes mean.</li>
+<li>The direction of Users’ votes is <strong>causally related</strong> to their <strong>underlying beliefs</strong> about the topic of the post that we cannot observe (latent variables).</li>
+</ol>
+<p>By making these assumptions about the causal relationship between beliefs and votes and then watching how exposure to notes causes changes to votes, we can model underlying beliefs and predict how exposure to a note will cause changes to these beliefs, which will cause changes to other beliefs, and so on.</p>
 </div>
-<div id="about" class="section level1 unnumbered hasAnchor">
-<h1>About<a href="index.html#about" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<blockquote>
-<p><em>Falsehood flies, and truth comes limping after it, so that when men come to be undeceived, it is too late…</em></p>
-<p>– Jonathan Swift</p>
-</blockquote>
-<p>The Global Brain algorithm converts a social network into a distributed brain, where groups of individuals act like neurons that process information and pass it on to others, resulting in a whole that is more intelligent than the individual human parts.</p>
-<p>The algorithm works by identifying information that is likely to change minds, and modeling how those changes propagate through the network. It then uses this information to focus attention on posts that reduce “cognitive dissonance” – difference of opinion due to people being exposed to different information.</p>
-<p>The result is a <a href="https://social-protocols.org">social protocol</a> that drives productive conversations, maximizes the flow of useful and reliable information, reduces the flow of misinformation, and increases <a href="https://social-protocols.org/human-alignment-technology/">human alignment</a>.</p>
-<hr />
-<p>This document contains write-ups and explanations on the Global Brain
-algorithm developed by the <a href="https://www.social-protocols.org">social protocols organization</a>.
-This is a living document and the information in it may become outdated fast because
-the algorithm is still under active development.
-Nonetheless, we try to maintain up-to-date explanations of our ideas here.</p>
-<p>We will introduce the building blocks of our algorithms: simple, but important
-concepts which make up the foundation of the components from which the
-new platform is built.</p>
-<p>A proof of concept of this algorithm is being developed in
-<a href="https://github.com/social-protocols/social-network">The Social Network of the Future</a>.</p>
-<p>We are grateful for feedback. Do not hesitate to send an
-<a href="mailto:mail@social-protocols.org">email</a>.</p>
+<div id="what-is-the-best-reply" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> What is the “Best” Reply?<a href="driving-informative-discussions.html#what-is-the-best-reply" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The best reply in our approach is the <strong>most convincing one</strong>.
+We quantify the degree to which it is convincing by measuring which reply <strong>most likely changes the voting behavior</strong> on that post.</p>
+<p>First of all, we need to observe the voting behavior on posts.
+We do this by keeping a tally of upvotes and downvotes for each post.
+In addition to that, we also keep track of tallies of <em>post/note combinations</em>.
+This means that we keep track of how many upvotes and downvotes each post received when a note was shown alongside it.</p>
+<p>By comparing the voting behavior on a post with and without a note, we can estimate the <strong>causal effect</strong> of showing a note on the voting behavior on that post.
+In the next chapter, we will introduce how we estimate <strong>upvote probabilities</strong> from these tallies.</p>
+<!-- NOTES: -->
+<!-- Chat Felix/Johannes -->
+<!-- also hier geht es ja, darum, dass sich die besten Ideen und Argumente verbreiten und bei den Richtigen Leuten ankommen -->
+<!-- Ein großer Teil davon ist überhaupt ein gemeinsames Verständnis davon zu haben, was überhaupt fakten sind -->
+<!-- Es geht darum information zu identifizieren, die etwas bewirkt. Bzw zu identifizieren wo es etwas bewirken kann. -->
+<!-- It is about identifying information that has an effect. Or rather, identifying where it can have an effect. -->
+<!-- --- -->
+<!-- exploration/exploitation trade-off -->
+<!-- Thompson Sampling -->
 </div>
-
-
-
+</div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="Rationale.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="key-concepts-and-assumptions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling-upvote-probability.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
