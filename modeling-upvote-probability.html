@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Modeling Upvote Probability | The Global Brain Algorithm</title>
+  <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
+We explain core concepts in simple terms that help to understand the
+algorithms as a whole.</p>" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Modeling Upvote Probability | The Global Brain Algorithm" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
+We explain core concepts in simple terms that help to understand the
+algorithms as a whole.</p>" />
+  <meta name="github-repo" content="social-protocols/global-brain" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Modeling Upvote Probability | The Global Brain Algorithm" />
+  
+  <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
+We explain core concepts in simple terms that help to understand the
+algorithms as a whole.</p>" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="driving-informative-discussions.html"/>
+<link rel="next" href="calculating-informed-upvote-probabilities.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html">The Global Brain Algorithm</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a></li>
+<li class="part"><span><b>I Introduction</b></span></li>
+<li class="chapter" data-level="1" data-path="Rationale.html"><a href="Rationale.html"><i class="fa fa-check"></i><b>1</b> Rationale</a></li>
+<li class="chapter" data-level="2" data-path="problem-discussion-threads.html"><a href="problem-discussion-threads.html"><i class="fa fa-check"></i><b>2</b> The Problem with Conventional Discussion Threads</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="problem-discussion-threads.html"><a href="problem-discussion-threads.html#novel-ui"><i class="fa fa-check"></i><b>2.1</b> A Novel UI to Navigate Discussion Threads</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html"><i class="fa fa-check"></i><b>3</b> Key Concepts and Assumptions</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#establishing-causality"><i class="fa fa-check"></i><b>3.1</b> Establishing Causality</a></li>
+<li class="chapter" data-level="3.2" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#distributed-reasoning"><i class="fa fa-check"></i><b>3.2</b> Distributed Reasoning</a>
+<ul>
+<li class="chapter" data-level="" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#example-did-an-earthquake-just-happen"><i class="fa fa-check"></i>Example: Did an Earthquake Just Happen?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#optimizing-for-information-value"><i class="fa fa-check"></i><b>3.3</b> Optimizing for Information Value</a></li>
+<li class="chapter" data-level="3.4" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#reducing-cognitive-dissonance"><i class="fa fa-check"></i><b>3.4</b> Reducing Cognitive Dissonance</a></li>
+<li class="chapter" data-level="3.5" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#cognitive-dissonance-as-relative-entropy"><i class="fa fa-check"></i><b>3.5</b> Cognitive Dissonance as Relative Entropy</a></li>
+<li class="chapter" data-level="3.6" data-path="key-concepts-and-assumptions.html"><a href="key-concepts-and-assumptions.html#the-causal-model"><i class="fa fa-check"></i><b>3.6</b> The Causal Model</a></li>
+</ul></li>
+<li class="part"><span><b>II Identifying Top Replies</b></span></li>
+<li class="chapter" data-level="4" data-path="driving-informative-discussions.html"><a href="driving-informative-discussions.html"><i class="fa fa-check"></i><b>4</b> Driving Informative Discussions</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="driving-informative-discussions.html"><a href="driving-informative-discussions.html#informal-argument-model"><i class="fa fa-check"></i><b>4.1</b> An Informal Argument Model</a></li>
+<li class="chapter" data-level="4.2" data-path="driving-informative-discussions.html"><a href="driving-informative-discussions.html#what-is-the-best-reply"><i class="fa fa-check"></i><b>4.2</b> What is the “Best” Reply?</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="modeling-upvote-probability.html"><a href="modeling-upvote-probability.html"><i class="fa fa-check"></i><b>5</b> Modeling Upvote Probability</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="modeling-upvote-probability.html"><a href="modeling-upvote-probability.html#beta-bernoulli-model"><i class="fa fa-check"></i><b>5.1</b> The Beta-Bernoulli Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="modeling-upvote-probability.html"><a href="modeling-upvote-probability.html#example"><i class="fa fa-check"></i>Example</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="modeling-upvote-probability.html"><a href="modeling-upvote-probability.html#naive-point-estimate"><i class="fa fa-check"></i><b>5.2</b> Naive Point Estimate</a></li>
+<li class="chapter" data-level="5.3" data-path="modeling-upvote-probability.html"><a href="modeling-upvote-probability.html#the-bayesian-average"><i class="fa fa-check"></i><b>5.3</b> The Bayesian Average</a></li>
+<li class="chapter" data-level="5.4" data-path="modeling-upvote-probability.html"><a href="modeling-upvote-probability.html#estimating-global-prior-using-bayesian-hierarchical-model"><i class="fa fa-check"></i><b>5.4</b> Estimating Global Prior using Bayesian Hierarchical Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="calculating-informed-upvote-probabilities.html"><a href="calculating-informed-upvote-probabilities.html"><i class="fa fa-check"></i><b>6</b> Calculating Informed Upvote Probabilities</a></li>
+<li class="part"><span><b>III Concepts</b></span></li>
+<li class="chapter" data-level="7" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html"><i class="fa fa-check"></i><b>7</b> Cognitive Dissonance</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#key-concepts-from-information-theory"><i class="fa fa-check"></i><b>7.1</b> Key Concepts from Information Theory</a></li>
+<li class="chapter" data-level="7.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#surprisal-as-a-measure-of-error"><i class="fa fa-check"></i><b>7.2</b> Surprisal as a Measure of Error</a></li>
+<li class="chapter" data-level="7.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#total-cross-entropy"><i class="fa fa-check"></i><b>7.3</b> Total Cross Entropy</a></li>
+<li class="chapter" data-level="7.4" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#total-relative-entropy-cognitive-dissonance"><i class="fa fa-check"></i><b>7.4</b> Total Relative Entropy = Cognitive Dissonance</a></li>
+<li class="chapter" data-level="7.5" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#detailed-example"><i class="fa fa-check"></i><b>7.5</b> Detailed Example</a></li>
+<li class="chapter" data-level="7.6" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#discussion"><i class="fa fa-check"></i><b>7.6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#parallel-to-machine-learning"><i class="fa fa-check"></i><b>7.6.1</b> Parallel to Machine Learning</a></li>
+<li class="chapter" data-level="7.6.2" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-1"><i class="fa fa-check"></i><b>7.6.2</b> Subtle Point 1</a></li>
+<li class="chapter" data-level="7.6.3" data-path="cognitive-dissonance.html"><a href="cognitive-dissonance.html#subtle-point-2"><i class="fa fa-check"></i><b>7.6.3</b> Subtle Point 2</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="information-value.html"><a href="information-value.html"><i class="fa fa-check"></i><b>8</b> Information Value</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="information-value.html"><a href="information-value.html#the-information-value-of-a-vote"><i class="fa fa-check"></i><b>8.1</b> The Information Value of a Vote</a></li>
+<li class="chapter" data-level="8.2" data-path="information-value.html"><a href="information-value.html#information-value-of-changed-votes"><i class="fa fa-check"></i><b>8.2</b> Information Value of Changed Votes</a></li>
+<li class="chapter" data-level="8.3" data-path="information-value.html"><a href="information-value.html#information-value-of-new-votes"><i class="fa fa-check"></i><b>8.3</b> Information Value of New Votes</a></li>
+<li class="chapter" data-level="8.4" data-path="information-value.html"><a href="information-value.html#what-does-a-vote-mean"><i class="fa fa-check"></i><b>8.4</b> What Does a Vote Mean?</a></li>
+<li class="chapter" data-level="8.5" data-path="information-value.html"><a href="information-value.html#example-1-a-storm-in-madrid"><i class="fa fa-check"></i><b>8.5</b> Example 1: A Storm in Madrid</a></li>
+<li class="chapter" data-level="8.6" data-path="information-value.html"><a href="information-value.html#example-2-a-typhoon-in-oslo"><i class="fa fa-check"></i><b>8.6</b> Example 2: A Typhoon in Oslo</a></li>
+<li class="chapter" data-level="8.7" data-path="information-value.html"><a href="information-value.html#desired-properties-of-information-value-formula"><i class="fa fa-check"></i><b>8.7</b> Desired Properties of Information Value Formula</a></li>
+<li class="chapter" data-level="8.8" data-path="information-value.html"><a href="information-value.html#upvote-only-relative-entropy"><i class="fa fa-check"></i><b>8.8</b> Upvote-Only Relative Entropy</a></li>
+<li class="chapter" data-level="8.9" data-path="information-value.html"><a href="information-value.html#example-charts"><i class="fa fa-check"></i><b>8.9</b> Example Charts</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html"><i class="fa fa-check"></i><b>A</b> Primer on Information Theory I</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#intuitions-about-key-concepts"><i class="fa fa-check"></i><b>A.1</b> Intuitions about Key Concepts</a></li>
+<li class="chapter" data-level="A.2" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#surprisal"><i class="fa fa-check"></i><b>A.2</b> Surprisal</a>
+<ul>
+<li class="chapter" data-level="" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#what-about-the-base-of-the-logarithm"><i class="fa fa-check"></i>What about the Base of the Logarithm?</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="informtaion-theory-primer.html"><a href="informtaion-theory-primer.html#entropy"><i class="fa fa-check"></i><b>A.3</b> Entropy</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Global Brain Algorithm</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeling-upvote-probability" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Modeling Upvote Probability<a href="modeling-upvote-probability.html#modeling-upvote-probability" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!-- We denote the event of a user adding either an upvote or a downvote to a post simply as a **vote**. -->
+<!-- For any given post, we can represent the stream of incoming votes as a Poisson process. -->
+<!-- $$ -->
+<!-- \text{voteRate} \sim \text{Pois}(\lambda_V) -->
+<!-- $$ -->
+<!-- $\lambda_V$ is the rate parameter of the Poisson process. -->
+<!-- We call this rate the **vote rate** of the post. -->
+<!-- Posts with a high vote rate receive many votes per unit of time, posts with a low vote rate receive few. -->
+<!-- We can represent the stream of incoming *upvotes* as a Poisson process as well: -->
+<!-- $$ -->
+<!-- \text{upvoteRate} \sim \text{Pois}(\lambda_U) -->
+<!-- $$ -->
+<!-- We call $\lambda_U$ the **upvote rate**. -->
+<!-- The **downvote rate** is defined analogously, but we will mostly ignore it because it can be inferred from the upvote rate and the vote rate and is thus mostly redundant. -->
+<!--- [TODO: graphics exemplifying vote rates] --->
+<p>Given a tally of votes at a certain point in time, we can calculate the <strong>upvote ratio</strong> at that time <span class="math inline">\(t\)</span> which is given by <span class="math inline">\(upvotes:downvotes\)</span>.
+We can also express it as the fraction of upvotes over all votes:</p>
+<p><span class="math display">\[
+\frac{upvotes}{upvotes + downvotes}
+\]</span></p>
+<p>You can think about the upvote fraction as an <strong>average vote</strong> or as the <strong>probability of a vote being an upvote</strong> (we will mostly call this the <strong>upvote probability</strong>).
+We model votes as a Bernoulli distributed random variable with successes given by upvotes and failures given by downvotes.
+If we encode upvotes with a value of <span class="math inline">\(1\)</span> and downvotes with a value of <span class="math inline">\(0\)</span>, a sample post’s gathered votes at a certain point in time <span class="math inline">\(t\)</span> might look like this:</p>
+<p><span class="math display">\[
+(1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
+\]</span></p>
+<p>The post has gathered a total of 12 votes of which 3 are upvotes and 9 are downvotes.
+The upvote fraction or the average vote for this sample is:</p>
+<p><span class="math display">\[
+\text{upvoteFraction} = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
+\]</span></p>
+<div id="beta-bernoulli-model" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> The Beta-Bernoulli Model<a href="modeling-upvote-probability.html#beta-bernoulli-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We assume that each post has a “true” upvote probability that we can only estimate by collecting votes.
+Votes are modeled as a Bernoulli random variable with parameter <span class="math inline">\(p\)</span> that denotes our upvote probability.
+Upvote probility is modeled as a Beta distribution.
+The Beta distribution has two shape parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> which in our case are given by our upvote and downvote counts.</p>
+<p><span class="math display">\[
+u_i \sim \text{Bernoulli}(p) \\
+p \sim \text{Beta}(upvotes, downvotes)
+\]</span></p>
+<div id="example" class="section level3 unnumbered hasAnchor">
+<h3>Example<a href="modeling-upvote-probability.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To provide a more intuitive understanding of how this distribution models our upvote probability, let’s see how our beliefs about the true upvote probability develop for an example post when we collect more and more votes.
+Let’s say we have a post with a true upvote probability of <span class="math inline">\(0.24\)</span>.
+We initialize the distribution with a prior of 1 upvote and 1 downvote.
+This is equivalent to a uniform distribution which means we assign equal weight to any upvote probability.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="768" /></p>
+<p>Now, we observe some votes.</p>
+<!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
+<p><span class="math display">\[
+(\color{limegreen}{1, 0, 0})
+\]</span></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="768" /></p>
+<!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
+<p><span class="math display">\[
+(\color{grey}{1, 0, 0,} \color{limegreen}{0, 1, 0})
+\]</span></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="768" /></p>
+<!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
+<p><span class="math display">\[
+(\color{grey}{1, 0, 0, 0, 1, 0,} \color{limegreen}{0, 0, 0})
+\]</span></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="768" /></p>
+<!-- (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0) -->
+<p><span class="math display">\[
+(\color{grey}{1, 0, 0, 0, 1, 0, 0, 0, 0,} \color{limegreen}{1, 0, 0})
+\]</span></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="768" /></p>
+<p>As we update our beliefs, the probability mass becomes more concentrated which means we become more and more certain about our beliefs about the true upvote probability.
+If the post would develop further with a similar trajectory, the following could be the outcome after 500 votes:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="768" /></p>
+<p>Our probability mass is now pretty concentrated around (what in this case we know to be) the true upvote probability.</p>
+</div>
+</div>
+<div id="naive-point-estimate" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Naive Point Estimate<a href="modeling-upvote-probability.html#naive-point-estimate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now that we can express our beliefs about the upvote probability, how do we make a “best guess” at any given point in time?
+A naive way of estimating the upvote probability is to take the actual current ratio <span class="math inline">\(upvotes:downvotes\)</span>, or rather the fraction, which is equivalent to the <strong>plain sample average vote</strong>:</p>
+<p><span class="math display">\[
+P_t(upvote) = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes}
+\]</span></p>
+<p>This solution is naive because it ignores an important fact:
+In the beginning, <strong>we do not take into consideration any prior information about the upvote probability of the post</strong>.
+Thus, when the post does not yet have a lot of votes, each new arriving vote has an outsized effect on our estimate that only gets increasingly small over time.
+This would result in <strong>erratic estimates</strong> in the beginning which would only smooth out over time.
+Here is how the cumulative mean develops for a random vote history with a true upvote rate of <span class="math inline">\(0.6\)</span>:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="768" /></p>
+<p>If we were to use this metric to compare posts, getting a high upvote probability estimate in the early stages of a post would essentially come down to luck.
+It will temporarily fare overly well or overly poorly compared to other posts and the estimate will only get better over time once we have more votes on the post.
+We have to take into account <strong>prior information</strong> to avoid this.</p>
+</div>
+<div id="the-bayesian-average" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> The Bayesian Average<a href="modeling-upvote-probability.html#the-bayesian-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The Bayesian Average uses a <strong>weighted prior estimate of the average</strong> to avoid the
+erratic shifts in the estimate when there is not a lot of data.
+It is calculated as…</p>
+<p><span class="math display">\[
+\frac{\color{blue}{C \cdot m} + \sum_{i=1}^n x_i}{\color{blue}{C} + n}
+\]</span></p>
+<p>… where <span class="math inline">\(C\)</span> is a weight constant and <span class="math inline">\(m\)</span> is our prior belief about the average.
+If you compare it to the plain average, <span style="color: blue">we simply add <span class="math inline">\(C \cdot m\)</span> to the nominator and <span class="math inline">\(C\)</span> to the denominator</span>.</p>
+<p><strong>But what does this achieve in concrete terms?</strong></p>
+<p>Let’s build up to this formula step by step for estimating the
+true upvote probability of a post.
+First, remember that the sample upvote fraction can be thought of as the “plain” average vote.
+In our case, this means:</p>
+<ul>
+<li><span class="math inline">\(\sum_{i=1}^n{x_i} = upvotes\)</span> is the <em>number of upvotes</em></li>
+<li><span class="math inline">\(n = upvotes + downvotes\)</span> is the <em>total number of votes</em></li>
+</ul>
+<p>Substituting the values in the Bayesian average formula gives us:</p>
+<p><span class="math display">\[
+\frac{C \cdot m + \sum_{i=1}^n x_i}{C + n} = \frac{C \cdot m + upvotes}{C + upvotes + downvotes}
+\]</span></p>
+<p><strong>Adding these terms to our formula means that we calculate the
+cumulative average as if we had collected <span class="math inline">\(C\)</span> votes with an upvote rate of <span class="math inline">\(m\)</span>
+before we collected the first vote on our post.</strong></p>
+<p>If our prior belief about the average is <span class="math inline">\(0.68\)</span> and we chose a weighting factor of, say,
+<span class="math inline">\(100\)</span>, this would mean that we calculate the average as if we had previously
+collected <span class="math inline">\(100\)</span> data points which amounted to an upvote fraction of exactly <span class="math inline">\(0.68\)</span>.</p>
+<p>Plugging in the values makes this apparent:</p>
+<p><span class="math display">\[
+\frac{100 \cdot 0.68 + upvotes}{100 + upvotes + downvotes} = \frac{68 + upvotes}{100 + upvotes + downvotes}
+\]</span></p>
+<p>Graphically, it looks like this (the light grey line is the plain average for
+comparison):</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-54-1.png" width="768" /></p>
+<p>The cumulative Bayesian average is much less erratic when little data is available.
+However, there is an important question left:
+How do we chose a good prior and a good weight?</p>
+<p>Here is how the Bayesian average develops for different prior beliefs about the
+average.
+Bayesian averages over time are indicated by light grey lines, the priors chosen
+here are <span class="math inline">\(0.1\)</span> through <span class="math inline">\(0.9\)</span> and the weight is kept constant at <span class="math inline">\(20\)</span>.
+The plain average is overlayed in darker grey for reference.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="768" /></p>
+<p>And here is that same plot with the same priors, but with a weight of <span class="math inline">\(100\)</span>.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="768" /></p>
+</div>
+<div id="estimating-global-prior-using-bayesian-hierarchical-model" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Estimating Global Prior using Bayesian Hierarchical Model<a href="modeling-upvote-probability.html#estimating-global-prior-using-bayesian-hierarchical-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can estimate the global priors <span class="math inline">\(C\)</span> and <span class="math inline">\(m\)</span> using a Bayesian Hierarchical model.</p>
+<p>Our beliefs about the upvote probability for each post can be modeled using a Beta distribution. Our <em>prior</em> beliefs for each post are the same: a Beta distribution with a mean <span class="math inline">\(m\)</span> and sampleSize <span class="math inline">\(C\)</span>.</p>
+<p>As we collect data for each post, we can use this not only to update our beliefs about the post, but also to update our beliefs about the global prior. After collecting a lot of data for a lot of posts, we will obviously have a good idea of what the global mean <span class="math inline">\(m\)</span> is. But how do we estimate <span class="math inline">\(C\)</span>?</p>
+<p>To be able to form and update beliefs about C using a Bayesian approach, we need to have priors beliefs about C. The same for <span class="math inline">\(m\)</span> as a matter of fact. Our priors <span class="math inline">\(m\)</span> and <span class="math inline">\(C\)</span> are our beliefs before we have any data at all.</p>
+<p>It’s reasonable for the global hyperprior for <span class="math inline">\(m\)</span> to be a uniform distribution: any upvote probability is equally likely before we have any data bout any posts.</p>
+<p>We also need a hyperprior for <span class="math inline">\(C\)</span>. This one is tricky. It’s essentially our prior beliefs about how much variation there will be in upvote probabilities for different posts. IF it is very high, then no matter what data we observe for a post, the posterior for that post will be close to the global prior <span class="math inline">\(m\)</span>.</p>
+<p>It’s hard to say much about the hyperprior for <span class="math inline">\(C\)</span> except that it should probably be a positive number and, by experience, between 2 and 10. A gamma distribution is often used for this type of model, for some reason. So we’ll choose a weak gamma prior and add 2.</p>
+<p>So we have a hierarchical model that looks like this:</p>
+<ul>
+<li><span class="math inline">\(m \sim \text{Uniform}(0, 1)\)</span></li>
+<li><span class="math inline">\(C \sim \text{Gamma}(2, 2)\)</span></li>
+<li><span class="math inline">\(m_{\text{post}} \sim \text{Beta&#39;}(m, C)\)</span></li>
+<li><span class="math inline">\(Z \sim \text{Binomial}(n, m_{\text{post}})\)</span></li>
+</ul>
+<p>Where <span class="math inline">\(\text{Beta`}\)</span> is a Beta distribution parameterized using mean and sample size instead of <span class="math inline">\(α\)</span> and <span class="math inline">\(β\)</span>, using the conversions:</p>
+<ul>
+<li><span class="math inline">\(\alpha = mean \times sampleSize\)</span></li>
+<li><span class="math inline">\(\beta = (1 - mean) \times sampleSize\)</span></li>
+</ul>
+<p>Using methods such as MCMC, we can estimate the mean of the entire join probability distribution, giving us an estimated mean weight for each post, and a mean and weight for the global prior.</p>
+<p>However, we don’t need to rerun the MCMC simulation every time we collect more vote data for a post. Once we have an estimate for <span class="math inline">\(m\)</span> and <span class="math inline">\(C\)</span>, we can treat these as fixed. This let’s us chop of one level of our hierarchy. Now for each post, we have a simple Beta-Bernoulli model. For a Beta-Bernoulli model, the posterior, after observing <span class="math inline">\(Z\)</span> upvotes out of <span class="math inline">\(n\)</span> total votes, is:</p>
+<p><span class="math display">\[
+  Beta(α+Z,β+n-Z)
+\]</span></p>
+<p>The mean of this distribution is</p>
+<p><span class="math display">\[
+  \frac{α + Z}{α + β + n}
+\]</span></p>
+<p>Which we can rewrite as</p>
+<p><span class="math display">\[
+  \frac{sampleSize \cdot mean + Z}{sampleSize + n}
+\]</span></p>
+<p>Uaing our globalPrior of <span class="math inline">\(mean=m\)</span> and <span class="math inline">\(sampleSize=C\)</span> gives us our formula for the Bayesian Average:</p>
+<p><span class="math display">\[
+  \frac{sampleSize \cdot mean + Z}{sampleSize + n}
+\]</span></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="driving-informative-discussions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="calculating-informed-upvote-probabilities.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

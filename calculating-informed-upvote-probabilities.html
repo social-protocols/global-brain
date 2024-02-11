@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>The Global Brain Algorithm</title>
+  <title>6 Calculating Informed Upvote Probabilities | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="The Global Brain Algorithm" />
+  <meta property="og:title" content="6 Calculating Informed Upvote Probabilities | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="The Global Brain Algorithm" />
+  <meta name="twitter:title" content="6 Calculating Informed Upvote Probabilities | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -34,8 +34,8 @@ algorithms as a whole.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="Rationale.html"/>
+<link rel="prev" href="modeling-upvote-probability.html"/>
+<link rel="next" href="cognitive-dissonance.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -174,32 +174,48 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">The Global Brain Algorithm</h1>
-<p class="date"><em>Last updated: 2024-02-11</em></p>
-</div>
-<div id="about" class="section level1 unnumbered hasAnchor">
-<h1>About<a href="index.html#about" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<blockquote>
-<p><em>Falsehood flies, and truth comes limping after it, so that when men come to be undeceived, it is too late…</em></p>
-<p>– Jonathan Swift</p>
-</blockquote>
-<p>The Global Brain algorithm converts a social network into a distributed brain, where groups of individuals act like neurons that process information and pass it on to others, resulting in a whole that is more intelligent than the individual human parts.</p>
-<p>The algorithm works by identifying information that is likely to change minds, and modeling how those changes propagate through the network. It then uses this information to focus attention on posts that reduce “cognitive dissonance” – difference of opinion due to people being exposed to different information.</p>
-<p>The result is a <a href="https://social-protocols.org">social protocol</a> that drives productive conversations, maximizes the flow of useful and reliable information, reduces the flow of misinformation, and increases <a href="https://social-protocols.org/human-alignment-technology/">human alignment</a>.</p>
-<hr />
-<p>This document contains write-ups and explanations on the Global Brain
-algorithm developed by the <a href="https://www.social-protocols.org">social protocols organization</a>.
-This is a living document and the information in it may become outdated fast because
-the algorithm is still under active development.
-Nonetheless, we try to maintain up-to-date explanations of our ideas here.</p>
-<p>We will introduce the building blocks of our algorithms: simple, but important
-concepts which make up the foundation of the components from which the
-new platform is built.</p>
-<p>A proof of concept of this algorithm is being developed in
-<a href="https://github.com/social-protocols/social-network">The Social Network of the Future</a>.</p>
-<p>We are grateful for feedback. Do not hesitate to send an
-<a href="mailto:mail@social-protocols.org">email</a>.</p>
+<div id="calculating-informed-upvote-probabilities" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Calculating Informed Upvote Probabilities<a href="calculating-informed-upvote-probabilities.html#calculating-informed-upvote-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="images/top-note-algorithm/identifying-top-reply.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The core algorithm on the thread level is the algorithm that identifies the top replies.
+It quantifies <strong>how much information each reply adds to the original post</strong> and determines the reply that <strong>adds the most information.</strong>
+A different way of putting it would be that we predict how <strong>a fully informed user <em>would</em> vote on any given post</strong>.
+We can then compare that informed upvote probability with the uninformed one to determine how convincing the reply is with regard to the original post.</p>
+<p>We are considering two posts: a post <span class="math inline">\(A\)</span> and direct reply <span class="math inline">\(B\)</span>.
+We observe the following events:</p>
+<ul>
+<li><span class="math inline">\(u_A := \text{a vote on A is an upvote}\)</span></li>
+<li><span class="math inline">\(u_B := \text{analogous}\)</span></li>
+<li><span class="math inline">\(s_B := \text{the user was shown post B}\)</span></li>
+<li><span class="math inline">\(\bar{s_B} := \text{the user was not shown post B}\)</span></li>
+<li><span class="math inline">\(s_{B*} := \text{the user was shown the top note on B}\)</span></li>
+<li><span class="math inline">\(\bar{s_{B*}} := \text{the user was not shown the top note on B}\)</span></li>
+</ul>
+<p>What we are looking for is <span class="math inline">\(P(u_A | s_B, s_{B*})\)</span>, the probability of an upvote on <span class="math inline">\(A\)</span> given that the user has seen <span class="math inline">\(B\)</span> and the top note on <span class="math inline">\(B\)</span> (<strong>informed upvote probability</strong>).
+We define it as the weighted average of the upvote probability of <span class="math inline">\(A\)</span> given that the user has <strong>seen the top note on <span class="math inline">\(B\)</span></strong> and the upvote probability of <span class="math inline">\(A\)</span> given that the user has <strong>not seen the top note on <span class="math inline">\(B\)</span></strong>:</p>
+<p><span class="math display">\[
+P(u_A | s_B, s_{B*}) = P(u_A | s_B) \cdot \text{support} + P(u_A | \bar{s_B})(1 - \text{support})
+\]</span></p>
+<p>The weights are given by the <strong>support</strong> of the top note on <span class="math inline">\(B\)</span>. Support is the ratio (expressed as a fraction) between the informed upvote probability of <span class="math inline">\(B\)</span> given that the user <strong>has seen</strong> the top note on <span class="math inline">\(B\)</span> and the informed upvote probability of <span class="math inline">\(B\)</span> given that the user <strong>has not seen</strong> the top note on <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[
+\text{support} = \frac{P(u_B | s_{B*})}{P(u_B | s_{B*}) + P(u_B | \bar{s_{B*}})}
+\]</span></p>
+<p>As we condition on the user being shown the <em>top</em> note of post <span class="math inline">\(B\)</span> (<span class="math inline">\(s_B*\)</span>), the informed upvote probability of <span class="math inline">\(A\)</span> needs to take <strong>all information below it in the tree</strong> into account.
+To know the informed probability of <span class="math inline">\(A\)</span>, we need to know the informed probabilities of all the replies to <span class="math inline">\(A\)</span> as well, and for each of those, we need the informed probabilities of their replies too, and so on.
+To calculate all of those probabilities, the algorithm recurses through the discussion tree, starting at the top note.
+For leaf nodes, the informed upvote probability is equal to the uninformed upvote probability because leaf nodes have no replies which means reaching a leaf node is the stopping criterion for the recursion.</p>
+<p><img src="images/top-note-algorithm/top-reply-recursion.gif" width="100%" style="display: block; margin: auto;" /></p>
+<p><strong>The outcome of the algorithm are all the informed probabilities of the replies in a given discussion tree.</strong>
+We can compare them with the uninformed probabilities to find out which replies are most likely to change users’ votes.</p>
+<!-- ### Example {-} -->
+<!-- TODO: Add example on a simple tree like this: -->
+<!--             1 -->
+<!--            / \ -->
+<!--           2   3 -->
+<!--          / \   \ -->
+<!--         4   5   6 -->
+<!--                  \ -->
+<!--                   7 -->
 </div>
 
 
@@ -209,8 +225,8 @@ new platform is built.</p>
           </div>
         </div>
       </div>
-
-<a href="Rationale.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="modeling-upvote-probability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cognitive-dissonance.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
