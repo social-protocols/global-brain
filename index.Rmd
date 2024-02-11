@@ -78,9 +78,6 @@ We are grateful for feedback. Do not hesitate to send an
 ```{r, child='chapters/problem-with-discussion-threads.Rmd'}
 ```
 
-```{r, child='chapters/informal-argument-model.Rmd'}
-```
-
 ```{r, child='chapters/key-concepts-and-assumptions.Rmd'}
 ```
 
@@ -90,9 +87,6 @@ We are grateful for feedback. Do not hesitate to send an
 ```
 
 ```{r, child='chapters/modeling-upvote-probability.Rmd'}
-```
-
-```{r, child='chapters/informed-probability.Rmd'}
 ```
 
 ```{r, child='chapters/identifying-best-replies.Rmd'}

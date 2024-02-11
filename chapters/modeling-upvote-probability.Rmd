@@ -31,21 +31,18 @@ $$
 $$
 
 You can think about the upvote fraction as an **average vote** or as the **probability of a vote being an upvote** (we will mostly call this the **upvote probability**).
-We can model votes as a Bernoulli distributed random variable with successes given by upvotes and failures given by downvotes.
-We can encode upvotes with a value of $1$ and downvotes with a value of $0$.
-A sample post's gathered votes at a certain point in time $t$ might look like
-this:
+We model votes as a Bernoulli distributed random variable with successes given by upvotes and failures given by downvotes.
+If we encode upvotes with a value of $1$ and downvotes with a value of $0$, a sample post's gathered votes at a certain point in time $t$ might look like this:
 
 $$
 (1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0)
 $$
 
-The post has gathered a total of 12 votes of which 3 are upvotes and 9 are
-downvotes.
+The post has gathered a total of 12 votes of which 3 are upvotes and 9 are downvotes.
 The upvote fraction or the average vote for this sample is:
 
 $$
-\rho = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
+\text{upvoteFraction} = \frac{\sum_{i=1}^n x_i}{n} = \frac{upvotes}{upvotes + downvotes} = \frac{3}{3 + 9} = 0.25
 $$
 
 
@@ -53,12 +50,15 @@ $$
 
 We assume that each post has a "true" upvote probability that we can only estimate by collecting votes.
 Votes are modeled as a Bernoulli random variable with parameter $p$ that denotes our upvote probability.
-Upvote probility is modeled as a Beta distribution and we want a point estimate for $p$ which will give us an estimate.
+Upvote probility is modeled as a Beta distribution.
+The Beta distribution has two shape parameters $\alpha$ and $\beta$ which in our case are given by our upvote and downvote counts.
 
 $$
 u_i \sim \text{Bernoulli}(p) \\
-p \sim \beta(upvotes, downvotes)
+p \sim \text{Beta}(upvotes, downvotes)
 $$
+
+### Example {-}
 
 ```{r, include=FALSE}
 beta_data <- function(alpha, beta, samples) {
@@ -68,13 +68,10 @@ beta_data <- function(alpha, beta, samples) {
 
 ```
 
-The Beta distribution has two shape parameters $\alpha$ and $\beta$ which in our case are given by our upvote and downvote counts.
-To provide a more intuitive understanding of how this distribution models our upvote probability, here is how our beliefs about the true upvote probability develop for an example post.
-
+To provide a more intuitive understanding of how this distribution models our upvote probability, let's see how our beliefs about the true upvote probability develop for an example post when we collect more and more votes.
 Let's say we have a post with a true upvote probability of $0.24$.
 We initialize the distribution with a prior of 1 upvote and 1 downvote.
-This is equivalent to a uniform distribution.
-We assign equal probability to any outcome, i.e., to any upvote probability.
+This is equivalent to a uniform distribution which means we assign equal weight to any upvote probability.
 
 ```{r, fig.width=8, fig.height=3}
 beta_data(1, 1, 1000) %>%  
@@ -87,6 +84,7 @@ beta_data(1, 1, 1000) %>%
     title = "After 0 votes",
     x = "p",
     y = "Density",
+    caption = "The red dashed line indicates the true upvote probability"
   ) +
   theme_sp()
 
@@ -110,6 +108,7 @@ beta_data(2, 3, 1000) %>%
     title = "After 3 votes: 1 up, 2 down",
     x = "p",
     y = "Density",
+    caption = "The red dashed line indicates the true upvote probability"
   ) +
   theme_sp()
 
@@ -131,6 +130,7 @@ beta_data(3, 5, 1000) %>%
     title = "After 6 votes: 2 up, 4 down",
     x = "p",
     y = "Density",
+    caption = "The red dashed line indicates the true upvote probability"
   ) +
   theme_sp()
 
@@ -152,6 +152,7 @@ beta_data(3, 8, 1000) %>%
     title = "After 9 votes: 2 up, 7 down",
     x = "p",
     y = "Density",
+    caption = "The red dashed line indicates the true upvote probability"
   ) +
   theme_sp()
 
@@ -173,6 +174,7 @@ beta_data(4, 10, 1000) %>%
     title = "After 12 votes: 3 up, 9 down",
     x = "p",
     y = "Density",
+    caption = "The red dashed line indicates the true upvote probability"
   ) +
   theme_sp()
 
@@ -191,6 +193,7 @@ beta_data(120, 380, 1000) %>%
     title = "After 500 votes: 120 up, 380 down",
     x = "p",
     y = "Density",
+    caption = "The red dashed line indicates the true upvote probability"
   ) +
   theme_sp()
 
@@ -224,12 +227,9 @@ $$
 
 This solution is naive because it ignores an important fact:
 In the beginning, **we do not take into consideration any prior information about the upvote probability of the post**.
-Thus, each new arriving vote has an outsized effect on our estimate that just
-gets increasingly small over time.
-This would result in **erratic estimates** in the beginning which would only
-smooth out over time.
-Here is how the cumulative mean develops for a random vote history with a true
-upvote rate of $0.6$:
+Thus, when the post does not yet have a lot of votes, each new arriving vote has an outsized effect on our estimate that only gets increasingly small over time.
+This would result in **erratic estimates** in the beginning which would only smooth out over time.
+Here is how the cumulative mean develops for a random vote history with a true upvote rate of $0.6$:
 
 ```{r, fig.width=8, fig.height=5}
 set.seed(5)
@@ -254,10 +254,8 @@ data %>%
 
 ```
 
-If we were to use this metric to compare posts, getting a high upvote probability
-estimate in the early stages of a post would essentially come down to luck.
-It might then temporarily fare overly well (or overly poorly) compared to other
-posts.
+If we were to use this metric to compare posts, getting a high upvote probability estimate in the early stages of a post would essentially come down to luck.
+It will temporarily fare overly well or overly poorly compared to other posts and the estimate will only get better over time once we have more votes on the post.
 We have to take into account **prior information** to avoid this.
 
 
@@ -279,8 +277,11 @@ If you compare it to the plain average, <span style="color: blue">we simply add 
 Let's build up to this formula step by step for estimating the
 true upvote probability of a post.
 First, remember that the sample upvote fraction can be thought of as the "plain" average vote.
-Let's say our dataset $X$ consists of $1$s and $0$s, where $1$ denotes an upvote and $0$ denotes a downvote.
-Then $\sum_{i=1}^n{x_i}$ is the *number of upvotes* and $n = upvotes + downvotes$ is the *total number of votes*.
+In our case, this means:
+
+- $\sum_{i=1}^n{x_i} = upvotes$ is the *number of upvotes*
+- $n = upvotes + downvotes$ is the *total number of votes*
+
 Substituting the values in the Bayesian average formula gives us:
 
 $$
