@@ -202,20 +202,6 @@ beta_data(120, 380, 1000) %>%
 Our probability mass is now pretty concentrated around (what in this case we know to be) the true upvote probability.
 
 
-<!-- TODO: move to a new chapter (the top note algorithm explanation) -->
-
-<!-- ## Tallies -->
-
-<!-- There are two essential forms of content users can assign votes to: -->
-<!-- posts and posts with a note. -->
-<!-- For all posts and post/note combinations, we keep a tally of upvotes and downvotes. -->
-
-<!-- ```{r} -->
-<!-- knitr::include_graphics("images/tallies.png") -->
-
-<!-- ``` -->
-
-
 ## Naive Point Estimate
 
 Now that we can express our beliefs about the upvote probability, how do we make a "best guess" at any given point in time?
