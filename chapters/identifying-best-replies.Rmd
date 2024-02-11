@@ -1,7 +1,7 @@
 # Calculating Informed Upvote Probabilities
 
 ```{r, fig.align='center', out.width = '100%'}
-knitr::include_graphics("images/top-note-algorithm/identifying-top-reply.png")
+knitr::include_graphics("images/top-note-algorithm/identifying-top-replies-conceptual.png")
 
 ```
 
