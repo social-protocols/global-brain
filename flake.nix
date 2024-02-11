@@ -24,6 +24,12 @@
               git
               R
               rPackages.renv
+              rPackages.yaml
+              rPackages.bookdown
+              rPackages.base64enc
+              rPackages.dplyr
+              rPackages.tidyr
+              rPackages.ggplot2
             ];
           };
         };
