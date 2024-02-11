@@ -553,22 +553,13 @@ So we have a hierarchical model that looks like this:
 
 - $m \sim \text{Uniform}(0, 1)$
 - $C \sim \text{Gamma}(2, 2)$
-- $m_{\text{global}} \sim \text{Beta'}(m, C+2)$
-- $m_{\text{post}} \sim \text{Beta'}(m_{\text{global}}, C_{\text{global}})$
+- $m_{\text{post}} \sim \text{Beta'}(m, C)$
+- $Z \sim \text{Binomial}(n, m_{\text{post}})$
 
-We use a Beta distribution parameterized using mean and sample size instead of $α$ and $β$.
+Where $\text{Beta`}$ is a Beta distribution parameterized using mean and sample size instead of $α$ and $β$, using the conversions:
 
-$$
-  \text{Beta'}(m, C) = \text{Beta}(m \times C, (1 - m) \times C)
-$$
-
-
-We can easily convert between (α,β) and (mean, sampleSize) using the formulas:
-
-- $\alpha = m \times C$
-- $\beta = (1 - m) \times C$
-- $m = \frac{\alpha}{\alpha + \beta}$
-- $C = \alpha + \beta$
+- $\alpha = mean \times sampleSize$
+- $\beta = (1 - mean) \times sampleSize$
 
 
 Using methods such as MCMC, we can estimate the mean of the entire join probability distribution, giving us an estimated mean weight for each post, and a mean and weight for the global prior.
@@ -588,12 +579,14 @@ $$
 Which we can rewrite as
 
 $$
-  \frac{C \cdot m + Z}{C + n}
+  \frac{sampleSize \cdot mean + Z}{sampleSize + n}
 $$
 
-Which gives us the formula for the Bayesian Average.
+Uaing our globalPrior of $mean=m$ and $sampleSize=C$ gives us our formula for the Bayesian Average:
 
-
+$$
+  \frac{sampleSize \cdot mean + Z}{sampleSize + n}
+$$
 
 
 
