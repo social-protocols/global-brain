@@ -516,7 +516,7 @@ data_bayes %>%
 ```
 
 
-## Estimating Global Prior using Bayesian Hierarchical Model
+## Estimating Global Prior using a Bayesian Hierarchical Model
 
 We can estimate the global priors $C$ and $m$ using a Bayesian Hierarchical model.
 
@@ -526,9 +526,9 @@ As we collect data for each post, we can use this not only to update our beliefs
 
 To be able to form and update beliefs about C using a Bayesian approach, we need to have priors beliefs about C. The same for $m$ as a matter of fact. Our priors $m$ and $C$ are our beliefs before we have any data at all.
 
-It's reasonable for the global hyperprior for $m$ to be a uniform distribution: any upvote probability is equally likely before we have any data bout any posts.
+It's reasonable for the global hyperprior for $m$ to be a uniform distribution: any upvote probability is equally likely before we have any data about any posts.
 
-We also need a hyperprior for $C$. This one is tricky. It's essentially our prior beliefs about how much variation there will be in upvote probabilities for different posts. IF it is very high, then no matter what data we observe for a post, the posterior for that post will be close to the global prior $m$. 
+We also need a hyperprior for $C$. This one is tricky. It's essentially our prior beliefs about how much variation there will be in upvote probabilities for different posts. If it is very high, then no matter what data we observe for a post, the posterior for that post will be close to the global prior $m$. 
 
 It's hard to say much about the hyperprior for $C$ except that it should probably be a positive number and, by experience, between 2 and 10. A gamma distribution is often used for this type of model, for some reason. So we'll choose a weak gamma prior and add 2.
 
@@ -546,12 +546,12 @@ Where $\text{Beta`}$ is a Beta distribution parameterized using mean and sample 
 - $\beta = (1 - mean) \times sampleSize$
 
 
-Using methods such as MCMC, we can estimate the mean of the entire join probability distribution, giving us an estimated mean weight for each post, and a mean and weight for the global prior.
+Using methods such as MCMC, we can estimate the mean of the entire joint probability distribution, giving us an estimated mean weight for each post, and a mean and weight for the global prior.
 
-However, we don't need to rerun the MCMC simulation every time we collect more vote data for a post. Once we have an estimate for $m$ and $C$, we can treat these as fixed. This let's us chop of one level of our hierarchy. Now for each post, we have a simple Beta-Bernoulli model. For a Beta-Bernoulli model, the posterior, after observing $Z$ upvotes out of $n$ total votes, is:
+However, we don't need to rerun the MCMC simulation every time we collect more vote data for a post. Once we have an estimate for $m$ and $C$, we can treat these as fixed. This let's us chop of one level of our hierarchy. Now for each post, we have a simple standard Beta-Bernoulli model. For a Beta-Bernoulli model, the posterior, after observing $upvotes$ upvotes out of $votes$ total votes, is simply:
 
 $$
-  Beta(α+Z,β+n-Z)
+  Beta(α+upvotes,β+votes-Z)
 $$
 
 The mean of this distribution is
@@ -560,16 +560,17 @@ $$
   \frac{α + Z}{α + β + n}
 $$
 
-Which we can rewrite as
+Which we can rewrite using the above conversions as:
 
 $$
-  \frac{sampleSize \cdot mean + Z}{sampleSize + n}
+  \frac{sampleSize \cdot mean + upvotes}{sampleSize + votes}
 $$
 
-Uaing our globalPrior of $mean=m$ and $sampleSize=C$ gives us our formula for the Bayesian Average:
+Using our globalPrior of $mean=m$ and $sampleSize=C$ gives us our formula for the Bayesian Average:
 
 $$
-  \frac{sampleSize \cdot mean + Z}{sampleSize + n}
+  \frac{sampleSize \cdot mean + upvotes}{sampleSize + votes} \\
+  = \frac{C \cdot m + upvotes}{C + votes}
 $$
 
 
