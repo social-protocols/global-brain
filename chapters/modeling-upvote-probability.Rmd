@@ -46,7 +46,7 @@ $$
 $$
 
 
-## The Beta-Bernoulli Model {#beta-bernoulli-model}
+## The Beta-Binomial Model {#beta-Binomial-model}
 
 We assume that each post has a "true" upvote probability that we can only estimate by collecting votes.
 Votes are modeled as a Bernoulli random variable with parameter $p$ that denotes our upvote probability.
@@ -516,7 +516,7 @@ data_bayes %>%
 ```
 
 
-## Estimating Global Prior using a Bayesian Hierarchical Model
+## The Bayesian Hierarchical Model
 
 We can estimate the global priors $C$ and $m$ using a Bayesian Hierarchical model.
 
@@ -530,31 +530,44 @@ It's reasonable for the global hyperprior for $m$ to be a uniform distribution: 
 
 We also need a hyperprior for $C$. This one is tricky. It's essentially our prior beliefs about how much variation there will be in upvote probabilities for different posts. If it is very high, then no matter what data we observe for a post, the posterior for that post will be close to the global prior $m$. 
 
-It's hard to say much about the hyperprior for $C$ except that it should probably be a positive number and, by experience, between 2 and 10. A gamma distribution is often used for this type of model, for some reason. So we'll choose a weak gamma prior and add 2.
-
+It's hard to say much about the hyperprior for $C$ except that it should probably be a positive number and, by experience, between 2 and 10. A gamma or exponentially distribution is often used for this type of model (for reasons I should understand better). So we'll choose a weak gamma prior and add 2.
 
 So we have a hierarchical model that looks like this: 
 
 - $m \sim \text{Uniform}(0, 1)$
 - $C \sim \text{Gamma}(2, 2)$
-- $m_{\text{post}} \sim \text{Beta'}(m, C)$
-- $Z \sim \text{Binomial}(n, m_{\text{post}})$
+- $q \sim \text{Beta'}(m, C)$
+- $Z \sim \text{Binomial}(n, q)$
 
-Where $\text{Beta`}$ is a Beta distribution parameterized using mean and sample size instead of $α$ and $β$, using the conversions:
+Where 
 
-- $\alpha = mean \times sampleSize$
-- $\beta = (1 - mean) \times sampleSize$
+- $q is the upvote probability for the post
+- $Z is the number of upvotes on the post
+- $n is total number of votes on the post
+- $\text{Beta`}$ is a Beta distribution parameterized using mean and sample size instead of $α$ and $β$, using the conversions:
+
+    - $\alpha = mean \times sampleSize$
+    - $\beta = (1 - mean) \times sampleSize$
+
+Using methods such as MCMC, we can estimate the posterior of the entire joint probability distribution, giving us an estimate for the upvote probability for each post, and a mean and weight for the global prior.
+
+### Approximating the Mean Upvote Probability
+
+However, we don't need to rerun the MCMC simulation every time we collect more vote data for a post. Once we have an estimate for $m$ and $C$, we can treat these as fixed constants. This let's us chop of one level of our hierarchy. Now for each post, we have a simple standard Beta-Binomial model. 
 
 
-Using methods such as MCMC, we can estimate the mean of the entire joint probability distribution, giving us an estimated mean weight for each post, and a mean and weight for the global prior.
+- $q \sim \text{Beta'}(m, C)$
+- $Z \sim \text{Binomial}(n, q)$
 
-However, we don't need to rerun the MCMC simulation every time we collect more vote data for a post. Once we have an estimate for $m$ and $C$, we can treat these as fixed. This let's us chop of one level of our hierarchy. Now for each post, we have a simple standard Beta-Bernoulli model. For a Beta-Bernoulli model, the posterior, after observing $upvotes$ upvotes out of $votes$ total votes, is simply:
+Where $m$ and $C$ are constants.
+
+For a Beta-Binomial model is simply:
 
 $$
   Beta(α+upvotes,β+votes-Z)
 $$
 
-The mean of this distribution is
+The mean of the posterior is
 
 $$
   \frac{α + Z}{α + β + n}
