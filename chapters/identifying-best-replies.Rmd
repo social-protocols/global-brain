@@ -1,4 +1,4 @@
-# Calculating Informed Upvote Probabilities
+# The Fully-Informed Upvote Probability
 
 ```{r, fig.align='center', out.width = '100%'}
 knitr::include_graphics("images/top-note-algorithm/identifying-top-replies-conceptual.png")
@@ -20,7 +20,7 @@ We observe the following events:
 - $s_{B*} := \text{the user was shown the top note on B}$
 - $\bar{s_{B*}} := \text{the user was not shown the top note on B}$
 
-What we are looking for is $P(u_A | s_B, s_{B*})$, the probability of an upvote on $A$ given that the user has seen $B$ and the top note on $B$ (**informed upvote probability**).
+What we are looking for is $P(u_A | s_B, s_{B*})$, the probability of an upvote on $A$ given that the user has seen $B$ and the top note on $B$ (**fully-informed upvote probability**).
 We define it as the weighted average of the upvote probability of $A$ given that the user has **seen the top note on $B$** and the upvote probability of $A$ given that the user has **not seen the top note on $B$**:
 
 $$
