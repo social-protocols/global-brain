@@ -1,0 +1,111 @@
+# The Informed Upvote Probability
+
+## Definition of Informed Upvote Probability
+
+The **informed upvote probability** is the upvote probability *given* the user has been informed of a note on the post. The **uninformed upvote probability** is the upvote probability given they have not.
+
+A user has been "informed" of the note if they have read it and actually **considered** it. Now it is impossible to know what a user has actually considered. But, we can use the fact that the user either voted or replied to the note as a proxy. So we can define the informed upvote probability (on a post give a note) as the probability that a user votes on a post given they have voted on or replied to the note.
+
+## Extrapolating Informed Upvote Probability
+
+We can also use the fact that a user was **shown** the note at the time the voted on the post as an indicator that they may have considered the note, and it should be possible to extrapolate the informed upvote probability -- the probability that a user upvotes given they have **considered** a note -- based on estimates of the probability that a user upvotes a post given they were or were not **shown** the note, as proposed in [these research notes](https://github.com/social-protocols/internal-wiki/blob/main/pages/research-notes/2024-02-06-informed-probability.md). As of 2024-Feb this has not been implemented.
+
+## Uninformed, Informed, and Overall Tallies
+
+Uninformed and informed upvote probabilities are calculated based on **tallies** for uninformed and informed upvotes. These tallies are calculated by looking up what notes users have and have not voted on or replied to at the time the user votes on a post.
+
+These tallies may overlap, in the sense that a single user may be counted in both the uninformed and informed tallies. This is because a user can vote before becoming informed. There may be some users who are counted only in the uninformed tally (those who were never informed) or only in the informed tally (those who were informed before voting on the post). 
+
+So the calculation of the uninformed and informed upvote probabilities involves three tallies: the informed, the uninformed, and the overall or final tally. The final tally is the sum of the other two iff the uninformed and informed users are mutually exclusive.
+
+For example suppose there are two voters overall. Both voters voted before becoming informed. One of them changed their vote. So are are two total votes in both the informed tallies.
+
+		uninformed_tally = (upvotes=0, votes=2)
+		informed_tally = (upvotes=1, votes=2)
+		overall_tally = informed_tally
+
+The following scenario also has two voters overall. But there is only 1 informed user and 1 uninformed. The tallies in this case are mutually exclusive and the overall tally is just the sum of the others 
+
+		informed_tally = (upvotes=1, votes=1)
+		uninformed_tally = (upvotes=0, votes=1)
+		overall_tally = informed_t + uninformed_t = (upvotes=1, votes=2)
+
+## The Adding Informed Probability to the Hierarchical Model
+
+We can model our beliefs about the informed probability using a Beta distribution, as we did when modeling the uninformed upvote probability in [The Bayesian Hierarchical Model](modeling-upvote-probability.html#the-bayesian-hierarchical-model). The simplified hierarchical model for modeling the uninformed probability is:
+
+- $q \sim \text{Beta'}(m, C)$
+- $Z \sim \text{Binomial}(n, q)$
+
+It seems intuitive to base our prior for the informed upvote probability $p$ on the uninformed upvote probability $q$. For example, we might add this to our hierarhical model:
+
+- $p \sim q$
+
+However, this doesn't work, because our prior beliefs about $p$ are not actually equal to our beliefs about $q$. For example, suppose the sample size for the uninformed tally is very large: say 900 upvotes out of 1000 votes. Then the posterior $q$ will have a very large sample size parameter and thus will make for a very **strong** prior. It would take a lot of informed votes for us to be convinced that $p$ is very different from $q$. But suppose we then have 10 informed votes and they are all downvotes. Intuitively, this is already strong evidence that $p$ may be quite a bit lower than $q$. Yet if our prior sample size is 100, adding a sample of 10 will not change it very much.
+
+So the sample size for $p$ should not be based on the sample size for $q$. Rather, this should be another global parameter $C2$ which represents our beliefs about how **different** we expect $p$ and $q$ to be a priori. Or in other words, **$C2$ represents our prior beliefs about how likely people are to change their voting behavior after considering notes.** 
+
+So our updated model now looks like this:
+
+- $q \sim \text{Beta'}(m, C)$
+- $p \sim \text{Beta'}(mean(q), C2)$
+- $Z_{uninformed} \sim \text{Binomial}(n, q)$
+- $Z_{informed} \sim \text{Binomial}(n, p)$
+
+This model is simplified by treating $m$, $C$, and $C2$  as constants. The full model needs to include our prior beliefs about these values. 
+
+- $m \sim \text{Uniform}(0, 1)$
+- $C \sim \text{Gamma}(2, 2)$
+- $C2 \sim \text{Gamma}(2, 2)$
+
+But as long as we have a lot of data for a lot of post and note combos, we only need to estimate the parameters of the full model once. We can then treat them as constants using the simplified model and we will get nearly identical results.
+
+## The Reversion Parameter 
+
+But let's question our assumption of centering our prior for $p$ on the mean of $q$. If $q$ really our best estimate of the value of $p$? 
+
+Suppose the estimated upvote probability on some post is $q=.9$, and the global prior is $m=0.5$. So we have above-average upvote probability. Then let's say somebody adds a note. Do we expect, a priori, that the informed upvote probability will remain at $p=.9$? I don't think so. I think that we actually expect the note to *reduce* the upvote probability. It is certainly more likely that the note reduces the upvote probability than increases it even more.
+
+Why is this? Well it's sort of regression to the mean situation. Posts with high upvote probability are unusual. And often, they are too good to be true. They don't stand up to scrutiny. They are click bait or misinformation that users wouldn't have upvoted if they knew more. Often the reason people submit notes is to add this additional context, and this context may decrease the upvote probability. At least, it is more likely that it will decrease it than increase it. If there was information that would have increased the upvote probability even more, the poster likely would have included it in the original post.
+
+So we can model this belief with something I call the **reversion parameter**. Our expected value for $p$ (which I'll notate $p̅$) reverts to somewhere between $m$ and $q̅$, and the reversion parameter $r$ tells us how much of the distance between $m$ and $q$ to revert. Specifically:
+
+$$
+	p̅ = q̅ - r(q̅ - m)
+$$
+
+If $r=0$, we expect no reversion and $p̅ = m$. If $r=0$ we expect $p̅ = q̅$.
+
+We can model $R$ with a beta distribution with a very weak prior. So our new model adds we redefine our prior for $p$:
+
+- $r \sim \text{Beta}(1, 1)$
+- $p \sim \text{Beta'}(q̅ - r(q̅ - m), C2)$
+
+
+## Full Model
+
+In our full model, we have multiple posts and notes. We'll designate the uninformed probability for post $i$ as $q_i$. And the informed upvote probability for post $i$, given user is informed of note $j$, is $p_{i,j}.
+
+So our full model is now:
+
+- $m \sim \text{Uniform}(0, 1)$
+- $r \sim \text{Beta}(1, 1)$
+- $C \sim \text{Gamma}(2, 2)$
+- $C2 \sim \text{Gamma}(2, 2)$
+
+- $q_i\sim \text{Beta'}(m, C)$
+- $p_(i,j) \sim \text{Beta'}(q̅_i - (q̅_i - m)×R, C2)$
+- $Z_{uninformed} \sim \text{Binomial}(n, q_i)$
+- $Z_{informed} \sim \text{Binomial}(n, p_{i,j})$
+
+
+## Calculating The Informed/Uninformed Upvote Probabilities
+
+Given this model, we can use a Monte Carlo simulation or other Bayesian methods to estimate the $p$ and $q$ for each post. But Monte-Carlo simulations can take a long time to run.
+
+To make computation more efficient, we can run the full simulation only periodically on the full data set to estimate the values for $m$, $r$, $C$ and $C2$. We can then treat these as constants and run mini Monte-Carlo simulations for each post/note combination.
+
+Since Tallies usually involve very small sample sizes, these simulations run very quickly. On my 2024 Macbook M2 Max, I was able to run these simulations for every combination of informed/uninformed probability with sample sizes up to 10 -- a total of 4225 simulations -- in about 5 minutes on a single thread, using Julie/Turing and the NUTS sampler. Since the vast majority of tallies will have small sample sizes (less than 10), we can gain a lot of speed by pre-calculation or memoization.
+
+Further, for larger sample sizes, I have developed an [estimation formula](TODO: link to research notes) based on the Bayesian average that is pretty accurate.
+
