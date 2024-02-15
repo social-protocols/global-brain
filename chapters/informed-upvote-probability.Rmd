@@ -14,7 +14,7 @@ We can also use the fact that a user was **shown** the note at the time the vote
 
 Uninformed and informed upvote probabilities are calculated based on **tallies** for uninformed and informed upvotes. These tallies are calculated by looking up what notes users have and have not voted on or replied to at the time the user votes on a post.
 
-These tallies may overlap, in the sense that a single user may be counted in both the uninformed and informed tallies. This is because a user can vote before becoming informed. There may be some users who are counted only in the uninformed tally (those who were never informed) or only in the informed tally (those who were informed before voting on the post). 
+These tallies may overlap, in the sense that a single user may be counted in both the uninformed and informed tallies. This is because a user can vote before becoming informed. There may also be users who are counted only in the uninformed tally (those who were never informed) or only in the informed tally (those who were informed before voting on the post). 
 
 So the calculation of the uninformed and informed upvote probabilities involves three tallies: the informed, the uninformed, and the overall or final tally. The final tally is the sum of the other two iff the uninformed and informed users are mutually exclusive.
 
@@ -41,9 +41,9 @@ It seems intuitive to base our prior for the informed upvote probability $p$ on 
 
 - $p \sim q$
 
-However, this doesn't work, because our prior beliefs about $p$ are not actually equal to our beliefs about $q$. For example, suppose the sample size for the uninformed tally is very large: say 900 upvotes out of 1000 votes. Then the posterior $q$ will have a very large sample size parameter and thus will make for a very **strong** prior. It would take a lot of informed votes for us to be convinced that $p$ is very different from $q$. But suppose we then have 10 informed votes and they are all downvotes. Intuitively, this is already strong evidence that $p$ may be quite a bit lower than $q$. Yet if our prior sample size is 100, adding a sample of 10 will not change it very much.
+However, this doesn't work, because our prior beliefs about $p$ are not actually equal to our beliefs about $q$. For example, suppose the sample size for the uninformed tally is very large: say 900 upvotes out of 1000 votes. Then the posterior $q$ will have a very large sample size parameter and thus will make for a very **strong** prior. It would take a lot of informed votes for us to be convinced that $p$ is very different from $q$. But suppose we then have 10 informed votes and they are all downvotes. Intuitively, this is already strong evidence that $p$ may be quite a bit lower than $q$. Yet if our prior sample size is 1000, adding a sample of 10 will not change it very much.
 
-So the sample size for $p$ should not be based on the sample size for $q$. Rather, this should be another global parameter $C2$ which represents our beliefs about how **different** we expect $p$ and $q$ to be a priori. Or in other words, **$C2$ represents our prior beliefs about how likely people are to change their voting behavior after considering notes.** 
+So the prior sample size for $p$ should not be based on the sample size for $q$. Rather, this should be another global parameter $C2$ which represents our beliefs about how **different** we expect $p$ and $q$ to be a priori. Or in other words, **$C2$ represents our prior beliefs about how likely people are to change their voting behavior after considering notes.** 
 
 So our updated model now looks like this:
 
@@ -84,7 +84,7 @@ We can model $R$ with a beta distribution with a very weak prior. So our new mod
 
 ## Full Model
 
-In our full model, we have multiple posts and notes. We'll designate the uninformed probability for post $i$ as $q_i$. And the informed upvote probability for post $i$, given user is informed of note $j$, is $p_{i,j}.
+In our full model, we have multiple posts and notes. We'll designate the uninformed probability for post $i$ as $q_i$. And the informed upvote probability for post $i$, given user is informed of note $j$, is $p_{i,j}$.
 
 So our full model is now:
 
@@ -101,11 +101,13 @@ So our full model is now:
 
 ## Calculating The Informed/Uninformed Upvote Probabilities
 
-Given this model, we can use a Monte Carlo simulation or other Bayesian methods to estimate the $p$ and $q$ for each post. But Monte-Carlo simulations can take a long time to run.
+Given this model, we can use a Monte Carlo simulation or other Bayesian methods to estimate $p$ and $q$ for each post. But Monte-Carlo simulations can take a long time to run.
 
 To make computation more efficient, we can run the full simulation only periodically on the full data set to estimate the values for $m$, $r$, $C$ and $C2$. We can then treat these as constants and run mini Monte-Carlo simulations for each post/note combination.
 
-Since Tallies usually involve very small sample sizes, these simulations run very quickly. On my 2024 Macbook M2 Max, I was able to run these simulations for every combination of informed/uninformed probability with sample sizes up to 10 -- a total of 4225 simulations -- in about 5 minutes on a single thread, using Julie/Turing and the NUTS sampler. Since the vast majority of tallies will have small sample sizes (less than 10), we can gain a lot of speed by pre-calculation or memoization.
+Since Tallies usually involve very small sample sizes, these simulations run very quickly. On my 2024 Macbook M2 Max, I was able to run these simulations for every possible  informed/uninformed tally combination having sample sizes up to 10 -- a total of 4225 simulations -- in about 5 minutes on a single thread, using Julia/Turing and the NUTS sampler. 
+
+Since the vast majority of tallies will have small sample sizes (less than 10), we can gain a lot of speed by pre-calculation or memoization.
 
 Further, for larger sample sizes, I have developed an [estimation formula](TODO: link to research notes) based on the Bayesian average that is pretty accurate.
 
