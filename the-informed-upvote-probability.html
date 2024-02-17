@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Rationale | The Global Brain Algorithm</title>
+  <title>6 The Informed Upvote Probability | The Global Brain Algorithm</title>
   <meta name="description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
 algorithms as a whole.</p>" />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Rationale | The Global Brain Algorithm" />
+  <meta property="og:title" content="6 The Informed Upvote Probability | The Global Brain Algorithm" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a collection of explanations on the global brain algorithm.
@@ -19,7 +19,7 @@ algorithms as a whole.</p>" />
   <meta name="github-repo" content="social-protocols/global-brain" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Rationale | The Global Brain Algorithm" />
+  <meta name="twitter:title" content="6 The Informed Upvote Probability | The Global Brain Algorithm" />
   
   <meta name="twitter:description" content="<p>This is a collection of explanations on the global brain algorithm.
 We explain core concepts in simple terms that help to understand the
@@ -34,8 +34,8 @@ algorithms as a whole.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="problem-discussion-threads.html"/>
+<link rel="prev" href="modeling-upvote-probability.html"/>
+<link rel="next" href="the-fully-informed-upvote-probability.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -187,21 +187,106 @@ algorithms as a whole.</p>" />
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="Rationale" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Rationale<a href="Rationale.html#Rationale" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Humans lie and humans pass on misinformation, whether inadvertantly or with the goal to manipulate others. No algorithm will ever change this. However, misinformation is harmful in social networks only when it is <strong>unchecked</strong>. Lies are only harmful if people don’t see the refutations. In fact, given that lies and misinformation will always be part of any online information eco-system, seeing lies along with rebuttals might actually be <em>useful</em> because people would have seen them anyways and thus become aware of the lies currently in circulation.</p>
-<p>The engagement-based algorithms in today’s social networks encourage the unchecked spread of rumors, regardless of how well they are supported, whereas the Global Brain algorithm discourages the spread of information that people are unlikely to upvote if they were fully informed, and encourages the spread of information that might check the spread of a false information that is already spreading.</p>
-<p><strong>And yet the purpose of the Global Brain algorithm is NOT to tell people what is true. It is simply to direct people’s attention to information that may change their votes.</strong></p>
-<p>But why do we want to <em>change</em> votes? An algorithm that tries to change minds sounds sinister. Propaganda changes how people vote. But propaganda works by selectively exposing users to information with the goal of changing opinions about specific things, all the while actively omitting contrary information. It is one sided and dishonest. The Global Brain, on the other hand, has no agenda other than driving productive conversation by <strong>maximizing the informedness users base their voting decisions on</strong>.</p>
-<p>The Global Brain algorithm drives a fair, unbiased process of weighing all the arguments that anyone cares to make. As long as there is sufficient intellectual diversity among recipients, the result is an adversarial process, where all the relevant information is exposed and processed.</p>
+<div id="the-informed-upvote-probability" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> The Informed Upvote Probability<a href="the-informed-upvote-probability.html#the-informed-upvote-probability" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="definition-of-informed-upvote-probability" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Definition of Informed Upvote Probability<a href="the-informed-upvote-probability.html#definition-of-informed-upvote-probability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <strong>informed upvote probability</strong> is the upvote probability <em>given</em> the user has been informed of a note on the post. The <strong>uninformed upvote probability</strong> is the upvote probability given they have not.</p>
+<p>A user has been “informed” of the note if they have read it and actually <strong>considered</strong> it. Now it is impossible to know what a user has actually considered. But, we can use the fact that the user either voted or replied to the note as a proxy. So we can define the informed upvote probability (on a post give a note) as the probability that a user votes on a post given they have voted on or replied to the note.</p>
+</div>
+<div id="extrapolating-informed-upvote-probability" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Extrapolating Informed Upvote Probability<a href="the-informed-upvote-probability.html#extrapolating-informed-upvote-probability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can also use the fact that a user was <strong>shown</strong> the note at the time the voted on the post as an indicator that they may have considered the note, and it should be possible to extrapolate the informed upvote probability – the probability that a user upvotes given they have <strong>considered</strong> a note – based on estimates of the probability that a user upvotes a post given they were or were not <strong>shown</strong> the note, as proposed in <a href="https://github.com/social-protocols/internal-wiki/blob/main/pages/research-notes/2024-02-06-informed-probability.md">these research notes</a>. As of 2024-Feb this has not been implemented.</p>
+</div>
+<div id="uninformed-informed-and-overall-tallies" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Uninformed, Informed, and Overall Tallies<a href="the-informed-upvote-probability.html#uninformed-informed-and-overall-tallies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Uninformed and informed upvote probabilities are calculated based on <strong>tallies</strong> for uninformed and informed upvotes. These tallies are calculated by looking up what notes users have and have not voted on or replied to at the time the user votes on a post.</p>
+<p>These tallies may overlap, in the sense that a single user may be counted in both the uninformed and informed tallies. This is because a user can vote before becoming informed. There may also be users who are counted only in the uninformed tally (those who were never informed) or only in the informed tally (those who were informed before voting on the post).</p>
+<p>So the calculation of the uninformed and informed upvote probabilities involves three tallies: the informed, the uninformed, and the overall or final tally. The final tally is the sum of the other two iff the uninformed and informed users are mutually exclusive.</p>
+<p>For example suppose there are two voters overall. Both voters voted before becoming informed. One of them changed their vote. So are are two total votes in both the informed tallies.</p>
+<pre><code>    uninformed_tally = (upvotes=0, votes=2)
+    informed_tally = (upvotes=1, votes=2)
+    overall_tally = informed_tally</code></pre>
+<p>The following scenario also has two voters overall. But there is only 1 informed user and 1 uninformed. The tallies in this case are mutually exclusive and the overall tally is just the sum of the others</p>
+<pre><code>    informed_tally = (upvotes=1, votes=1)
+    uninformed_tally = (upvotes=0, votes=1)
+    overall_tally = informed_t + uninformed_t = (upvotes=1, votes=2)</code></pre>
+</div>
+<div id="the-adding-informed-probability-to-the-hierarchical-model" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> The Adding Informed Probability to the Hierarchical Model<a href="the-informed-upvote-probability.html#the-adding-informed-probability-to-the-hierarchical-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can model our beliefs about the informed probability using a Beta distribution, as we did when modeling the uninformed upvote probability in <a href="modeling-upvote-probability.html#the-bayesian-hierarchical-model">The Bayesian Hierarchical Model</a>. The simplified hierarchical model for modeling the uninformed probability is:</p>
+<ul>
+<li><span class="math inline">\(q \sim \text{Beta&#39;}(m, C)\)</span></li>
+<li><span class="math inline">\(Z \sim \text{Binomial}(n, q)\)</span></li>
+</ul>
+<p>It seems intuitive to base our prior for the informed upvote probability <span class="math inline">\(p\)</span> on the uninformed upvote probability <span class="math inline">\(q\)</span>. For example, we might add this to our hierarhical model:</p>
+<ul>
+<li><span class="math inline">\(p \sim q\)</span></li>
+</ul>
+<p>However, this doesn’t work, because our prior beliefs about <span class="math inline">\(p\)</span> are not actually equal to our beliefs about <span class="math inline">\(q\)</span>. For example, suppose the sample size for the uninformed tally is very large: say 900 upvotes out of 1000 votes. Then the posterior <span class="math inline">\(q\)</span> will have a very large sample size parameter and thus will make for a very <strong>strong</strong> prior. It would take a lot of informed votes for us to be convinced that <span class="math inline">\(p\)</span> is very different from <span class="math inline">\(q\)</span>. But suppose we then have 10 informed votes and they are all downvotes. Intuitively, this is already strong evidence that <span class="math inline">\(p\)</span> may be quite a bit lower than <span class="math inline">\(q\)</span>. Yet if our prior sample size is 1000, adding a sample of 10 will not change it very much.</p>
+<p>So the prior sample size for <span class="math inline">\(p\)</span> should not be based on the sample size for <span class="math inline">\(q\)</span>. Rather, this should be another global parameter <span class="math inline">\(C2\)</span> which represents our beliefs about how <strong>different</strong> we expect <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> to be a priori. Or in other words, <strong><span class="math inline">\(C2\)</span> represents our prior beliefs about how likely people are to change their voting behavior after considering notes.</strong></p>
+<p>So our updated model now looks like this:</p>
+<ul>
+<li><span class="math inline">\(q \sim \text{Beta&#39;}(m, C)\)</span></li>
+<li><span class="math inline">\(p \sim \text{Beta&#39;}(mean(q), C2)\)</span></li>
+<li><span class="math inline">\(Z_{uninformed} \sim \text{Binomial}(n, q)\)</span></li>
+<li><span class="math inline">\(Z_{informed} \sim \text{Binomial}(n, p)\)</span></li>
+</ul>
+<p>This model is simplified by treating <span class="math inline">\(m\)</span>, <span class="math inline">\(C\)</span>, and <span class="math inline">\(C2\)</span> as constants. The full model needs to include our prior beliefs about these values.</p>
+<ul>
+<li><span class="math inline">\(m \sim \text{Uniform}(0, 1)\)</span></li>
+<li><span class="math inline">\(C \sim \text{Gamma}(2, 2)\)</span></li>
+<li><span class="math inline">\(C2 \sim \text{Gamma}(2, 2)\)</span></li>
+</ul>
+<p>But as long as we have a lot of data for a lot of post and note combos, we only need to estimate the parameters of the full model once. We can then treat them as constants using the simplified model and we will get nearly identical results.</p>
+</div>
+<div id="the-reversion-parameter" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> The Reversion Parameter<a href="the-informed-upvote-probability.html#the-reversion-parameter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>But let’s question our assumption of centering our prior for <span class="math inline">\(p\)</span> on the mean of <span class="math inline">\(q\)</span>. If <span class="math inline">\(q\)</span> really our best estimate of the value of <span class="math inline">\(p\)</span>?</p>
+<p>Suppose the estimated upvote probability on some post is <span class="math inline">\(q=.9\)</span>, and the global prior is <span class="math inline">\(m=0.5\)</span>. So we have above-average upvote probability. Then let’s say somebody adds a note. Do we expect, a priori, that the informed upvote probability will remain at <span class="math inline">\(p=.9\)</span>? I don’t think so. I think that we actually expect the note to <em>reduce</em> the upvote probability. It is certainly more likely that the note reduces the upvote probability than increases it even more.</p>
+<p>Why is this? Well it’s sort of regression to the mean situation. Posts with high upvote probability are unusual. And often, they are too good to be true. They don’t stand up to scrutiny. They are click bait or misinformation that users wouldn’t have upvoted if they knew more. Often the reason people submit notes is to add this additional context, and this context may decrease the upvote probability. At least, it is more likely that it will decrease it than increase it. If there was information that would have increased the upvote probability even more, the poster likely would have included it in the original post.</p>
+<p>So we can model this belief with something I call the <strong>reversion parameter</strong>. Our expected value for <span class="math inline">\(p\)</span> (which I’ll notate <span class="math inline">\(p̅\)</span>) reverts to somewhere between <span class="math inline">\(m\)</span> and <span class="math inline">\(q̅\)</span>, and the reversion parameter <span class="math inline">\(r\)</span> tells us how much of the distance between <span class="math inline">\(m\)</span> and <span class="math inline">\(q\)</span> to revert. Specifically:</p>
+<p><span class="math display">\[
+    p̅ = q̅ - r(q̅ - m)
+\]</span></p>
+<p>If <span class="math inline">\(r=0\)</span>, we expect no reversion and <span class="math inline">\(p̅ = m\)</span>. If <span class="math inline">\(r=0\)</span> we expect <span class="math inline">\(p̅ = q̅\)</span>.</p>
+<p>We can model <span class="math inline">\(R\)</span> with a beta distribution with a very weak prior. So our new model adds we redefine our prior for <span class="math inline">\(p\)</span>:</p>
+<ul>
+<li><span class="math inline">\(r \sim \text{Beta}(1, 1)\)</span></li>
+<li><span class="math inline">\(p \sim \text{Beta&#39;}(q̅ - r(q̅ - m), C2)\)</span></li>
+</ul>
+</div>
+<div id="full-model" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Full Model<a href="the-informed-upvote-probability.html#full-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In our full model, we have multiple posts and notes. We’ll designate the uninformed probability for post <span class="math inline">\(i\)</span> as <span class="math inline">\(q_i\)</span>. And the informed upvote probability for post <span class="math inline">\(i\)</span>, given user is informed of note <span class="math inline">\(j\)</span>, is <span class="math inline">\(p_{i,j}\)</span>.</p>
+<p>So our full model is now:</p>
+<ul>
+<li><p><span class="math inline">\(m \sim \text{Uniform}(0, 1)\)</span></p></li>
+<li><p><span class="math inline">\(r \sim \text{Beta}(1, 1)\)</span></p></li>
+<li><p><span class="math inline">\(C \sim \text{Gamma}(2, 2)\)</span></p></li>
+<li><p><span class="math inline">\(C2 \sim \text{Gamma}(2, 2)\)</span></p></li>
+<li><p><span class="math inline">\(q_i\sim \text{Beta&#39;}(m, C)\)</span></p></li>
+<li><p><span class="math inline">\(p_(i,j) \sim \text{Beta&#39;}(q̅_i - (q̅_i - m)×R, C2)\)</span></p></li>
+<li><p><span class="math inline">\(Z_{uninformed} \sim \text{Binomial}(n, q_i)\)</span></p></li>
+<li><p><span class="math inline">\(Z_{informed} \sim \text{Binomial}(n, p_{i,j})\)</span></p></li>
+</ul>
+</div>
+<div id="calculating-the-informeduninformed-upvote-probabilities" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Calculating The Informed/Uninformed Upvote Probabilities<a href="the-informed-upvote-probability.html#calculating-the-informeduninformed-upvote-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Given this model, we can use a Monte Carlo simulation or other Bayesian methods to estimate <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> for each post. But Monte-Carlo simulations can take a long time to run.</p>
+<p>To make computation more efficient, we can run the full simulation only periodically on the full data set to estimate the values for <span class="math inline">\(m\)</span>, <span class="math inline">\(r\)</span>, <span class="math inline">\(C\)</span> and <span class="math inline">\(C2\)</span>. We can then treat these as constants and run mini Monte-Carlo simulations for each post/note combination.</p>
+<p>Since Tallies usually involve very small sample sizes, these simulations run very quickly. On my 2024 Macbook M2 Max, I was able to run these simulations for every possible informed/uninformed tally combination having sample sizes up to 10 – a total of 4225 simulations – in about 5 minutes on a single thread, using Julia/Turing and the NUTS sampler.</p>
+<p>Since the vast majority of tallies will have small sample sizes (less than 10), we can gain a lot of speed by pre-calculation or memoization.</p>
+<p>Further, for larger sample sizes, I have developed an <a href="TODO:%20link%20to%20research%20notes">estimation formula</a> based on the Bayesian average that is pretty accurate.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="problem-discussion-threads.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="modeling-upvote-probability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-fully-informed-upvote-probability.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
